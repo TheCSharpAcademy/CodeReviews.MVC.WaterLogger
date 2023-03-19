@@ -9,14 +9,7 @@ if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<DatabaseContext>(options =>
     {
-        options.UseNpgsql(builder.Configuration.GetConnectionString("LocalPostgreSQL"));
-    });
-}
-else
-{
-    builder.Services.AddDbContext<DatabaseContext>(options =>
-    {
-        options.UseNpgsql(ExternalDbConnectionHelper.GetConnectionString());
+        options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=Coding; Integrated Security=true;");
     });
 }
 
