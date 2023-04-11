@@ -1,0 +1,31 @@
+﻿@page
+@model MVC.CodingTracker.jwhitt3r.Pages.UpdateModel
+@{
+}
+
+<h4>Update Record</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="CodingTracker.Id" />
+            <div class="form-group">
+                <label asp-for="CodingTracker.Date" class="control-label"></label>
+                <input type="date" asp-for="CodingTracker.Date" class="form-control" />
+                <span asp-validation-for="CodingTracker.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodingTracker.Quantity" class="control-label"></label>
+                <input asp-for="CodingTracker.Quantity" class="form-control" />
+                <span asp-validation-for="CodingTracker.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
