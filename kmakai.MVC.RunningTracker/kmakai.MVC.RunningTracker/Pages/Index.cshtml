@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<a button type="button" class="btn btn-primary" asp-page="/Create">
+    Add a new run
+</a>
+
+<table class="table">
+    <thead>
+        <tr class="">
+            <th>Date</th>
+            <th>Distance</th>
+            <th>Time</th>
+<th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var run in Model.Runs)
+        {
+            <tr class="">
+                <td>@run.Date.ToString("MM-dd-yyyy")</td>
+                <td>@run.Miles Miles</td>
+                <td>@run.Minutes Minutes</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@run.Id" class="btn btn-primary">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@run.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

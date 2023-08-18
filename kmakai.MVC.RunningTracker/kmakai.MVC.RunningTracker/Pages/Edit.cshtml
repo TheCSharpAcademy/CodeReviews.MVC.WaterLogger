@@ -1,0 +1,47 @@
+﻿@page "{id:int?}"
+@model kmakai.MVC.RunningTracker.Pages.EditModel
+@{
+    ViewData["Title"] = "Edit A Run";
+}
+
+<h1>Edit A Run</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="Run.Id" />
+            <div class="form-group">
+                <label asp-for="Run.Date" class="control-label"></label>
+                <input type="date" asp-for="Run.Date" class="form-control" />
+                <span asp-validation-for="Run.Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Run.Miles" class="control-label"></label>
+                <input type="text" asp-for="Run.Miles" class="form-control" />
+                <span asp-validation-for="Run.Miles" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Run.Minutes" class="control-label"></label>
+                <input type="text" asp-for="Run.Minutes" class="form-control" />
+                <span asp-validation-for="Run.Minutes" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-2">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a asp-page="./Index" class="btn btn-primary">Back to List</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
