@@ -1,0 +1,41 @@
+﻿@page
+@model MVC.HabitTracker.JsPeanut.Pages.UpdateModel
+@{
+}
+
+<h4>Update log</h4>
+<br />
+
+<form method="post">
+    <label asp-for="HabitLog.HabitTypeName" class="control-label">Select the habit to log</label>
+    <select asp-for="HabitLog.HabitTypeName" class="form-control">
+        <option value=" ">Select an option</option>
+        @foreach (var habitType in Model.HabitTypes)
+        {
+            <option value="@habitType.Name">@habitType.Name</option>
+        }
+    </select>
+    <div class="form-group">
+        <label asp-for="HabitLog.Date" class="control-label"></label>
+        <input type="text" asp-for="HabitLog.Date" class="form-control" />
+        <span asp-validation-for="HabitLog.Date" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            Insert here the name of your habit (i.e.: water drinking, physical activity, coding time).
+        </small>
+    </div>
+    <div class="form-group">
+        <label asp-for="HabitLog.Quantity" class="control-label">Quantity</label>
+        <input type="text" asp-for="HabitLog.Quantity" class="form-control" />
+        <span asp-validation-for="HabitLog.Quantity" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            <p>You can only use integers.</p>
+        </small>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-success" />
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>

@@ -1,0 +1,44 @@
+﻿@page
+@model MVC.HabitTracker.JsPeanut.Pages.CreateHabitModel
+@{
+}
+
+<h3>Create a habit</h3>
+<br />
+<p>We do have available habits for you to log, but you can add more!</p>
+<br />
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="HabitType.ImagePath" class="control-label">URL of your habit's icon</label>
+        <input type="text" asp-for="HabitType.ImagePath" class="form-control" />
+        <span asp-validation-for="HabitType.ImagePath" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            You must attach a link to the picture of your habit's icon. This site has a lot of icons you can use: <a href="https://icons8.com/icons/">https://icons8.com/icons/</a>
+        </small>
+    </div>
+    <div class="form-group">
+        <label asp-for="HabitType.Name" class="control-label"></label>
+        <input type="text" asp-for="HabitType.Name" class="form-control" />
+        <span asp-validation-for="HabitType.Name" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            Insert here the name of your habit (i.e.: water drinking, physical activity, coding time).
+        </small>
+    </div>
+    <div class="form-group">
+        <label asp-for="HabitType.UnitOfMeasurement" class="control-label">Unit of measurement</label>
+        <input type="text" asp-for="HabitType.UnitOfMeasurement" class="form-control" />
+        <span asp-validation-for="HabitType.UnitOfMeasurement" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            For example, if your habit is about water consumption, you can measure it on <p>bottles, glasses, litters (l), milliliters (ml), etc.</p>
+        </small>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-success" />
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
