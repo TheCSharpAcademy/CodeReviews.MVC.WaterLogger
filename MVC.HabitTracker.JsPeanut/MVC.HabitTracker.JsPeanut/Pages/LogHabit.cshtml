@@ -7,23 +7,26 @@
 <br />
 
 <form method="post">
-    <label asp-for="HabitLog.HabitTypeName" class="control-label">Select the habit to log</label>
-    <select asp-for="HabitLog.HabitTypeName" class="form-control">
-        <option value=" ">Select an option</option>
-        @foreach (var habitType in Model.HabitTypes)
-        {
-            <option value="@habitType.Name">@habitType.Name</option>
-        }
-    </select>
-    <br />
+    <div class="form-group" id="selection">
+        <label asp-for="HabitLog.HabitTypeName" class="control-label">Select the habit to log</label>
+        <select asp-for="HabitLog.HabitTypeName" class="form-control" onchange="ToggleDiv()">
+            <option value=" ">Select an option</option>
+            @foreach (var habitType in Model.HabitTypes)
+            {
+                <option value="@habitType.Name">@habitType.Name</option>
+            }
+        </select>
+    </div>
+
     <div class="form-group">
         <label asp-for="HabitLog.Date" class="control-label"></label>
-        <input type="text" asp-for="HabitLog.Date" class="form-control" />
-        <span asp-validation-for="HabitLog.Date" class="text-danger"></span>
+        <input class="form-control" asp-for="HabitLog.Date" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+            <span asp-validation-for="HabitLog.Date" class="text-danger"></span>
         <small id="passwordHelpBlock" class="form-text text-muted">
-            Insert here the name of your habit (i.e.: water drinking, physical activity, coding time).
+            Insert here the date in which you performed your habit.
         </small>
     </div>
+
     <div class="form-group">
         <label asp-for="HabitLog.Quantity" class="control-label">Quantity</label>
         <input type="text" asp-for="HabitLog.Quantity" class="form-control" />

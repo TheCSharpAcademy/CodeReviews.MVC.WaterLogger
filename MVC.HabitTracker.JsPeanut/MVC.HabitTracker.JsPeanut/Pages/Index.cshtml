@@ -54,13 +54,10 @@
     <tbody>
         @foreach (var record in Model.HabitLogs)
         {
-            @*string ImagePath = Model.HabitTypes.Where(x => x.Name == record.HabitTypeName).Select(x => x.ImagePath).First();*@
             var habitType = Model.HabitTypes.Where(x => x.Name == record.HabitTypeName).First();
-            @*string UnitOfMeasurement = Model.HabitTypes.Where(x => x.Name == record.HabitTypeName).Select(x => x.UnitOfMeasurement).First();*@
             string amount = record.Quantity + " " + habitType.UnitOfMeasurement;
             <tr class="list-row">
                 <td>
-                    @*<img src="@Url.Content(ImagePath)" width="48px" height="48px">*@
                     <img src="@Url.Content(habitType.ImagePath)" width="48px" height="48px">
                 </td>
                 <td>

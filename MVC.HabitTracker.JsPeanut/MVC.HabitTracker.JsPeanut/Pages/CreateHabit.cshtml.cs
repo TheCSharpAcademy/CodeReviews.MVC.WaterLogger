@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using MVC.HabitTracker.JsPeanut.Models;
@@ -34,7 +34,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 var tableCmd = connection.CreateCommand();
                 tableCmd.CommandText =
                     $@"INSERT INTO habit_types(Id, ImagePath, Name, UnitOfMeasurement)
-                        VALUES(1, '{HabitType.ImagePath}', '{HabitType.Name}', '{HabitType.UnitOfMeasurement}')";
+                    VALUES(1, '{HabitType.ImagePath}', '{HabitType.Name}', '{HabitType.UnitOfMeasurement}')";
 
                 tableCmd.ExecuteNonQuery();
             }

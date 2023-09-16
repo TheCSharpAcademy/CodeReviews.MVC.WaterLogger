@@ -59,3 +59,12 @@ body {
 .form-group {
     margin-bottom: 20px;
 }
+
+.highlight {
+    display: inline-block;
+    padding: .25em 0;
+    /*background: #FFC107;*/
+    color: #0d584b;
+    font-size: 120%;
+    font-weight: 10;
+}

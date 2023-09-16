@@ -62,12 +62,6 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                         {
                             Id = reader.GetInt32(0),
                             HabitTypeName = reader.GetString(1),
-                            //HabitType = new HabitType
-                            //{
-                            //    ImagePath = reader.GetString(1),
-                            //    Name = reader.GetString(2),
-                            //    UnitOfMeasurement = reader.GetString(3)
-                            //},
                             Date = DateTime.Parse(reader.GetString(2), CultureInfo.InstalledUICulture),
                             Quantity = reader.GetInt32(3)
                         }
@@ -107,17 +101,6 @@ namespace MVC.HabitTracker.JsPeanut.Pages
 
                 return tableData;
             }
-        }
-
-        public IActionResult OnPost()
-        {
-            HabitLogs = GetAllLogs();
-
-            HabitTypes = GetAllHabitTypes();
-
-            HabitLogs = HabitLogs.Where(x => x.Date.Day == DateTime.Now.Day).Select(x => x).ToList();
-
-            return Page();
         }
     }
 }
