@@ -3,12 +3,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using MVC.HabitTracker.JsPeanut.Models;
 using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MVC.HabitTracker.JsPeanut.Pages
 {
     public class DeleteModel : PageModel
     {
         public IConfiguration _configuration { get; set; }
+
+        [BindProperty]
+        public HabitLog HabitLog { get; set; }
 
         public DeleteModel(IConfiguration configuration)
         {
@@ -19,9 +23,6 @@ namespace MVC.HabitTracker.JsPeanut.Pages
             HabitLog = GetById(id);
             return Page();
         }
-
-        [BindProperty]
-        public HabitLog HabitLog { get; set; }
 
         private HabitLog GetById(int id)
         {
@@ -41,7 +42,10 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                     habitLogRecord.Id = reader.GetInt32(0);
                     habitLogRecord.HabitTypeName = reader.GetString(1);
                     habitLogRecord.Date = DateTime.Parse(reader.GetString(2), CultureInfo.InstalledUICulture);
-                    habitLogRecord.Quantity = reader.GetInt32(3);
+                    habitLogRecord.StartTime = reader.IsDBNull(3) ? DateTime.MinValue : DateTime.Parse(reader.GetString(3));
+                    habitLogRecord.EndTime = reader.IsDBNull(4) ? DateTime.MinValue : DateTime.Parse(reader.GetString(4));
+                    habitLogRecord.Time = reader.IsDBNull(5) ? TimeSpan.Zero : TimeSpan.Parse(reader.GetString(5));
+                    habitLogRecord.Quantity = reader.GetInt32(6);
                 }
 
                 return habitLogRecord;
@@ -50,11 +54,6 @@ namespace MVC.HabitTracker.JsPeanut.Pages
 
         public IActionResult OnPost(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
             using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
             {
                 connection.Open();

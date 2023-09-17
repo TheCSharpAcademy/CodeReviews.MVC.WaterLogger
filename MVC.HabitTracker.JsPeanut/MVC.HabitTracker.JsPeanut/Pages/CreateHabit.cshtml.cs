@@ -23,6 +23,11 @@ namespace MVC.HabitTracker.JsPeanut.Pages
 
         public IActionResult OnPost()
         {
+            if (HabitType.Measurability == "Check-in")
+            {
+                HabitType.UnitOfMeasurement = "Done";
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -33,8 +38,8 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 connection.Open();
                 var tableCmd = connection.CreateCommand();
                 tableCmd.CommandText =
-                    $@"INSERT INTO habit_types(Id, ImagePath, Name, UnitOfMeasurement)
-                    VALUES(1, '{HabitType.ImagePath}', '{HabitType.Name}', '{HabitType.UnitOfMeasurement}')";
+                    $@"INSERT INTO habit_types(Id, ImagePath, Name, Measurability, UnitOfMeasurement)
+                VALUES(1, '{HabitType.ImagePath}', '{HabitType.Name}', '{HabitType.Measurability}', '{HabitType.UnitOfMeasurement}')";
 
                 tableCmd.ExecuteNonQuery();
             }

@@ -25,7 +25,19 @@
             Insert here the name of your habit (i.e.: water drinking, physical activity, coding time).
         </small>
     </div>
-    <div class="form-group">
+
+    <div class="form-group" id="measurability">
+        <label asp-for="HabitType.Measurability" class="control-label">Select the measurability of your habit</label>
+        <select asp-for="HabitType.Measurability" class="form-control" onchange="ToggleUnitOfMeasurement()">
+            <option value=" ">Select an option</option>
+            <option value="duration">Duration</option>
+            <option value="quantifiable">Quantifiable</option>
+            <option value="check-in">Check-in</option>
+        </select>
+    </div>
+
+    
+    <div class="form-group" id="unitofmeasurement">
         <label asp-for="HabitType.UnitOfMeasurement" class="control-label">Unit of measurement</label>
         <input type="text" asp-for="HabitType.UnitOfMeasurement" class="form-control" />
         <span asp-validation-for="HabitType.UnitOfMeasurement" class="text-danger"></span>
@@ -37,10 +49,28 @@
     <br />
 
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-success" />
+        <input type="submit" value="Create" class="btn btn-success"/>
     </div>
+
+    @{
+        
+    }
 </form>
 
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
+
+@section Scripts{
+    <script>
+        function ToggleUnitOfMeasurement(){
+            if ($("#measurability option:selected").text().includes("Check-in")){
+                $("#unitofmeasurement").hide();
+                $("#HabitType_UnitOfMeasurement").val("Done");
+            }
+            else{
+                $("#unitofmeasurement").show();
+            }
+        }
+    </script>
+}

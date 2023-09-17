@@ -72,9 +72,11 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                     tableData.Add(
                         new HabitType
                         {
-                            ImagePath = reader.GetString(0),
+                            Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            UnitOfMeasurement = reader.GetString(2)
+                            ImagePath = reader.GetString(2),
+                            Measurability = reader.GetString(3),
+                            UnitOfMeasurement = reader.GetString(4)
                         }
                     );
                 }
@@ -85,6 +87,38 @@ namespace MVC.HabitTracker.JsPeanut.Pages
 
         public IActionResult OnPost(int id)
         {
+            HabitTypes = GetAllHabitTypes();
+
+            if (HabitLog.StartTime != DateTime.MinValue && HabitLog.EndTime != DateTime.MinValue)
+            {
+                HabitLog.Time = HabitLog.EndTime - HabitLog.StartTime;
+                HabitLog.Quantity = 1;
+                HabitLog.Date = HabitLog.StartTime.GetValueOrDefault();
+            }
+            else
+            {
+                HabitLog.Time = TimeSpan.Zero;
+            }
+
+            if (HabitTypes.Where(x => x.Name == HabitLog.HabitTypeName).First().Measurability == "check-in")
+            {
+                HabitLog.StartTime = DateTime.MinValue;
+                HabitLog.EndTime = DateTime.MinValue;
+                HabitLog.Quantity = 1;
+            }
+
+            if (HabitTypes.Where(x => x.Name == HabitLog.HabitTypeName).First().Measurability == "quantifiable")
+            {
+                HabitLog.StartTime = DateTime.MinValue;
+                HabitLog.EndTime = DateTime.MinValue;
+                HabitLog.Time = TimeSpan.Zero;
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -97,7 +131,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 var tableCmd = connection.CreateCommand();
 
                 tableCmd.CommandText =
-                    $"UPDATE habit_logs SET HabitTypeName = '{HabitLog.HabitTypeName}', Date = '{HabitLog.Date}', Quantity = {HabitLog.Quantity} WHERE Id = {id}";
+                    $"UPDATE habit_logs SET HabitTypeName = '{HabitLog.HabitTypeName}', Date = '{HabitLog.Date}', StartTime = '{HabitLog.StartTime}', EndTime = '{HabitLog.EndTime}', Time = '{HabitLog.Time}', Quantity = {HabitLog.Quantity} WHERE Id = {id}";
 
                 tableCmd.ExecuteNonQuery();
             }

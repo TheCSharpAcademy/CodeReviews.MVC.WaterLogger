@@ -13,6 +13,12 @@ namespace MVC.HabitTracker.JsPeanut.Models
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
+        public DateTime? StartTime { get; set; }
+
+        public DateTime? EndTime { get; set; }
+
+        public TimeSpan? Time { get; set; }
+
         public int Quantity { get; set; }
     }
 }

@@ -63,7 +63,10 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                             Id = reader.GetInt32(0),
                             HabitTypeName = reader.GetString(1),
                             Date = DateTime.Parse(reader.GetString(2), CultureInfo.InstalledUICulture),
-                            Quantity = reader.GetInt32(3)
+                            StartTime = reader.IsDBNull(3) ? DateTime.MinValue : DateTime.Parse(reader.GetString(3)),
+                            EndTime = reader.IsDBNull(4) ? DateTime.MinValue : DateTime.Parse(reader.GetString(4)),
+                            Time = reader.IsDBNull(5) ? TimeSpan.Zero : TimeSpan.Parse(reader.GetString(5)),
+                            Quantity = reader.GetInt32(6)
                         }
                     );
                 }
@@ -94,7 +97,8 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
                             ImagePath = reader.GetString(2),
-                            UnitOfMeasurement = reader.GetString(3)
+                            Measurability = reader.GetString(3),
+                            UnitOfMeasurement = reader.GetString(4)
                         }
                     );
                 }

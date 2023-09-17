@@ -43,7 +43,7 @@
         <tr>
             <th>Habit</th>
             <th>
-                @Html.DisplayNameFor(model => model.HabitLogs[0].Date)
+                @Html.DisplayNameFor(model => model.HabitLogs[0].Time)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.HabitLogs[0].Quantity)
@@ -63,9 +63,26 @@
                 <td>
                     @Html.DisplayFor(modelItem => record.Date)
                 </td>
-                <td>
-                    @amount
-                </td>
+                @{
+                    if (record.StartTime != DateTime.MinValue && record.EndTime != DateTime.MinValue)
+                    {
+                        <td>
+                            @record.Time
+                        </td>
+                    }
+                    else if (Model.HabitTypes.Where(x => x.Name == record.HabitTypeName).First().Measurability == "check-in")
+                    {
+                        <td>
+                            @record.Quantity
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @amount
+                        </td>
+                    }
+                }
                 <td>
                     <a button type="button" class="btn btn-danger" asp-page="./Delete" asp-route-id="@record.Id">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

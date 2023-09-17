@@ -10,6 +10,9 @@ namespace MVC.HabitTracker.JsPeanut.Models
 
         public string Name { get; set; }
 
+        public string Measurability { get; set; }
+
+        [Required]
         public string UnitOfMeasurement { get; set; }
     }
 }
