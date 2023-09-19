@@ -68,3 +68,8 @@ body {
     font-size: 120%;
     font-weight: 10;
 }
+
+.form-button-container {
+    display: inline-block;
+    vertical-align: middle;
+}

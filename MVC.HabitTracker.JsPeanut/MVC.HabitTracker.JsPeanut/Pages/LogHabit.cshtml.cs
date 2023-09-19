@@ -60,8 +60,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
         {
             HabitTypes = GetAllHabitTypes();
 
-            //Duration
-            if (HabitLog.StartTime != DateTime.MinValue && HabitLog.EndTime != DateTime.MinValue)
+            if (HabitTypes.Where(x => x.Name == HabitLog.HabitTypeName).First().Measurability == "duration")
             {
                 HabitLog.Time = HabitLog.EndTime - HabitLog.StartTime;
                 HabitLog.Quantity = 1;
@@ -76,6 +75,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
             {
                 HabitLog.StartTime = DateTime.MinValue;
                 HabitLog.EndTime = DateTime.MinValue;
+                HabitLog.Time = TimeSpan.Zero;
                 HabitLog.Quantity = 1;
             }
 

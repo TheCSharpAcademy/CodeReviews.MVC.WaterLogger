@@ -14,12 +14,17 @@ namespace MVC.HabitTracker.JsPeanut.Pages
 
         public List<HabitType> HabitTypes { get; set; }
 
+        public string SumMessage { get; set; }
+
+        public string? SearchString { get; set; }
+
+        public List<HabitLog> SummableHabits { get; set; }
         public IndexModel(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public void OnGet(string sorttype)
+        public void OnGet(string sorttype, string? searchstring)
         {
             HabitLogs = GetAllLogs();
             HabitTypes = GetAllHabitTypes();
@@ -38,6 +43,18 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 case "AddedOrder":
                     HabitLogs = GetAllLogs();
                     break;
+                    //case "SortDate":
+                    //    HabitLogs = HabitLogs.Where(x => x.Date.Day == SearchDate.Day).Select(x => x).ToList();
+                    //    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchstring))
+            {
+                DateTime searchDate;
+                if (DateTime.TryParse(searchstring, out searchDate))
+                {
+                    HabitLogs = HabitLogs.Where(x => x.Date.Date == searchDate.Date).ToList();
+                }
             }
         }
 
@@ -104,6 +121,37 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 }
 
                 return tableData;
+            }
+        }
+
+        public void OnPost(string habittypename) 
+        {
+            HabitLogs = GetAllLogs();
+            HabitTypes = GetAllHabitTypes();
+            List<HabitLog> SummableHabits = HabitLogs.Where(x => x.HabitTypeName == habittypename).ToList();
+            HabitType HabitType = HabitTypes.Where(x => x.Name == habittypename).First();
+            string measurability = HabitType.Measurability;
+            int sum = 0;
+            TimeSpan sum2 = TimeSpan.Zero;
+            foreach (var record in SummableHabits)
+            {
+                if (measurability == "quantifiable")
+                {
+                    sum += record.Quantity;
+                }
+                else if (measurability == "duration")
+                {
+                    sum2 += record.Time.GetValueOrDefault();
+                }
+            }
+
+            if (sum != 0)
+            {
+                SumMessage = $"The sum of your {habittypename} habit is equal to {sum}.";
+            }
+            else if (sum2 != TimeSpan.Zero)
+            {
+                SumMessage = $"The sum of your {habittypename} habit is equal to {sum2}.";
             }
         }
     }

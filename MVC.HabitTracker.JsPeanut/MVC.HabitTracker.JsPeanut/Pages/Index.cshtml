@@ -18,32 +18,35 @@
         </svg>
         Log a habit
     </a>
-    @*<form method="post">
-        <div class="form-group">
-            <input type="submit" value="Sort by date" class="btn btn-success" />
-        </div>
-    </form>*@
-    
-        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" asp-page="./Index" asp-route-sorttype="Today">Today</a>
-            <a class="dropdown-item" asp-page="./Index" asp-route-sorttype="Yesterday">Yesterday</a>
-            <a class="dropdown-item" asp-page="./Index" asp-route-sorttype="DateAdded">Date added</a>
-            <a class="dropdown-item" asp-page="./Index" asp-route-sorttype="AddedOrder">Added order</a>
-        </div>
+    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" asp-page="./Index" asp-route-sorttype="Today">Today</a>
+        <a class="dropdown-item" asp-page="./Index" asp-route-sorttype="Yesterday">Yesterday</a>
+        <a class="dropdown-item" asp-page="./Index" asp-route-sorttype="DateAdded">Date added</a>
+        <a class="dropdown-item" asp-page="./Index" asp-route-sorttype="AddedOrder">Added order</a>
+        <a class="dropdown-item search-link" asp-page="./Index">Search for date</a>
+    </div>
+    <br />
+    <form id="search" style="display: none;">
+        <p> Title: <input type="text" id="searchInput" asp-for="SearchString" /> <input type="submit" value="Filter" /> </p>
+    </form>
+        @{
+            if (Model.SumMessage != null)
+            {
+                <span style="white-space: pre-line; display: block; margin: 1em 0 1em 0; ">@Model.SumMessage</span>
+            }
+        }
     </div>
 </div>
-
-
 
 <table id="records" class="table">
     <thead>
         <tr>
             <th>Habit</th>
             <th>
-                @Html.DisplayNameFor(model => model.HabitLogs[0].Time)
+                @Html.DisplayNameFor(model => model.HabitLogs[0].Date)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.HabitLogs[0].Quantity)
@@ -54,6 +57,8 @@
     <tbody>
         @foreach (var record in Model.HabitLogs)
         {
+            var summableHabits = Model.HabitLogs.Where(x => x.HabitTypeName == record.HabitTypeName).ToList();
+            // Stores the habit type to retrieve features such as ImagePath, UnitOfMeasurement
             var habitType = Model.HabitTypes.Where(x => x.Name == record.HabitTypeName).First();
             string amount = record.Quantity + " " + habitType.UnitOfMeasurement;
             <tr class="list-row">
@@ -97,9 +102,37 @@
                                 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
                             </svg>
                         </svg>
-                    </a>
+                    </a>  
+                    @{
+                        
+                        if (summableHabits.Count > 1)
+                        {
+                            <form method="post">
+                                    <button type="submit" class="btn btn-primary" asp-route-habittypename="@record.HabitTypeName">
+                                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <image width="16" height="16" xlink:href="https://img.icons8.com/ios-glyphs/30/filled-plus-2-math.png"></image>
+                                        </svg>
+                                    </button>
+                            </form>
+                        }
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var searchLink = document.querySelector('.search-link');
+                var searchDiv = document.getElementById('search');
+
+                searchLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    searchDiv.style.display = 'block';
+                });
+            });
+</script>
+}
+

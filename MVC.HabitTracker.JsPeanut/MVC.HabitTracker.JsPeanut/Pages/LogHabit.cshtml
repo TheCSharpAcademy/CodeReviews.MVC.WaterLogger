@@ -4,9 +4,9 @@
     string habitTypeMeasurability = "";
     string leftParenthesis = "(";
     string rightParenthesis = ")";
-    DateTime date = DateTime.Now; // Replace with your desired date
+    //DateTime date = DateTime.Now; // Replace with your desired date
 
-    string formattedDate = date.ToString("yyyy-MM-ddTHH:mm");
+    //string formattedDate = date.ToString("yyyy-MM-ddTHH:mm");
 }
 
 <h3>Log a habit</h3>
@@ -70,6 +70,9 @@
 
 @section Scripts{
     <script>
+        // There are 3 habit measurabilities: duration, quantifiable and check-in.
+        // If it's a duration habit, date and quantity aren't needed, but the start and end dates for calculating the duration of the habit.
+        // When the user just gets in the page, the 'default' selected habit is of 'quantifiable' type.
         var starttimevalue = $("#HabitLog_StartTime").text();
         $("#date").show();
         $("#quantity").show();
@@ -82,6 +85,7 @@
                 $("#quantity").hide();
                 $("#startTime").show();
                 $("#endTime").show();
+                // Date and quantity are set to the minimum value possible because they are needed in order to submit the form.
                 $("#HabitLog_Date").val("0001-01-01T00:00");
                 $("#HabitLog_Quantity").val("1");
             }
