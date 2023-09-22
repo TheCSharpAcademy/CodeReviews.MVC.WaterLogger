@@ -1,9 +1,10 @@
 ﻿@page
 @model IndexModel
+@using Humanizer;
 @{
+    
     ViewData["Title"] = "Home page";
 }
-
 <div class="buttons">
     <div class="dropdown">
     <a button type="button" class="btn btn-success" asp-page="/CreateHabit">
@@ -60,6 +61,10 @@
             var summableHabits = Model.HabitLogs.Where(x => x.HabitTypeName == record.HabitTypeName).ToList();
             // Stores the habit type to retrieve features such as ImagePath, UnitOfMeasurement
             var habitType = Model.HabitTypes.Where(x => x.Name == record.HabitTypeName).First();
+            @if (record.Quantity > 1)
+            {
+                habitType.UnitOfMeasurement = habitType.UnitOfMeasurement.Pluralize();
+            }
             string amount = record.Quantity + " " + habitType.UnitOfMeasurement;
 
             <tr class="list-row">
