@@ -68,7 +68,6 @@
 
 @section Scripts{
     <script>
-        var starttimevalue = $("#HabitLog_StartTime").text();
         if ($("#selection option:selected").text().includes("duration")) {
 
             $("#date").hide();
@@ -90,7 +89,7 @@
             $("#date").show();
             $("#quantity").show();
             $("#startTime").hide();
-            $("#endTime").hide
+            $("#endTime").hide();
             $("#HabitLog_StartTime").val("0001-01-01T00:00");
             $("#HabitLog_EndTime").val("0001-01-01T00:00");
         }

@@ -43,9 +43,6 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 case "AddedOrder":
                     HabitLogs = GetAllLogs();
                     break;
-                    //case "SortDate":
-                    //    HabitLogs = HabitLogs.Where(x => x.Date.Day == SearchDate.Day).Select(x => x).ToList();
-                    //    break;
             }
 
             if (!string.IsNullOrEmpty(searchstring))
@@ -142,6 +139,10 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 else if (measurability == "duration")
                 {
                     sum2 += record.Time.GetValueOrDefault();
+                }
+                else
+                {
+                    sum += record.Quantity;
                 }
             }
 

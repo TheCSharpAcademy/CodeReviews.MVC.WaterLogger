@@ -4,9 +4,7 @@
 }
 
 <h3>Create a habit</h3>
-<br />
-<p>We do have available habits for you to log, but you can add more!</p>
-<br />
+<p style="margin: 1.5em 0 1.5em 0;">We do have available habits for you to log, but you can add more!</p>
 
 <form method="post">
     <div class="form-group">
@@ -36,7 +34,6 @@
         </select>
     </div>
 
-    
     <div class="form-group" id="unitofmeasurement">
         <label asp-for="HabitType.UnitOfMeasurement" class="control-label">Unit of measurement</label>
         <input type="text" asp-for="HabitType.UnitOfMeasurement" class="form-control" />
@@ -46,15 +43,9 @@
         </small>
     </div>
 
-    <br />
-
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-success"/>
     </div>
-
-    @{
-        
-    }
 </form>
 
 <div>
@@ -67,6 +58,10 @@
             if ($("#measurability option:selected").text().includes("Check-in")){
                 $("#unitofmeasurement").hide();
                 $("#HabitType_UnitOfMeasurement").val("Done");
+            }
+            else if ($("#measurability option:selected").text().includes("Duration")){
+                $("#unitofmeasurement").hide();
+                $("#HabitType_UnitOfMeasurement").val("none");
             }
             else{
                 $("#unitofmeasurement").show();

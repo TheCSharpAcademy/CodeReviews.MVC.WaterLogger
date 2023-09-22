@@ -30,7 +30,7 @@
     </div>
     <br />
     <form id="search" style="display: none;">
-        <p> Title: <input type="text" id="searchInput" asp-for="SearchString" /> <input type="submit" value="Filter" /> </p>
+            <p style="margin: 1em 0 1em 0;"> Title: <input type="text" id="searchInput" asp-for="SearchString" /> <input type="submit" value="Filter" /> </p>
     </form>
         @{
             if (Model.SumMessage != null)
@@ -61,6 +61,7 @@
             // Stores the habit type to retrieve features such as ImagePath, UnitOfMeasurement
             var habitType = Model.HabitTypes.Where(x => x.Name == record.HabitTypeName).First();
             string amount = record.Quantity + " " + habitType.UnitOfMeasurement;
+
             <tr class="list-row">
                 <td>
                     <img src="@Url.Content(habitType.ImagePath)" width="48px" height="48px">
@@ -107,11 +108,21 @@
                         
                         if (summableHabits.Count > 1)
                         {
+                            <style>
+                                form {
+                                    display: inline-block;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+
+                                button {
+                                    vertical-align: middle;
+                                }
+                            </style>
+
                             <form method="post">
                                     <button type="submit" class="btn btn-primary" asp-route-habittypename="@record.HabitTypeName">
-                                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                            <image width="16" height="16" xlink:href="https://img.icons8.com/ios-glyphs/30/filled-plus-2-math.png"></image>
-                                        </svg>
+                                    <img width="16" height="16" src="https://img.icons8.com/material-outlined/24/plus-math--v1.png" alt="plus-math--v1" />
                                     </button>
                             </form>
                         }
