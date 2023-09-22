@@ -60,7 +60,9 @@ namespace MVC.HabitTracker.JsPeanut.Pages
         {
             HabitTypes = GetAllHabitTypes();
 
-            if (HabitTypes.Where(x => x.Name == HabitLog.HabitTypeName).First().Measurability == "duration")
+            var measurability = HabitTypes.Where(x => x.Name == HabitLog.HabitTypeName).First().Measurability;
+
+            if (measurability == "duration")
             {
                 HabitLog.Time = HabitLog.EndTime - HabitLog.StartTime;
                 HabitLog.Quantity = 1;
@@ -71,7 +73,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 HabitLog.Time = TimeSpan.Zero;
             }
 
-            if (HabitTypes.Where(x => x.Name == HabitLog.HabitTypeName).First().Measurability == "check-in")
+            if (measurability == "check-in")
             {
                 HabitLog.StartTime = DateTime.MinValue;
                 HabitLog.EndTime = DateTime.MinValue;
@@ -79,7 +81,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 HabitLog.Quantity = 1;
             }
 
-            if (HabitTypes.Where(x => x.Name == HabitLog.HabitTypeName).First().Measurability == "quantifiable")
+            if (measurability == "quantifiable")
             {
                 HabitLog.StartTime = DateTime.MinValue;
                 HabitLog.EndTime = DateTime.MinValue;
