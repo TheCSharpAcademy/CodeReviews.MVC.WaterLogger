@@ -70,7 +70,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
 
             if (HabitType.Measurability == "Check-in")
             {
-                HabitType.UnitOfMeasurement = "Done";
+                HabitType.UnitOfMeasurement = "done";
             }
             else if (HabitType.Measurability == "Duration")
             {
