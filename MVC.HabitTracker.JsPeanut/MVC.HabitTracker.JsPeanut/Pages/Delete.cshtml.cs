@@ -11,6 +11,8 @@ namespace MVC.HabitTracker.JsPeanut.Pages
     {
         public IConfiguration _configuration { get; set; }
 
+        public List<HabitType> HabitTypes { get; set; }
+
         [BindProperty]
         public HabitLog HabitLog { get; set; }
 
@@ -20,6 +22,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
         }
         public IActionResult OnGet(int id)
         {
+            HabitTypes = GetAllHabitTypes();
             HabitLog = GetById(id);
             return Page();
         }
@@ -49,6 +52,38 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 }
 
                 return habitLogRecord;
+            }
+        }
+
+        private List<HabitType> GetAllHabitTypes()
+        {
+            using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
+            {
+                connection.Open();
+
+                var tableCmd = connection.CreateCommand();
+
+                tableCmd.CommandText =
+                    "SELECT * FROM habit_types";
+
+                var tableData = new List<HabitType>();
+                SqliteDataReader reader = tableCmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    tableData.Add(
+                        new HabitType
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            ImagePath = reader.GetString(2),
+                            Measurability = reader.GetString(3),
+                            UnitOfMeasurement = reader.GetString(4)
+                        }
+                    );
+                }
+
+                return tableData;
             }
         }
 

@@ -130,6 +130,7 @@ namespace MVC.HabitTracker.JsPeanut.Pages
             string measurability = HabitType.Measurability;
             int sum = 0;
             TimeSpan sum2 = TimeSpan.Zero;
+            string sum3 = "";
             foreach (var record in SummableHabits)
             {
                 if (measurability == "quantifiable")
@@ -140,9 +141,10 @@ namespace MVC.HabitTracker.JsPeanut.Pages
                 {
                     sum2 += record.Time.GetValueOrDefault();
                 }
-                else
+                else if (measurability == "check-in")
                 {
                     sum += record.Quantity;
+                    sum3 = $"{sum} times";
                 }
             }
 
@@ -153,6 +155,10 @@ namespace MVC.HabitTracker.JsPeanut.Pages
             else if (sum2 != TimeSpan.Zero)
             {
                 SumMessage = $"The sum of your {habittypename} habit is equal to {sum2}.";
+            }
+            else if (sum3 != "")
+            {
+                SumMessage = $"The sum of your {habittypename} habit is equal to {sum3}.";
             }
         }
     }
