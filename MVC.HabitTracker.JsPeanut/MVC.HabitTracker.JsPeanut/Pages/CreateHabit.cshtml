@@ -1,0 +1,74 @@
+﻿@page
+@model MVC.HabitTracker.JsPeanut.Pages.CreateHabitModel
+@{
+}
+
+<h3>Create a habit</h3>
+<p style="margin: 1.5em 0 1.5em 0;">We do have available habits for you to log, but you can add more!</p>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="HabitType.ImagePath" class="control-label">URL of your habit's icon</label>
+        <input type="text" asp-for="HabitType.ImagePath" class="form-control" />
+        <span asp-validation-for="HabitType.ImagePath" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            You must attach a link to the picture of your habit's icon. This site has a lot of icons you can use: <a href="https://icons8.com/icons/">https://icons8.com/icons/</a>
+        </small>
+    </div>
+    <div class="form-group">
+        <label asp-for="HabitType.Name" class="control-label"></label>
+        <input type="text" asp-for="HabitType.Name" class="form-control" />
+        <span asp-validation-for="HabitType.Name" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            Insert here the name of your habit (i.e.: water drinking, physical activity, coding time).
+        </small>
+    </div>
+
+    <div class="form-group" id="measurability">
+        <label asp-for="HabitType.Measurability" class="control-label">Select the measurability of your habit</label>
+        <select asp-for="HabitType.Measurability" class="form-control" onchange="ToggleUnitOfMeasurement()">
+            <option value=" ">Select an option</option>
+            <option value="duration">Duration</option>
+            <option value="quantifiable">Quantifiable</option>
+            <option value="check-in">Check-in</option>
+        </select>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            Choose duration if your habit is measured in time units (i.e.: exercise time), check-in if it's something you just got to log, no time or quantities are needed (i.e.: flossing) and quantifiable for habits that are measurable in quantities (i.e.: water drinking).</p>
+        </small>
+    </div>
+
+    <div class="form-group" id="unitofmeasurement">
+        <label asp-for="HabitType.UnitOfMeasurement" class="control-label">Unit of measurement</label>
+        <input type="text" asp-for="HabitType.UnitOfMeasurement" class="form-control" />
+        <span asp-validation-for="HabitType.UnitOfMeasurement" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            For example, if your habit is about water consumption, you can measure it on <p>bottles, glasses, liters (l), milliliters (ml), etc.</p>
+        </small>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-success"/>
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts{
+    <script>
+        function ToggleUnitOfMeasurement(){
+            if ($("#measurability option:selected").text().includes("Check-in")){
+                $("#unitofmeasurement").hide();
+                $("#HabitType_UnitOfMeasurement").val("done");
+            }
+            else if ($("#measurability option:selected").text().includes("Duration")){
+                $("#unitofmeasurement").hide();
+                $("#HabitType_UnitOfMeasurement").val("none");
+            }
+            else{
+                $("#unitofmeasurement").show();
+            }
+        }
+    </script>
+}

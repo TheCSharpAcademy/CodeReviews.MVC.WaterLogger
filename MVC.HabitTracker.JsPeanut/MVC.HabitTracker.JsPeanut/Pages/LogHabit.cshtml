@@ -1,0 +1,111 @@
+﻿@page
+@model MVC.HabitTracker.JsPeanut.Pages.LogHabitModel
+@{
+    string habitTypeMeasurability = "";
+    string leftParenthesis = "(";
+    string rightParenthesis = ")";
+    //DateTime date = DateTime.Now; // Replace with your desired date
+
+    //string formattedDate = date.ToString("yyyy-MM-ddTHH:mm");
+}
+
+<h3>Log a habit</h3>
+<br />
+
+<form method="post">
+    <div class="form-group" id="selection">
+        <label asp-for="HabitLog.HabitTypeName" class="control-label">Select the habit to log</label>
+        <select asp-for="HabitLog.HabitTypeName" class="form-control" onchange="ToggleDiv()">
+            <option value=" ">Select an option</option>
+            @foreach (var habitType in Model.HabitTypes)
+            {
+                <option value="@habitType.Name">@habitType.Name @leftParenthesis@habitType.Measurability@rightParenthesis</option>
+            }
+        </select>
+    </div>
+
+
+    <div class="form-group" id="date">
+        <label asp-for="HabitLog.Date" class="control-label"></label>
+        <input class="form-control" asp-for="HabitLog.Date" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+            <span asp-validation-for="HabitLog.Date" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            Insert here the date in which you performed your habit.
+        </small>
+    </div>
+
+    <div class="form-group" id="startTime">
+        <label asp-for="HabitLog.StartTime" class="control-label"></label>
+        <input class="form-control" asp-for="HabitLog.StartTime" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+        <span asp-validation-for="HabitLog.StartTime" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            Insert here the date in which you performed your habit.
+        </small>
+    </div>
+    <div class="form-group" id="endTime">
+        <label asp-for="HabitLog.EndTime" class="control-label"></label>
+        <input class="form-control" asp-for="HabitLog.EndTime" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+        <span asp-validation-for="HabitLog.EndTime" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            Insert here the date in which you performed your habit.
+        </small>
+    </div>
+
+    <div class="form-group" id="quantity">
+        <label asp-for="HabitLog.Quantity" class="control-label">Quantity</label>
+        <input type="text" asp-for="HabitLog.Quantity" class="form-control" />
+        <span asp-validation-for="HabitLog.Quantity" class="text-danger"></span>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+            <p>You can only use integers.</p>
+        </small>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-success" />
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts{
+    <script>
+        // There are 3 habit measurabilities: duration, quantifiable and check-in.
+        // If it's a duration habit, date and quantity aren't needed, but the start and end dates for calculating the duration of the habit.
+        // When the user just gets in the page, the 'default' selected habit is of 'quantifiable' type.
+        var starttimevalue = $("#HabitLog_StartTime").text();
+        $("#date").show();
+        $("#quantity").show();
+        $("#startTime").hide();
+        $("#endTime").hide()
+        function ToggleDiv() {
+            if ($("#selection option:selected").text().includes("duration")) {
+
+                $("#date").hide();
+                $("#quantity").hide();
+                $("#startTime").show();
+                $("#endTime").show();
+                // Date and quantity are set to the minimum value possible because they are needed in order to submit the form.
+                $("#HabitLog_Date").val("0001-01-01T00:00");
+                $("#HabitLog_Quantity").val("1");
+                $("#HabitType_UnitOfMeasurement").val(".");
+            }
+            else if ($("#selection option:selected").text().includes("check-in")) {
+                $("#startTime").hide();
+                $("#endTime").hide()
+                $("#quantity").hide();
+                $("#HabitLog_Quantity").val("1");
+                $("#HabitLog_StartTime").val("0001-01-01T00:00");
+                $("#HabitLog_EndTime").val("0001-01-01T00:00");
+            }
+            else if ($("#selection option:selected").text().includes("quantifiable")) {
+                $("#date").show();
+                $("#quantity").show();
+                $("#startTime").hide();
+                $("#endTime").hide
+                $("#HabitLog_StartTime").val("0001-01-01T00:00");
+                $("#HabitLog_EndTime").val("0001-01-01T00:00");
+            }
+        }
+    </script>
+}
