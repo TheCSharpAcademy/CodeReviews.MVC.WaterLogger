@@ -1,0 +1,35 @@
+﻿@page
+@model ExerciseTrackerMVCCarDioLogic.Pages.Create
+@{
+}
+
+<h3 class="PageTitle">Create session</h3>
+<p>Exercise Type Selected: @Model.ExerciseType.ExerciseTypeName</p>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="MyExerciseSession.Date" class="control-label"></label>
+                <input type="date" asp-for="MyExerciseSession.Date" class="form-control" />
+                <span asp-validation-for="MyExerciseSession.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MyExerciseSession.DurationInMinutes" class="control-label"></label>
+                <input asp-for="MyExerciseSession.DurationInMinutes" class="form-control" />
+                <span asp-validation-for="MyExerciseSession.DurationInMinutes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MyExerciseSession.Weigth" class="control-label"></label>
+                <input asp-for="MyExerciseSession.Weigth" class="form-control" />
+                <span asp-validation-for="MyExerciseSession.Weigth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="ExerciseTypeId" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>

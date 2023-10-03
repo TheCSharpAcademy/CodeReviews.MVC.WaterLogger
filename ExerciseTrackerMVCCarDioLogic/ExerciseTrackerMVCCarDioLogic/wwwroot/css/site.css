@@ -1,0 +1,73 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.logo{
+    width: 80px;
+}
+
+.background {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+}
+
+    .background::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: url(https://img.freepik.com/free-photo/flat-lay-orange-weights-with-water-bottle-copy-space_23-2148523264.jpg?w=996&t=st=1695920941~exp=1695921541~hmac=f845bb15db8e133ceb163306e12b9c8b9a2fa17ab2571adf08bcef3286c08eff);
+        opacity: .5;
+        background-size: cover;
+    }
+
+.btn-danger {
+    background-color: #FA993C;
+    border: none;
+}
+
+.btn-primary {
+    background-color: white;
+    border: none;
+    color: #FA993C;
+}
+
+.PageTitle {
+    color: #FA993C;
+    text-decoration: none;
+}
+.smallText {
+    color: #FA993C;
+    text-decoration: underline;
+}
+
+.btn-success {
+    background-color: #FA993C;
+    border: none;
+}
+
+.form-group{
+    margin-bottom: 20px;
+}
