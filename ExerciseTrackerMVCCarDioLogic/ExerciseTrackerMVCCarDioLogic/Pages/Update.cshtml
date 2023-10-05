@@ -1,0 +1,47 @@
+﻿@page
+@model ExerciseTrackerMVCCarDioLogic.Pages.UpdateModel
+@{
+}
+
+<h3 class="PageTitle">Update Record</h3>
+<p>Exercise Type Selected: @Html.DisplayFor(model => model.Session.ExerciseTypeName)</p>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="Session.Id" />
+            <div class="form-group">
+                <label asp-for="Session.Date" class="control-label"></label>
+                <input type="date" asp-for="Session.Date" class="form-control" />
+                <span asp-validation-for="Session.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Session.DurationInMinutes" class="control-label"></label>
+                <input asp-for="Session.DurationInMinutes" class="form-control" />
+                <span asp-validation-for="Session.DurationInMinutes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Session.Weigth" class="control-label"></label>
+                <input asp-for="Session.Weigth" class="form-control" />
+                <span asp-validation-for="Session.Weigth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Session.ExerciseTypeName" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="smallText" asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
