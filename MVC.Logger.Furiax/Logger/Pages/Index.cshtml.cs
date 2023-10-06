@@ -1,20 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Logger.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Logger.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IConfiguration _configuration;
+        public List<RideModel> Rides { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IConfiguration configuration)
         {
-            _logger = logger;
+            _configuration = configuration;
         }
 
         public void OnGet()
         {
-
+            
         }
     }
 }

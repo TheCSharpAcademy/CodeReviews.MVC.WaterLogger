@@ -2,4 +2,43 @@
 @model Logger.Pages.CreateModel
 @{
 }
-<h1> Here comes the creating form</h1>
+<h3> Add New Bike Ride</h3>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form method="post">
+			<div class="form-group">
+				<label asp-for="Ride.Date" class="control-label"></label>
+				<input type="date" asp-for="Ride.Date" class="form-control"/>
+				<span asp-validation-for="Ride.Date" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Ride.Distance" class="control-label"></label>
+				<input asp-for="Ride.Distance" class="form-control" placeholder="Enter distance in kilometers"/>
+				<span asp-validation-for="Ride.Distance" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Ride.Duration" class="control-label"></label>
+				<div class="input-group">
+					<input asp-for="Ride.Duration.Hours" class="form-control" placeholder="Hours" />
+					<span class="input-group-addon">:</span>
+					<input asp-for="Ride.Duration.Minutes" class="form-control" placeholder="Minutes" />
+				</div>
+				<span asp-validation-for="Ride.Duration" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-success"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-page="Index">Back to main menu</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
