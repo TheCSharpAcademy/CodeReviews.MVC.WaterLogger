@@ -2,9 +2,9 @@
 @model Logger.Pages.DeleteModel
 @{
 }
-<h3>Delete this record ?</h3>
+<h3>Delete Ride</h3>
 <div>
-	<dl class=" = row">
+	<dl class=" = row ">
 		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Rides.Date)</dt>
 		<dd class="col-sm-10">@Html.DisplayFor(model => model.Rides.Date)</dd>
 
@@ -17,7 +17,7 @@
 
 	<form method="post">
 		<input type ="hidden" asp-for="Rides.Id" />
-		<input type ="submit" value="Delete Ride" class="btn btn-danger"/> <br />
+		<input type ="submit" value="Delete Ride" class="btn btn-danger mb-3"/> <br />
 		<a asp-page="./Index">Return to main menu</a>
 	</form>
 </div>

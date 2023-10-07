@@ -18,7 +18,6 @@ table {
     background-color: rgb(74, 161, 230, 0.6);
 }
 
-
 .logo {
     width: 70px;
 }
@@ -42,11 +41,8 @@ table {
     }
 
 .form-group {
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
     margin-top: 15px;
 }
 
-.btn-success {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
+

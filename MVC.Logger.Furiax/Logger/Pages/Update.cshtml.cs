@@ -6,22 +6,22 @@ using System.Globalization;
 
 namespace Logger.Pages
 {
-    public class UpdateModel : PageModel
-    {
+	public class UpdateModel : PageModel
+	{
 		private readonly IConfiguration _configuration;
 		[BindProperty]
 		public RideModel Rides { get; set; }
-        [BindProperty]
-        public int Hours { get; set; }
-        [BindProperty]
-        public int Minutes { get; set; }
+		[BindProperty]
+		public int Hours { get; set; }
+		[BindProperty]
+		public int Minutes { get; set; }
 
-        public UpdateModel(IConfiguration configuration)
+		public UpdateModel(IConfiguration configuration)
 		{
 			_configuration = configuration;
 		}
 		public IActionResult OnGet(int id)
-        {
+		{
 			Rides = GetRideById(id);
 			Hours = Rides.Duration.Hours;
 			Minutes = Rides.Duration.Minutes;
@@ -29,7 +29,7 @@ namespace Logger.Pages
 			return Page();
 		}
 
-		public IActionResult OnPost(int id) 
+		public IActionResult OnPost(int id)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -41,7 +41,7 @@ namespace Logger.Pages
 			{
 				connection.Open();
 				var tableCmd = connection.CreateCommand();
-				tableCmd.CommandText = 
+				tableCmd.CommandText =
 					"UPDATE bikerides SET Date = @date, Distance = @distance, Duration = @duration WHERE Id = @id";
 				tableCmd.Parameters.AddWithValue("@id", id);
 				tableCmd.Parameters.AddWithValue("@date", Rides.Date);
