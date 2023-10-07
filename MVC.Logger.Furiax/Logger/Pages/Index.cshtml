@@ -23,6 +23,12 @@
                 <td>@Html.DisplayFor(modelItem => ride.Date)</td>
                 <td>@Html.DisplayFor(modelItem => ride.Distance)</td>
                 <td>@Html.DisplayFor(modelItem => ride.Duration)</td>
+                <td>
+                    <a button type="button" class="btn btn-danger" asp-page="./Delete" asp-route-id="@ride.Id">Delete</a>
+                </td>
+                <td>
+                    <a button type="button" class="btn btn-primary" asp-page="./Update" asp-route-id="@ride.Id">Edit</a>
+                </td>
             </tr>
         }
     </tbody>
