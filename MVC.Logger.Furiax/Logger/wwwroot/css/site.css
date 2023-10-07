@@ -39,3 +39,11 @@ body {
         opacity: 0.8;
         background-size: cover;
     }
+
+.form-group {
+    margin-bottom: 15px; 
+}
+
+.btn-success {
+    margin-top: 15px; 
+}

@@ -7,3 +7,23 @@
 <a button type="button" class="btn btn-success" asp-area="" asp-page="/Create">
     Add Bike Ride
 </a>
+
+<table id="rides" class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Rides[0].Date)</th>
+            <th>@Html.DisplayNameFor(model => model.Rides[0].Distance)</th>
+            <th>@Html.DisplayNameFor(model => model.Rides[0].Duration)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ride in Model.Rides)
+        {
+            <tr class="list-row">
+                <td>@Html.DisplayFor(modelItem => ride.Date)</td>
+                <td>@Html.DisplayFor(modelItem => ride.Distance)</td>
+                <td>@Html.DisplayFor(modelItem => ride.Duration)</td>
+            </tr>
+        }
+    </tbody>
+</table>

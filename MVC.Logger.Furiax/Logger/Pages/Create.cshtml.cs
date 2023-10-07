@@ -2,6 +2,7 @@ using Logger.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
+using System.ComponentModel.DataAnnotations;
 
 namespace Logger.Pages
 {
@@ -15,8 +16,14 @@ namespace Logger.Pages
 
 		[BindProperty]
 		public RideModel Ride { get; set; }
+        [BindProperty]
+        [Range(0, int.MaxValue, ErrorMessage = "Value for hours cant be negative.")]
+        public int Hours { get; set; }
+        [BindProperty]
+		[Range(0, 59, ErrorMessage = "Value for minutes must be between 0 and 59.")]
+		public int Minutes { get; set; }
 
-		public IActionResult OnGet()
+        public IActionResult OnGet()
         {
             return Page();
         }
@@ -27,7 +34,8 @@ namespace Logger.Pages
             {
                 return Page();
             }
-            TimeSpan duration = new TimeSpan(Ride.Duration.Hours, Ride.Duration.Minutes,0);
+
+            TimeSpan duration = new TimeSpan(Hours, Minutes,0);
 
             using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
             {
