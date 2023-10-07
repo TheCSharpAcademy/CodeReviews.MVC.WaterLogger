@@ -2,3 +2,41 @@
 @model Logger.Pages.UpdateModel
 @{
 }
+<h3>Edit this record</h3>
+<div class="row">
+	<div class="col-md-4">
+		<form method="post">
+			<input type="hidden" asp-for="Rides.Id"/>
+			<div class="form-group">
+				<label asp-for="Rides.Date" class="control-label"></label>
+				<input type="date" asp-for="Rides.Date" class="form-control"/>
+				<span asp-validation-for="Rides.Date" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Rides.Distance" class="control-label"></label>
+				<input asp-for="Rides.Distance" class="form-control" />
+				<span asp-validation-for="Rides.Distance" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Hours" class="control-label">Duration</label>
+				<div class="input-group">
+					<input asp-for="Hours" class="form-control" min="0" />
+					<span class="input-group-addon">:</span>
+					<input asp-for="Minutes" class="form-control" min="0" max="59" />
+				</div>
+				<span asp-validation-for="Hours" class="text-danger"></span>
+				<span asp-validation-for="Minutes" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<input type="submit" value="Update Bike Ride" class="btn btn-primary"/>
+			</div>
+		</form>
+	</div>
+
+	<div>
+		<a asp-page="./Index">Return to main menu</a>
+	</div>
+</div>

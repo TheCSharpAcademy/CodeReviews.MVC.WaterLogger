@@ -11,13 +11,21 @@ namespace Logger.Pages
 		private readonly IConfiguration _configuration;
 		[BindProperty]
 		public RideModel Rides { get; set; }
-		public UpdateModel(IConfiguration configuration)
+        [BindProperty]
+        public int Hours { get; set; }
+        [BindProperty]
+        public int Minutes { get; set; }
+
+        public UpdateModel(IConfiguration configuration)
 		{
 			_configuration = configuration;
 		}
 		public IActionResult OnGet(int id)
         {
 			Rides = GetRideById(id);
+			Hours = Rides.Duration.Hours;
+			Minutes = Rides.Duration.Minutes;
+
 			return Page();
 		}
 
@@ -27,6 +35,7 @@ namespace Logger.Pages
 			{
 				return Page();
 			}
+			TimeSpan newDuration = new TimeSpan(Hours, Minutes, 0);
 
 			using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
 			{
@@ -37,7 +46,7 @@ namespace Logger.Pages
 				tableCmd.Parameters.AddWithValue("@id", id);
 				tableCmd.Parameters.AddWithValue("@date", Rides.Date);
 				tableCmd.Parameters.AddWithValue("@distance", Rides.Distance);
-				tableCmd.Parameters.AddWithValue("@duration", Rides.Duration);
+				tableCmd.Parameters.AddWithValue("@duration", newDuration);
 				tableCmd.ExecuteNonQuery();
 			}
 			return RedirectToPage("./Index");
