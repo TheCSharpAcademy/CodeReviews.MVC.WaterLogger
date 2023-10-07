@@ -14,6 +14,7 @@
             <th>@Html.DisplayNameFor(model => model.Rides[0].Date)</th>
             <th>@Html.DisplayNameFor(model => model.Rides[0].Distance)</th>
             <th>@Html.DisplayNameFor(model => model.Rides[0].Duration)</th>
+            <th>Average Speed</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,10 @@
                 <td>@Html.DisplayFor(modelItem => ride.Date)</td>
                 <td>@Html.DisplayFor(modelItem => ride.Distance)</td>
                 <td>@ride.Duration.ToString(@"hh\:mm")</td>
+                @{
+                    double averageSpeed = ride.Distance / ride.Duration.TotalMinutes * 60;
+                }
+                <td>@averageSpeed.ToString("F2") km/h</td>
                 <td>
                     <a button type="button" class="btn btn-danger" asp-page="./Delete" asp-route-id="@ride.Id">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">

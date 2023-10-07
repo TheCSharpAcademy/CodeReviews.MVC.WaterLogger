@@ -42,6 +42,7 @@ namespace Logger.Pages
                         Distance = reader.GetDouble(2),
                         Duration = reader.GetTimeSpan(3),
                     });
+                    double averageSpeed = reader.GetDouble(2) / reader.GetDouble(3);
                 }
                 return rides;
             }
