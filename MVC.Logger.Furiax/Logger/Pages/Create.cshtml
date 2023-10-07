@@ -23,9 +23,9 @@
 			<div class="form-group">
 				<label asp-for="Hours" class="control-label">Duration (Hours:Minutes)</label>
 				<div class="input-group">
-					<input asp-for="Hours" class="form-control"/>
+					<input asp-for="Hours" class="form-control" placeholder="Hours" min="0"/>
 					<span class="input-group-addon">:</span>
-					<input asp-for="Minutes" class="form-control" />
+					<input asp-for="Minutes" class="form-control" placeholder="Minutes" min="0" max="59" />
 				</div>
 				<span asp-validation-for="Hours" class="text-danger"></span>
 				<span asp-validation-for="Minutes" class="text-danger"></span>

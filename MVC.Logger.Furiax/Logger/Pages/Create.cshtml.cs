@@ -17,10 +17,10 @@ namespace Logger.Pages
 		[BindProperty]
 		public RideModel Ride { get; set; }
         [BindProperty]
-        [Range(0, int.MaxValue, ErrorMessage = "Value for hours cant be negative.")]
+        [Range(0, int.MaxValue)]
         public int Hours { get; set; }
         [BindProperty]
-		[Range(0, 59, ErrorMessage = "Value for minutes must be between 0 and 59.")]
+		[Range(0, 59)]
 		public int Minutes { get; set; }
 
         public IActionResult OnGet()
