@@ -40,7 +40,7 @@ namespace Logger.Pages
                         Date = DateTime.Parse(reader.GetString(1),
                             CultureInfo.CurrentUICulture.DateTimeFormat),
                         Distance = reader.GetDouble(2),
-                        Duration = reader.GetTimeSpan(3)
+                        Duration = reader.GetTimeSpan(3),
                     });
                 }
                 return rides;
