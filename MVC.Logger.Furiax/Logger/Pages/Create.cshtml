@@ -1,0 +1,50 @@
+﻿@page
+@model Logger.Pages.CreateModel
+@{
+}
+<h3> Add New Bike Ride</h3>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form method="post">
+
+			<div class="form-group">
+				<label asp-for="Ride.Date" class="control-label"></label>
+				<input type="date" asp-for="Ride.Date" class="form-control"/>
+				<span asp-validation-for="Ride.Date" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Ride.Distance" class="control-label"></label>
+				<input asp-for="Ride.Distance" class="form-control" placeholder="In kilometers"/>
+				<span asp-validation-for="Ride.Distance" class="text-danger"></span>
+			</div>
+			
+			<div class="form-group">
+				<label asp-for="Hours" class="control-label">Duration (Hours:Minutes)</label>
+				<div class="input-group">
+					<input asp-for="Hours" class="form-control" placeholder="Hours" min="0"/>
+					<span class="input-group-addon">:</span>
+					<input asp-for="Minutes" class="form-control" placeholder="Minutes" min="0" max="59" />
+				</div>
+				<span asp-validation-for="Hours" class="text-danger"></span>
+				<span asp-validation-for="Minutes" class="text-danger"></span>
+			</div>
+
+
+			<div class="form-group">
+				<input type="submit" value="Add Ride" class="btn btn-primary"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-page="Index">Return to main menu</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
