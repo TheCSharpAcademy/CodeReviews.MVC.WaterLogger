@@ -116,8 +116,9 @@
         }
 
         [HttpPost]
+        [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int Id, CreateGameSession viewModel, int allGames)
+        public async Task<IActionResult> Edit([Bind ("Id")] int Id, [Bind ("GameInfos","GameSession")] CreateGameSession viewModel, [Bind ("allGames")] int allGames)
         {
             var exisitingGameSession = await GameSessionsRepository.GetGameSessionAsync(Id);
 
@@ -158,10 +159,7 @@
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

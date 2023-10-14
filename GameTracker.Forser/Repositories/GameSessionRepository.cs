@@ -27,7 +27,7 @@
         {
             try
             {
-                var gameSession = await _context.Sessions.Include(sg => sg.Game).Where(w => w.Id == id).FirstOrDefaultAsync();
+                var gameSession = await _context.Sessions.Include(sg => sg.Game).FirstOrDefaultAsync(w => w.Id == id);
 
                 return gameSession;
             }
