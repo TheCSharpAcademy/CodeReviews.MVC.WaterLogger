@@ -16,6 +16,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model[0].Game.GameTitle)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model[0].SessionStart)
             </th>
             <th>
@@ -23,9 +26,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model[0].Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].Game.GameTitle)
             </th>
             <th></th>
         </tr>
@@ -35,6 +35,9 @@
         {
             <tr>
                 <td>
+                    @Model[i].Game.GameTitle
+                </td>
+                <td>
                     @Model[i].SessionStart.ToString("yyyy-MM-dd HH:mm")
                 </td>
                 <td>
@@ -42,9 +45,6 @@
                 </td>
                 <td>
                     @Model[i].Duration.Hours Hours
-                </td>
-                <td>
-                    @Model[i].Game.GameTitle
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@Model[i].Id">Edit</a> |

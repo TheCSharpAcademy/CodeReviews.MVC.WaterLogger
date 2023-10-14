@@ -5,5 +5,6 @@
         Task<IEnumerable<T>> GetAllAsync();
         Task Create(T entity);
         Task SaveAsync();
+        Task DeleteAsync(T entity);
     }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace GameTracker.Forser.Controllers
+﻿namespace GameTracker.Forser.Controllers
 {
     public class HomeController : Controller
     {

@@ -8,5 +8,28 @@
         {
             _context = context;
         }
+
+        public GameInfo GetSelectedGame(int? id)
+        {
+            GameInfo selectedGame = null;
+
+            if (id == null)
+            {
+                return selectedGame;
+            }
+
+            try
+            {
+                selectedGame = _context.GameInfo
+                    .Where(g => g.Id == id)
+                    .FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return selectedGame;
+        }
     }
 }

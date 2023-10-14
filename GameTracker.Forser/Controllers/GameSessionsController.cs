@@ -2,20 +2,22 @@
 {
     public class GameSessionsController : Controller
     {
-        public IGameInfoRepository GameInfoRepository { get; }
-        public IGameSessionsRepository Sessions { get; }
+        private IGameInfoRepository GameInfoRepository { get; }
+        private IGameSessionsRepository GameSessionsRepository { get; }
 
-        public GameSessionsController(IGameInfoRepository gameInfoRepository, IGameSessionsRepository gameSessions)
+        public GameSessionsController(IGameInfoRepository gameInfoRepository, IGameSessionsRepository gameSessionsRepository)
         {
             GameInfoRepository = gameInfoRepository;
-            Sessions = gameSessions;
+            this.GameSessionsRepository = gameSessionsRepository;
         }
+
         public async Task<IActionResult> Index()
         {
-            List<GameSession> gameSessions = await Sessions.GetAllGameSessionsAsync();
-            
+            List<GameSession> gameSessions = await GameSessionsRepository.GetAllGameSessionsAsync();
+
             return View(gameSessions);
         }
+
         public async Task<IActionResult> Create()
         {
             CreateGameSession viewModel = new CreateGameSession();
@@ -25,6 +27,7 @@
 
             return View(viewModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GameSession gameSession, int GameName)
@@ -34,102 +37,131 @@
                 if (gameSession != null)
                 {
                     gameSession.GameId = GameName;
-                    Sessions.Create(gameSession);
-                    await Sessions.SaveAsync();
+                    GameSessionsRepository.Create(gameSession);
+                    await GameSessionsRepository.SaveAsync();
                     return RedirectToAction(nameof(Index));
                 }
             }
-            
+
             return View(gameSession);
         }
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null || _context.GameSession == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    var gameSession = await _context.GameSession.FindAsync(id);
-        //    if (gameSession == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["GamePlayedId"] = new SelectList(_context.Set<Game>(), "GameId", "GameTitle", gameSession.GamePlayedId);
-        //    return View(gameSession);
-        //}
+        public async Task<IActionResult> Delete(int? id)
+        {
+            var gameSession = await GameSessionsRepository.GetGameSessionAsync(id);
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("SessionId,SessionStart,SessionEnd,GamePlayedId")] GameSession gameSession)
-        //{
-        //    if (id != gameSession.SessionId)
-        //    {
-        //        return NotFound();
-        //    }
+            if (id == null || gameSession == null)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(gameSession);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!GameSessionExists(gameSession.SessionId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["GamePlayedId"] = new SelectList(_context.Set<Game>(), "GameId", "GameTitle", gameSession.GamePlayedId);
-        //    return View(gameSession);
-        //}
+            return View(gameSession);
+        }
 
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null || _context.GameSession == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var gameSession = await GameSessionsRepository.GetGameSessionAsync(id);
 
-        //    var gameSession = await _context.GameSession
-        //        .Include(g => g.GamePlayed)
-        //        .FirstOrDefaultAsync(m => m.SessionId == id);
-        //    if (gameSession == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (gameSession == null)
+            {
+                return Problem("Entity set 'GameSession' is null.");
+            }
 
-        //    return View(gameSession);
-        //}
+            if (gameSession != null)
+            {
+                await GameSessionsRepository.DeleteGameSessionAsync(gameSession);
+            }
 
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    if (_context.GameSession == null)
-        //    {
-        //        return Problem("Entity set 'GTContext.GameSession'  is null.");
-        //    }
-        //    var gameSession = await _context.GameSession.FindAsync(id);
-        //    if (gameSession != null)
-        //    {
-        //        _context.GameSession.Remove(gameSession);
-        //    }
+            await GameSessionsRepository.SaveAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        public async Task<IActionResult> Edit(int? id)
+        {
+            var gameSession = await GameSessionsRepository.GetGameSessionAsync(id);
 
-        //private bool GameSessionExists(int id)
-        //{
-        //  return (_context.GameSession?.Any(e => e.SessionId == id)).GetValueOrDefault();
-        //}
+            if (id == null || gameSession == null)
+            {
+                return NotFound();
+            }
+
+            CreateGameSession viewModel = new CreateGameSession();
+            viewModel.GameSession = gameSession;
+
+            await PopulateSelectedGameDropDown(viewModel);
+
+            return View(viewModel);
+        }
+
+        private async Task PopulateSelectedGameDropDown(CreateGameSession viewModel)
+        {
+            viewModel.GameInfos = (await GameInfoRepository.GetAllAsync()).ToList()
+                .Select(r => new SelectListItem { Text = r.GameTitle, Value = r.Id.ToString(), Selected = false } ).ToList();
+
+            var selectedGame = GameInfoRepository.GetSelectedGame(viewModel.GameSession.GameId);
+
+            if (selectedGame != null)
+            {
+                foreach (var game in viewModel.GameInfos) 
+                {
+                    if (game.Text == selectedGame.GameTitle)
+                    {
+                        game.Selected = true;
+                    }
+                }
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int Id, CreateGameSession viewModel, int allGames)
+        {
+            var exisitingGameSession = await GameSessionsRepository.GetGameSessionAsync(Id);
+
+            if (exisitingGameSession == null || viewModel.GameSession == null)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    exisitingGameSession.SessionStart = viewModel.GameSession.SessionStart;
+                    exisitingGameSession.SessionEnd = viewModel.GameSession.SessionEnd;
+                    exisitingGameSession.GameId = allGames;
+
+                    await GameSessionsRepository.SaveAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (await GameSessionExists(exisitingGameSession.Id) != true)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<bool> GameSessionExists(int id)
+        {
+            if (await GameSessionsRepository.GetGameSessionAsync(id) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

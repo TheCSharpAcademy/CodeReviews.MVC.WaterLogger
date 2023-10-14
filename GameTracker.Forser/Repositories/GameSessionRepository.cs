@@ -22,5 +22,32 @@
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<GameSession> GetGameSessionAsync(int? id)
+        {
+            try
+            {
+                var gameSession = await _context.Sessions.Include(sg => sg.Game).Where(w => w.Id == id).FirstOrDefaultAsync();
+
+                return gameSession;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
+        public async Task DeleteGameSessionAsync(GameSession gameSession)
+        {
+            try
+            {
+                GameSession exists = await _context.Sessions.FindAsync(gameSession.Id);
+                _context.Remove(exists);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

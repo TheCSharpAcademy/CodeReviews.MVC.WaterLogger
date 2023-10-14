@@ -1,9 +1,9 @@
 ﻿global using System.ComponentModel;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
+global using GameTracker.Forser.Data;
+global using GameTracker.Forser.Models;
+global using GameTracker.Forser.Repositories;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Rendering;
 global using Microsoft.EntityFrameworkCore;
-global using GameTracker.Forser.Data;
-global using GameTracker.Forser.Repositories;
-global using GameTracker.Forser.Models;

@@ -14,5 +14,10 @@
         public async Task<IEnumerable<T>> GetAllAsync() => await _entities.ToListAsync();
         public async Task Create(T entity) => await _context.AddAsync(entity);
         public async Task SaveAsync() => await _context.SaveChangesAsync();
+        public async Task DeleteAsync(T entity)
+        {
+            T exisiting = await _entities.FindAsync(entity);
+            _entities.Remove(exisiting);
+        }
     }
 }
