@@ -1,0 +1,56 @@
+﻿@model IList<GameTracker.Forser.Models.GameSession>
+
+@{
+    ViewData["Title"] = "Your list of Sessions in games!";
+}
+
+<h1>
+    List of Sessions in games!
+</h1>
+
+<p>
+    <a asp-action="Create">Register a new Game Session</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Game.GameTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].SessionStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].SessionEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Duration)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Model[i].Game.GameTitle
+                </td>
+                <td>
+                    @Model[i].SessionStart.ToString("yyyy-MM-dd HH:mm")
+                </td>
+                <td>
+                    @Model[i].SessionEnd.ToString("yyyy-MM-dd HH:mm")
+                </td>
+                <td>
+                    @Model[i].Duration.Hours Hours
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@Model[i].Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@Model[i].Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
