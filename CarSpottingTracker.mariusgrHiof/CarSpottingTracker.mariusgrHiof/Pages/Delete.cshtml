@@ -1,0 +1,36 @@
+﻿@page
+@model CarSpottingTracker.mariusgrHiof.Pages.DeleteModel
+@{
+}
+
+<h3>Are you sure you want to delete?</h3>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarSpottedModel.CarName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarSpottedModel.CarName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarSpottedModel.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarSpottedModel.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarSpottedModel.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarSpottedModel.Quantity)
+        </dd>
+
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="CarSpottedModel.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /><br />
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
