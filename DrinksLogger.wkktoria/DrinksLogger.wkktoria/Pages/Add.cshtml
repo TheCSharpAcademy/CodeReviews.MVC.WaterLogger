@@ -9,13 +9,13 @@
     </div>
     <div class="p-1 m-1">
         <form method="post">
-            <div class="p-2">
-                <label asp-for="Drink.Date"></label>
+            <div class="form-group p-2">
+                <label asp-for="Drink.Date" class="form-label"></label>
                 <input type="date" asp-for="Drink.Date" class="form-control text-center"/>
                 <span asp-validation-for="Drink.Date" class="text-danger"></span>
             </div>
-            <div class="p-2">
-                <label asp-for="Drink.Type"></label>
+            <div class="form-group p-2">
+                <label asp-for="Drink.Type" class="form-label"></label>
                 <select asp-for="Drink.Type" class="form-control text-center">
                     <option value="water">water</option>
                     <option value="tea">tea</option>
@@ -23,8 +23,8 @@
                     <option value="other">other</option>
                 </select>
             </div>
-            <div class="p-2">
-                <label asp-for="Drink.Measurement"></label>
+            <div class="form-group p-2">
+                <label asp-for="Drink.Measurement" class="form-label"></label>
                 <select asp-for="Drink.Measurement" class="form-control text-center">
                     <option value="big bottle">big bottle</option>
                     <option value="bottle">bottle</option>
@@ -33,12 +33,12 @@
                     <option value="cup">mug</option>
                 </select>
             </div>
-            <div class="p-2">
-                <label asp-for="Drink.Quantity"></label>
+            <div class="form-group p-2">
+                <label asp-for="Drink.Quantity" class="form-label"></label>
                 <input type="number" asp-for="Drink.Quantity" class="form-control text-center"/>
                 <span asp-validation-for="Drink.Quantity" class="text-danger"></span>
             </div>
-            <div class="p-2 align-self-center">
+            <div class="form-group p-2 align-self-center">
                 <input type="submit" value="Add" class="btn btn-success"/>
             </div>
         </form>
