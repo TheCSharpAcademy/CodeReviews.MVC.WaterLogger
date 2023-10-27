@@ -1,12 +1,13 @@
 @page
-@model Add
+@model Edit
+
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Edit";
 }
 
 <div class="d-flex flex-column text-center">
     <div class="p-1 m-1">
-        <h2>Add new record</h2>
+        <h2>Edit record</h2>
     </div>
     <div class="p-1 m-1">
         <form method="post" class="d-flex flex-column justify-content-center align-items-center">
@@ -40,7 +41,7 @@
                 <span asp-validation-for="Drink.Quantity" class="text-danger"></span>
             </div>
             <div class="form-group p-2 align-self-center">
-                <input type="submit" value="Add" class="btn btn-success"/>
+                <input type="submit" value="Edit" class="btn btn-primary"/>
             </div>
         </form>
     </div>
