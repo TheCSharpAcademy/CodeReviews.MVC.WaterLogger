@@ -1,0 +1,65 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="d-flex flex-column align-items-center">
+    <div class="p-1">
+        <a button type="button" class="btn btn-success" asp-area="" asp-page="/Add">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+        </a>
+    </div>
+    <div class="p-1">
+        <input type="search" id="searchbox" class="form-control" onkeyup="search()" placeholder="Search..."/>
+    </div>
+    <div class="p-1">
+        <table id="drinks" class="table text-light">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Drinks[0].Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Drinks[0].Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Drinks[0].Measurement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Drinks[0].Quantity)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var drink in Model.Drinks)
+            {
+                <tr class="list-row">
+                    <td>
+                        @Html.DisplayFor(item => drink.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(item => drink.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(item => drink.Measurement)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(item => drink.Quantity)
+                    </td>
+                    <td>
+                        <a button type="button" class="btn btn-primary" asp-page="/Edit" asp-route-id="@drink.Id">Edit</a>
+                    </td>
+                    <td>
+                        <a button type="button" class="btn btn-danger" asp-page="/Delete" asp-route-id="@drink.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
