@@ -1,0 +1,28 @@
+﻿@page
+@model MeditationTracker.Pages.DeleteModel
+@{
+}
+
+<h2>Are you sure to delete this record?</h2>
+
+<div class="content container mt-4">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Date</th>
+                <td>@Html.DisplayFor(model => model.Meditation.Date)</td>
+            </tr>
+            <tr>
+                <th scope="row">Duration</th>
+                <td>@Html.DisplayFor(model => model.Meditation.Duration)</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="container mt-4">
+        <form method="post">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <a asp-page="Index" class="btn btn-secondary">Back to list</a>
+    </div>
+</div>
+
