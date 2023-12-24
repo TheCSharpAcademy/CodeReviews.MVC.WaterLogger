@@ -1,0 +1,18 @@
+﻿@page
+@model WaterLogger.Speedierone.Pages.CreateModel
+@{   
+}
+
+<h2>Add New Record</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="MovieLogger.MovieWatchDate" class="control-label"></label>
+                <input type="date" asp-for="MovieLogger.MovieWatchDate" class="form-control" />
+                <span asp-validation-for="MovieLogger.MovieWatchDate" class="text-danger"></span>
+            </div>
+        </form>
+    </div>
+</div>
