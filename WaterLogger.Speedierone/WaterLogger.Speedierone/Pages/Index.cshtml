@@ -7,3 +7,38 @@
 <a button type="button" class="btn btn-success" asp-area="" asp-page="/Create">
     Add New Record
 </a>
+
+<table id="records" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies[1].MovieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies[2].MovieGenre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies[3].MovieWatchDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model.Movies)
+        {
+            <tr class="list-row">
+                <td>
+                    @Html.DisplayFor(modelItem => record.MovieName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => record.MovieGenre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => record.MovieWatchDate)
+                </td>
+                <td>
+                    <a button type="button" class="btn btn-danger" asp-page="./Delete" asp-route-id="@record.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
