@@ -1,0 +1,35 @@
+﻿@page
+@model WaterLogger.Speedierone.Pages.UpdateModel
+@{
+}
+<h2>Update Record</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="MovieLogger.Id" />
+            <div class="form-group">
+                <label asp-for="MovieLogger.MovieName" class="control-label"></label>
+                <input type="string" asp-for="MovieLogger.MovieName" class="form-control" />
+                <span asp-validation-for="MovieLogger.MovieName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieLogger.MovieGenre" class="control-label"></label>
+                <input type="string" asp-for="MovieLogger.MovieGenre" class="form-control" />
+                <span asp-validation-for="MovieLogger.MovieGenre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieLogger.MovieWatchDate" class="control-label"></label>
+                <input type="date" asp-for="MovieLogger.MovieWatchDate" class="form-control" />
+                <span asp-validation-for="MovieLogger.MovieWatchDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back To List</a>
+</div>
