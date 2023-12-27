@@ -17,10 +17,18 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+body, nav {
+  background-image: url('/img/codioful-formerly-gradienta-LeG68PrXA6Y-unsplash.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .logo {
-    width: 80px;
+    width: 150px;
+    height: auto;
+}
+
+h1 {
+    color: #1673d8;
 }

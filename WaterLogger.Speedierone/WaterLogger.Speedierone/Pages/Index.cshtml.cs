@@ -34,13 +34,14 @@ namespace WaterLogger.Speedierone.Pages
                 SqliteDataReader reader = tableCmd.ExecuteReader();
 
                 while (reader.Read())
-                {
+                {                   
                     tableData.Add(new MovieLoggerModel()
                     {
                         Id = reader.GetInt32(0),
                         MovieName = reader.GetString(1),
                         MovieGenre = reader.GetString(2),
                         MovieWatchDate = DateTime.Parse(reader.GetString(3), CultureInfo.CurrentUICulture.DateTimeFormat)
+                        //MovieWatchDate = DateTime.ParseExact(reader.GetString(3),"dd-MM-yyyy", CultureInfo.CurrentUICulture.DateTimeFormat)
                     });
                 }
                 return tableData;
