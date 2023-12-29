@@ -1,0 +1,162 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<section class="black text-light py-3 py-lg-5 mt-1 mt-sm-2 text-center text-sm-start rounded-3">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <div class="px-lg-5">
+                <h1 class="pb-lg-4">Welcome To Your <span class="orangetext d-inline-flex">Habit Logger</span></h1>
+                <p class="lead my-3 mt-lg-5">
+                    With Habiz, You Can Track Your Progress on Your Journey to Improve Your Life by Adding Healthy Habits to Your Lifestyle!
+                </p>
+            </div>
+            <img class="img-fluid w-25 d-none d-sm-block" src="\img\calendar.svg" alt="" />
+        </div>
+
+    </div>
+</section>
+
+<section class="mt-1 mt-sm-2">
+    <div class="container black rounded-3">
+        <div class="row pt-3 px-2">
+            @foreach (var habit in Model.Habits)
+            {
+                <div class="col-xl-2 col-lg-3 col-md-4 mb-1 mb-sm-3">
+                    <div class="card habitCard rounded-3 orange h-100 w-100 position-relative" data-habit-id="@habit.Id">
+                        <button type="button" class="update-button transparent-btn" onclick="openUpdateHabitModal('@habit.Id', '@habit.Name',  '@habit.Icon', '@habit.Measurement')">
+                            <img class=" img-fluid update-icon" src="/img/pencil.svg" alt="Update Icon"/>
+                        </button>
+                        <button type="button" class="delete-button transparent-btn" onclick="openDeleteHabitModal('@habit.Id', '@habit.Name')">
+                            <img class=" img-fluid delete-icon" src="/img/trash.svg" alt="Delete Icon" />
+                        </button>
+                        <div class="card-body text-center text-black">
+                            <h5 class="card-title m-0 mt-3 pb-3 text-truncate">@habit.Name</h5>
+                            <img class="img-fluid activity-icon" src="/img/ActivityIcons/@habit.Icon" alt="" />
+                        </div>
+                    </div>                   
+                </div>
+            }
+            
+            <div class="col-xl-2 col-lg-3 col-md-4 mb-1 mb-sm-3">
+                <div class="card rounded-3 orange h-100 w-100 position-relative" data-bs-toggle="modal" data-bs-target="#add-habit">                    
+                    <div class="card-body my-3 text-center text-black">
+                        <h5 class="card-title m-0 pb-3">Add Habit</h5>                        
+                        <img class="img-fluid activity-icon" src="/img/add-sign.svg" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="add-habit" tabindex="-1" aria-labelledby="addHabitLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addHabitLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="insertForm" method="post" asp-page-handler="InsertHabit">
+                    <div class="form-group">
+                        <label asp-for="Habit.Name" class="control-label"></label>
+                        <input type="text" asp-for="Habit.Name" class="form-control" />
+                        <span asp-validation-for="Habit.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-1">
+                        <label asp-for="Habit.Measurement" class="control-label"></label>
+                        <input type="text" asp-for="Habit.Measurement" class="form-control" />
+                        <span asp-validation-for="Habit.Measurement" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3 mt-1">
+                        <label asp-for="Habit.Icon" class="control-label"></label>
+                        <div class="row m-2">
+                            @foreach (var icon in Model.Icons)
+                            {
+                                <div class="col-2  p-1">
+                                    <input asp-for="Habit.Icon" type="radio" value="@icon" id="@(icon.Replace(".svg",""))_add" class="btn-check" />
+                                    <label class="btn border border-dark border-4 d-block w-100 h-100 p-2" for="@(icon.Replace(".svg",""))_add">
+                                        <img src="~/img/ActivityIcons/@icon" class="img-fluid w-100 h-100" />
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn orange" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete-habit" tabindex="-1" aria-labelledby="deletehabitLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-truncate" id="deleteHabitLabel"></h5> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmationMessage"></p>
+            </div>
+            <form id="deleteForm" method="post" asp-page-handler="DeleteHabit">
+                <input type="hidden" id="input-id_delete" asp-for="Habit.Id" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="update-habit" tabindex="-1" aria-labelledby="updateHabitLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-truncate" id="updateHabitLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm" method="post" asp-page-handler="UpdateHabit">
+                    <input type="hidden" id="input-id_update" asp-for="Habit.Id" />
+                    <div class="form-group">
+                        <label asp-for="Habit.Name" class="control-label"></label>
+                        <input type="text" id="input-name_update" asp-for="Habit.Name" class="form-control" />
+                        <span asp-validation-for="Habit.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-1">
+                        <label asp-for="Habit.Measurement" class="control-label"></label>
+                        <input type="text" id="input-measurement_update" asp-for="Habit.Measurement" class="form-control" />
+                        <span asp-validation-for="Habit.Measurement" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3 mt-1">
+                        <label asp-for="Habit.Icon" class="control-label"></label>                       
+                        <div class="row m-2">
+                            @foreach (var icon in Model.Icons)
+                            {
+                                <div class="col-2  p-1">
+                                    <input asp-for="Habit.Icon" type="radio" value="@icon" id="@(icon.Replace(".svg",""))_update" class="btn-check" />
+                                    <label class="btn border border-dark border-4 d-block w-100 h-100 p-2" for="@(icon.Replace(".svg",""))_update">
+                                        <img src="~/img/ActivityIcons/@icon" class="img-fluid w-100 h-100" />
+                                    </label>
+                                </div>
+                            }
+                        </div> 
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn orange" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
