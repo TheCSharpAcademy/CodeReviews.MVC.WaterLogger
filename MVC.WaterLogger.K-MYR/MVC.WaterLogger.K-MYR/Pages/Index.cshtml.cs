@@ -81,7 +81,6 @@ namespace MVC.WaterLogger.K_MYR.Pages
             using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
             await connection.ExecuteAsync(sql, Habit);
-            _logger.LogCritical("{0}{1}{2}{3}", Habit.Id, Habit.Icon, Habit.Measurement, Habit.Name);
 
             return RedirectToPage("Index");
         }

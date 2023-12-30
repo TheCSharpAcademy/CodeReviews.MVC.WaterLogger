@@ -15,32 +15,32 @@
 function openDeleteHabitModal(id, name) {
     $('#deleteHabitLabel').text('Delete ' + name );
     $('#deleteConfirmationMessage').text('Are you sure you want to delete "' + name + '"? All records will be deleted permanently!');    
-    $('#deleteForm #input-id_delete').val(id);
+    $('#input-id_delete').val(id);
     $('#delete-habit').modal('show');
 }
 
 function openUpdateHabitModal(id, name, icon, measurement) {   
     
-    $('#update-habit #' + icon.replace(".svg", "") + "_update").prop('checked', true);
-    $('#update-habit #input-name_update').val(name);
-    $('#update-habit #input-measurement_update').val(measurement);
-    $('#updateForm #input-id_update').val(id);  
+    $('#' + icon.replace(".svg", "") + "_update").prop('checked', true);
+    $('#input-name_update').val(name);
+    $('#input-measurement_update').val(measurement);
+    $('#input-id_update').val(id);  
     $('#updateHabitLabel').text('Edit ' + name);  
     $('#update-habit').modal('show');
 }
 
 function openDeleteRecordModal(id, date) {
-    $('#deleteHabitLabel').text('Delete ' + date);
-    $('#deleteConfirmationMessage').text('Are you sure you want to delete the records from"' + date + '"?');
-    $('#deleteRecordForm #input-id_delete').val(id);
-    $('#delete-habit').modal('show');
+    $('#deleteRecordLabel').text('Delete ' + date);
+    $('#deleteConfirmationMessage').text('Are you sure you want to delete the record of the"' + date + '"?');
+    $('#input-id_deleteRecord').val(id);
+    $('#deleteRecord').modal('show');
 }
 
-function openUpdateRecordModal(id, date, quantity) {
+function openUpdateRecordModal(id, date, dateValue, quantity) {
         
-    $('#update-record #input-date_update').val(date);
-    $('#update-record #input-quantity_update').val(quantity);
-    $('#updateForm #input-id_update').val(id);
+    $('#input-date_updateRecord').val(dateValue);
+    $('#input-quantity_updateRecord').val(quantity);
+    $('#input-id_updateRecord').val(id);
     $('#updateRecordLabel').text('Edit ' + date);
-    $('#update-record').modal('show');
+    $('#updateRecord').modal('show');
 }

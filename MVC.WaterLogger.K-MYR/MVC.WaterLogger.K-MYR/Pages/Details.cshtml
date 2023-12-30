@@ -35,15 +35,18 @@
                 {
                     <tr class="text-center">
                         <th scope="row">@(i+1)</th>
-                        <td>@Model.Records[i].Date</td>
+                        <td>@Model.Records[i].Date.ToString("dd/MM/yyyy")</td>
                         <td>@Model.Records[i].Quantity</td>
                         <td class="px-0">
-                            <button class="transparent-btn" type="button" onclick="openEditRecordModal('@Model.Records[i].Id', '@Model.Records[i].Date')">
+                            <button class="transparent-btn" type="button" onclick="openUpdateRecordModal('@Model.Records[i].Id', 
+                                                                                                         '@Model.Records[i].Date.ToShortDateString()', 
+                                                                                                         '@Model.Records[i].Date.ToString("yyyy-MM-dd")', 
+                                                                                                         '@Model.Records[i].Quantity')">
                                 <img class="img-fluid" src="/img/pencil_white.svg" alt="editRecord" />
                             </button>
                         </td>
                         <td class="px-0">
-                            <button class="transparent-btn" type="button" onclick="openDeleteRecordModal('@Model.Records[i].Id', '@Model.Records[i].Date')">
+                            <button class="transparent-btn" type="button" onclick="openDeleteRecordModal('@Model.Records[i].Id', '@Model.Records[i].Date.ToShortDateString()')">
                                 <img class="img-fluid" src="/img/trash_white.svg" alt="deleteRecord" />
                             </button>                            
                         </td>
@@ -83,6 +86,34 @@
     </div>
 </div>
 
+<div class="modal fade" id="updateRecord" tabindex="-1" aria-labelledby="updateRecordLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-truncate" id="updateRecordLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateRecordForm" method="post" asp-page-handler="UpdateRecord">
+                    <input type="hidden" id="input-id_updateRecord" asp-for="Record.Id"/>
+                    <div class="form-group">
+                        <label asp-for="Record.Date" class="control-label"></label>
+                        <input id="input-date_updateRecord" type="date" asp-for="Record.Date" class="form-control" />
+                        <span asp-validation-for="Record.Date" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-1 mb-3">
+                        <label asp-for="Record.Quantity" class="control-label"></label>
+                        <input id="input-quantity_updateRecord" type="text" asp-for="Record.Quantity" class="form-control" />
+                        <span asp-validation-for="Record.Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Edit" class="btn orange" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

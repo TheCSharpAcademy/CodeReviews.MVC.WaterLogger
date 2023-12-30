@@ -43,6 +43,17 @@ namespace MVC.WaterLogger.K_MYR.Pages
             return RedirectToPage();
         }
 
+        public async Task<IActionResult> OnPostDeleteRecord()
+        {
+            var sql = "DELETE FROM Records WHERE Id = @Id";
+
+            using SQLiteConnection connection = new (_configuration.GetConnectionString("ConnectionString"));
+
+            await connection.ExecuteAsync(sql, Record);
+
+            return RedirectToPage();
+        }
+
         private async Task<HabitModel> GetHabit(int id)
         {
             var sql = "SELECT * FROM Habits WHERE Id = @id";
