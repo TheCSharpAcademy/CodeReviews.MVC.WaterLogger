@@ -45,48 +45,58 @@ namespace MVC.WaterLogger.K_MYR.Pages
         public async Task<IActionResult> OnGet()
         {
             Habits = (await GetAllRecords()).Distinct().ToList();
-            
+
             return Page();
-        }        
+        }
 
         [BindProperty]
-        public HabitModel Habit { get; set; }       
+        public HabitModel Habit { get; set; }
 
         public async Task<IActionResult> OnPostInsertHabit()
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage();
+            }
+
             var sql = "INSERT INTO Habits (Name, Measurement, Icon) VALUES (@Name, @Measurement, @Icon)";
 
             using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
             await connection.ExecuteAsync(sql, Habit);
 
-            return RedirectToPage("Index");
+            return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostDeleteHabit() 
+        public async Task<IActionResult> OnPostDeleteHabit()
         {
             var sql = "DELETE FROM Habits Where Id = @Id";
 
             using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
-            await connection.ExecuteAsync(sql, new { Habit.Id});           
+            await connection.ExecuteAsync(sql, new { Habit.Id });
 
-            return RedirectToPage("Index");
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostUpdateHabit()
         {
+            if (!ModelState.IsValid)
+            {                          
+                return RedirectToPage();
+            }
+
             var sql = "UPDATE Habits SET Name = @Name, Measurement = @Measurement, Icon = @Icon WHERE Id = @Id";
 
             using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
             await connection.ExecuteAsync(sql, Habit);
 
-            return RedirectToPage("Index");
+            return RedirectToPage();
         }
 
         private async Task<IEnumerable<HabitModel>> GetAllRecords()
-        {            
+        {
             var sql = @"SELECT h.Id, h.Name, h.Measurement, h.Icon, r.Id, r.Date, r.Quantity 
                         FROM Habits h 
                         LEFT JOIN Records r ON h.Id = r.HabitId AND r.Date >= @StartDate";
@@ -108,7 +118,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
                     {
                         habitModel.Records.Add(record);
                     }
-    
+
                     return habitModel;
                 },
                 new { StartDate = DateTime.Now.AddDays(-6) });

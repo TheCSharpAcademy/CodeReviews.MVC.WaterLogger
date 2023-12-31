@@ -34,6 +34,11 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
         public async Task<IActionResult> OnPostInsertRecord()
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage();
+            }
+
             var sql = "INSERT INTO Records (Date, Quantity, HabitId) VALUES (@Date, @Quantity, @HabitId)";
 
             using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
@@ -45,6 +50,11 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
          public async Task<IActionResult> OnPostDeleteRecord()
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage();
+            }
+
             var sql = "DELETE FROM Records WHERE Id = @Id";
 
             using SQLiteConnection connection = new (_configuration.GetConnectionString("ConnectionString"));
@@ -55,7 +65,12 @@ namespace MVC.WaterLogger.K_MYR.Pages
         }
 
         public async Task<IActionResult> OnPostUpdateRecord()
-        {            
+        {       
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage();
+            }
+
             var sql = "UPDATE Records SET Date = @Date, Quantity = @Quantity WHERE Id = @Id";
 
             using SQLiteConnection connection = new (_configuration.GetConnectionString("ConnectionString"));
