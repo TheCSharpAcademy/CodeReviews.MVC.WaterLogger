@@ -7,14 +7,14 @@
 <div class="container d-flex justify-content-center align-items-center px-3 messageContainer">
     @if(!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
     {
-        <div id="successMessage" class="d-block flex-grow-1 mx-auto alert alert-success fade show px-0 text-center" role="alert">
-            @TempData["SuccessMessage"]
+        <div id="successMessage" class="alert alert-success fade show px-5 py-2 text-center" role="alert">
+            <strong>@TempData["successMessage"] </strong>                
         </div>
     }
     else if(!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
     {
-        <div id="errorMessage" class="d-block mx-auto alert alert-danger fade show px-0" role="alert">
-            @TempData["errorMessage"]
+        <div id="errorMessage" class="alert alert-danger fade show px-5 py-2 text-center" role="alert">
+            <strong>@TempData["errorMessage"] </strong>       
         </div>
     }
 </div>

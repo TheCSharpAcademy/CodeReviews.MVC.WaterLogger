@@ -48,6 +48,6 @@ function openUpdateRecordModal(id, date, dateValue, quantity) {
 $(document).ready(function() {
     setTimeout(function() {
         $("#successMessage").alert("close");
-        $("#errorMessage").alert("close")}, 3000);
+        $("#errorMessage").alert("close")}, 2500);
 });
 
