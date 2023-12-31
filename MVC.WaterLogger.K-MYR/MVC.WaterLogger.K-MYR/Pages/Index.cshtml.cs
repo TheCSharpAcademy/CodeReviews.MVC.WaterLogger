@@ -10,10 +10,10 @@ namespace MVC.WaterLogger.K_MYR.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-
         private readonly IConfiguration _configuration;
-
-        public List<HabitModel> Habits { get; set; }
+        [TempData]
+        public string? SuccessMessage { get; set; }
+        public List<HabitModel> Habits { get; set; } = [];
         public List<string> Icons { get; } =
         [
             "activity.svg",
@@ -35,7 +35,8 @@ namespace MVC.WaterLogger.K_MYR.Pages
             "water-glass-3.svg",
             "workspace-desk-1.svg"
         ];
-
+       
+       
         public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration)
         {
             _logger = logger;
@@ -44,58 +45,106 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            Habits = (await GetAllRecords()).Distinct().ToList();
+            Habits = (await GetHabits()).Distinct().ToList() ?? [];
 
             return Page();
         }
 
         [BindProperty]
-        public HabitModel Habit { get; set; }
+        public HabitModel? Habit { get; set; }
 
         public async Task<IActionResult> OnPostInsertHabit()
         {
             if (!ModelState.IsValid)
-            {
+            {         
+                TempData["ErrorMessage"] = "Habit couldn't be added!";         
                 return RedirectToPage();
             }
 
-            var sql = "INSERT INTO Habits (Name, Measurement, Icon) VALUES (@Name, @Measurement, @Icon)";
+            try
+            {
+                var sql = "INSERT INTO Habits (Name, Measurement, Icon) VALUES (@Name, @Measurement, @Icon)";
 
-            using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
+                using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
-            await connection.ExecuteAsync(sql, Habit);
+                var affectedRows = connection.ExecuteAsync(sql, Habit);
 
+                if(await affectedRows == 1)
+                    TempData["SuccessMessage"] = "Habit was added successfully!";
+                else                
+                    TempData["ErrorMessage"] = "Habit couldn't be added!";            
+            }
+
+            catch 
+            {
+                TempData["ErrorMessage"] = "Habit couldn't be added!";
+            }
+            
             return RedirectToPage();
+                        
         }
 
         public async Task<IActionResult> OnPostDeleteHabit()
         {
-            var sql = "DELETE FROM Habits Where Id = @Id";
+            if(Habit is null || !await HabitWithIdExists(Habit.Id))
+            {
+                TempData["ErrorMessage"] = "Habit couldn't be deleted!";
+                return RedirectToPage();                
+            }
 
-            using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
+            try
+            {                                              
+                var sql = "DELETE FROM Habits Where Id = @Id";
 
-            await connection.ExecuteAsync(sql, new { Habit.Id });
+                using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
+
+                var affectedRows = connection.ExecuteAsync(sql, new { Habit.Id });
+
+                if(await affectedRows == 1)
+                    TempData["SuccessMessage"] = "Habit was deleted successfully!";
+                else                
+                    TempData["ErrorMessage"] = "Habit couldn't be deleted!";            
+            }
+
+            catch 
+            {
+                TempData["ErrorMessage"] = "Habit couldn't be deleted!";
+            }
 
             return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostUpdateHabit()
         {
-            if (!ModelState.IsValid)
-            {                          
+            if (!ModelState.IsValid || !await HabitWithIdExists(Habit!.Id))
+            {
+                TempData["ErrorMessage"] = "Habit couldn't be updated!";                                   
                 return RedirectToPage();
+            } 
+
+            try
+            {   
+                var sql = "UPDATE Habits SET Name = @Name, Measurement = @Measurement, Icon = @Icon WHERE Id = @Id";
+
+                using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
+
+                var affectedRows = connection.ExecuteAsync(sql, Habit);
+
+                if(await affectedRows == 1)
+                    TempData["SuccessMessage"] = "Habit was updated successfully!";
+                else                
+                    TempData["ErrorMessage"] = "Habit couldn't be updated!";            
             }
 
-            var sql = "UPDATE Habits SET Name = @Name, Measurement = @Measurement, Icon = @Icon WHERE Id = @Id";
-
-            using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
-
-            await connection.ExecuteAsync(sql, Habit);
+            catch 
+            {
+                TempData["ErrorMessage"] = "Habit couldn't be updated!";
+            }
 
             return RedirectToPage();
         }
 
-        private async Task<IEnumerable<HabitModel>> GetAllRecords()
+        private async Task<IEnumerable<HabitModel>> GetHabits()
         {
             var sql = @"SELECT h.Id, h.Name, h.Measurement, h.Icon, r.Id, r.Date, r.Quantity 
                         FROM Habits h 
@@ -122,6 +171,15 @@ namespace MVC.WaterLogger.K_MYR.Pages
                     return habitModel;
                 },
                 new { StartDate = DateTime.Now.AddDays(-6) });
+        }
+   
+        private async Task<bool> HabitWithIdExists(int id)
+        {
+             var sql = "SELECT 1 FROM Habits WHERE Id = @id";
+
+            using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
+
+            return (await connection.QuerySingleOrDefaultAsync<HabitModel>(sql, new { id })) is not null;
         }
     }
 }

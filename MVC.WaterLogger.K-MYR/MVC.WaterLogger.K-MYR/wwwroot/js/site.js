@@ -44,3 +44,10 @@ function openUpdateRecordModal(id, date, dateValue, quantity) {
     $('#updateRecordLabel').text('Edit ' + date);
     $('#updateRecord').modal('show');
 }
+
+$(document).ready(function() {
+    setTimeout(function() {
+        $("#successMessage").alert("close");
+        $("#errorMessage").alert("close")}, 3000);
+});
+

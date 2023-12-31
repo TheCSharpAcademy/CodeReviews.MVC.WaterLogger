@@ -1,8 +1,23 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Habiz";
 }
+
+<div class="container d-flex justify-content-center align-items-center px-3 messageContainer">
+    @if(!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+    {
+        <div id="successMessage" class="d-block flex-grow-1 mx-auto alert alert-success fade show px-0 text-center" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    else if(!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+    {
+        <div id="errorMessage" class="d-block mx-auto alert alert-danger fade show px-0" role="alert">
+            @TempData["errorMessage"]
+        </div>
+    }
+</div>
 
 <section class="black text-light py-3 py-lg-5 mt-1 mt-sm-2 text-center text-sm-start rounded-3">
     <div class="container">
@@ -79,22 +94,22 @@
             <div class="modal-body">
                 <form id="insertForm" method="post" asp-page-handler="InsertHabit">
                     <div class="form-group">
-                        <label asp-for="Habit.Name" class="control-label"></label>
-                        <input type="text" asp-for="Habit.Name" class="form-control" />
-                        <span asp-validation-for="Habit.Name" class="text-danger"></span>
+                        <label asp-for="Habit!.Name" class="control-label"></label>
+                        <input type="text" asp-for="Habit!.Name" class="form-control" />
+                        <span asp-validation-for="Habit!.Name" class="text-danger"></span>
                     </div>
                     <div class="form-group mt-1">
-                        <label asp-for="Habit.Measurement" class="control-label"></label>
-                        <input type="text" asp-for="Habit.Measurement" class="form-control" placeholder="e.g. Hours, Kms, Glasses" />
-                        <span asp-validation-for="Habit.Measurement" class="text-danger"></span>
+                        <label asp-for="Habit!.Measurement" class="control-label"></label>
+                        <input type="text" asp-for="Habit!.Measurement" class="form-control" placeholder="e.g. Hours, Kms, Glasses" />
+                        <span asp-validation-for="Habit!.Measurement" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3 mt-1">
-                        <label asp-for="Habit.Icon" class="control-label"></label>
+                        <label asp-for="Habit!.Icon" class="control-label"></label>
                         <div class="row m-2">
                             @foreach (var icon in Model.Icons)
                             {
                                 <div class="col-2  p-1">
-                                    <input asp-for="Habit.Icon" type="radio" value="@icon" id="@(icon.Replace(".svg",""))_add" class="btn-check" />
+                                    <input asp-for="Habit!.Icon" type="radio" value="@icon" id="@(icon.Replace(".svg",""))_add" class="btn-check" />
                                     <label class="btn border border-dark border-4 d-block w-100 h-100 p-2" for="@(icon.Replace(".svg",""))_add">
                                         <img src="~/img/ActivityIcons/@icon" class="img-fluid w-100 h-100" />
                                     </label>
@@ -122,7 +137,7 @@
                 <p id="deleteConfirmationMessage"></p>
             </div>
             <form id="deleteForm" method="post" asp-page-handler="DeleteHabit">
-                <input type="hidden" id="input-id_delete" asp-for="Habit.Id" />
+                <input type="hidden" id="input-id_delete" asp-for="Habit!.Id" />
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -141,24 +156,24 @@
             </div>
             <div class="modal-body">
                 <form id="updateForm" method="post" asp-page-handler="UpdateHabit">
-                    <input type="hidden" id="input-id_update" asp-for="Habit.Id" />
+                    <input type="hidden" id="input-id_update" asp-for="Habit!.Id" />
                     <div class="form-group">
-                        <label asp-for="Habit.Name" class="control-label"></label>
-                        <input type="text" id="input-name_update" asp-for="Habit.Name" class="form-control" />
-                        <span asp-validation-for="Habit.Name" class="text-danger"></span>
+                        <label asp-for="Habit!.Name" class="control-label"></label>
+                        <input type="text" id="input-name_update" asp-for="Habit!.Name" class="form-control" />
+                        <span asp-validation-for="Habit!.Name" class="text-danger"></span>
                     </div>
                     <div class="form-group mt-1">
-                        <label asp-for="Habit.Measurement" class="control-label"></label>
-                        <input type="text" id="input-measurement_update" asp-for="Habit.Measurement" class="form-control" />
-                        <span asp-validation-for="Habit.Measurement" class="text-danger"></span>
+                        <label asp-for="Habit!.Measurement" class="control-label"></label>
+                        <input type="text" id="input-measurement_update" asp-for="Habit!.Measurement" class="form-control" />
+                        <span asp-validation-for="Habit!.Measurement" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3 mt-1">
-                        <label asp-for="Habit.Icon" class="control-label"></label>                       
+                        <label asp-for="Habit!.Icon" class="control-label"></label>                       
                         <div class="row m-2">
                             @foreach (var icon in Model.Icons)
                             {
                                 <div class="col-2  p-1">
-                                    <input asp-for="Habit.Icon" type="radio" value="@icon" id="@(icon.Replace(".svg",""))_update" class="btn-check" />
+                                    <input asp-for="Habit!.Icon" type="radio" value="@icon" id="@(icon.Replace(".svg",""))_update" class="btn-check" />
                                     <label class="btn border border-dark border-4 d-block w-100 h-100 p-2" for="@(icon.Replace(".svg",""))_update">
                                         <img src="~/img/ActivityIcons/@icon" class="img-fluid w-100 h-100" />
                                     </label>

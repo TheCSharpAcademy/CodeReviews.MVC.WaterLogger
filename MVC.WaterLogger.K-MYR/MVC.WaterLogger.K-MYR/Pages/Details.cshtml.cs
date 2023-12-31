@@ -9,11 +9,10 @@ namespace MVC.WaterLogger.K_MYR.Pages
     public class DetailsModel : PageModel
     {
         private readonly ILogger<DetailsModel> _logger;
-
         private readonly IConfiguration _configuration;
 
-        public HabitModel HabitModel { get; set; }
-        public List<RecordModel> Records { get; set; }        
+        public HabitModel? HabitModel { get; set; }
+        public List<RecordModel> Records { get; set; } = [];     
 
         public DetailsModel(ILogger<DetailsModel> logger, IConfiguration configuration)
         {
@@ -24,13 +23,17 @@ namespace MVC.WaterLogger.K_MYR.Pages
         public async Task<IActionResult> OnGet(int id)
         {
             HabitModel = await GetHabit(id);
+
+            if(HabitModel is null)
+                return NotFound();
+
             Records = [.. (await GetRecords(id)).OrderByDescending(x => x.Date)];
 
             return Page();
         }
 
         [BindProperty]
-        public RecordModel Record { get; set; }
+        public RecordModel? Record { get; set; }
 
         public async Task<IActionResult> OnPostInsertRecord()
         {
@@ -80,13 +83,13 @@ namespace MVC.WaterLogger.K_MYR.Pages
             return RedirectToPage();
         }
 
-        private async Task<HabitModel> GetHabit(int id)
+        private async Task<HabitModel?> GetHabit(int id)
         {
             var sql = "SELECT * FROM Habits WHERE Id = @id";
 
             using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
-            return await connection.QuerySingleAsync<HabitModel>(sql, new { id });
+            return await connection.QuerySingleOrDefaultAsync<HabitModel>(sql, new { id });
         }
 
         private async Task<IEnumerable<RecordModel>> GetRecords(int id)
