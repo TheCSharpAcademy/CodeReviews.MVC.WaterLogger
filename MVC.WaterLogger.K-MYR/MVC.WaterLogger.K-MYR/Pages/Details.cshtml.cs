@@ -24,7 +24,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
         public async Task<IActionResult> OnGet(int id)
         {
             HabitModel = await GetHabit(id);
-            Records = (await GetRecords(id)).ToList();
+            Records = [.. (await GetRecords(id)).OrderByDescending(x => x.Date)];
 
             return Page();
         }
@@ -43,9 +43,20 @@ namespace MVC.WaterLogger.K_MYR.Pages
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostDeleteRecord()
+         public async Task<IActionResult> OnPostDeleteRecord()
         {
             var sql = "DELETE FROM Records WHERE Id = @Id";
+
+            using SQLiteConnection connection = new (_configuration.GetConnectionString("ConnectionString"));
+
+            await connection.ExecuteAsync(sql, Record);
+
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostUpdateRecord()
+        {            
+            var sql = "UPDATE Records SET Date = @Date, Quantity = @Quantity WHERE Id = @Id";
 
             using SQLiteConnection connection = new (_configuration.GetConnectionString("ConnectionString"));
 

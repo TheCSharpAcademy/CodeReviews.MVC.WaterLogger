@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public string Measurement { get; set; }
         public string Icon { get; set; }
+        public ICollection<RecordModel> Records { get; set; } = new List<RecordModel>();
     }
 }

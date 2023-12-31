@@ -44,8 +44,8 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            Habits = (await GetAllRecords()).ToList();
-
+            Habits = (await GetAllRecords()).Distinct().ToList();
+            
             return Page();
         }        
 
@@ -85,14 +85,33 @@ namespace MVC.WaterLogger.K_MYR.Pages
             return RedirectToPage("Index");
         }
 
-
         private async Task<IEnumerable<HabitModel>> GetAllRecords()
-        {
-            var sql = "SELECT * FROM Habits";
+        {            
+            var sql = @"SELECT h.Id, h.Name, h.Measurement, h.Icon, r.Id, r.Date, r.Quantity 
+                        FROM Habits h 
+                        LEFT JOIN Records r ON h.Id = r.HabitId AND r.Date >= @StartDate";
+
+            var habitDictionary = new Dictionary<int, HabitModel>();
 
             using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
-             return await connection.QueryAsync<HabitModel>(sql);
+            return await connection.QueryAsync<HabitModel, RecordModel, HabitModel>(
+                sql, (habit, record) =>
+                {
+                    if (!habitDictionary.TryGetValue(habit.Id, out HabitModel? habitModel))
+                    {
+                        habitModel = habit;
+                        habitDictionary.Add(habit.Id, habitModel);
+                    }
+
+                    if (record != null)
+                    {
+                        habitModel.Records.Add(record);
+                    }
+    
+                    return habitModel;
+                },
+                new { StartDate = DateTime.Now.AddDays(-6) });
         }
     }
 }
