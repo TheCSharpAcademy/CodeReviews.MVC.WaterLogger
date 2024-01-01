@@ -8,11 +8,8 @@ using System.Data.SQLite;
 namespace MVC.WaterLogger.K_MYR.Pages
 {
     public class IndexModel : PageModel
-    {
-        private readonly ILogger<IndexModel> _logger;
-        private readonly IConfiguration _configuration;
-        [TempData]
-        public string? SuccessMessage { get; set; }
+    {       
+        private readonly IConfiguration _configuration;       
         public List<HabitModel> Habits { get; set; } = [];
         public List<string> Icons { get; } =
         [
@@ -38,14 +35,13 @@ namespace MVC.WaterLogger.K_MYR.Pages
        
        
         public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration)
-        {
-            _logger = logger;
+        {            
             _configuration = configuration;
         }
 
         public async Task<IActionResult> OnGet()
         {
-            Habits = (await GetHabits()).Distinct().ToList() ?? [];
+            Habits = (await GetHabits()).Distinct().ToList();
 
             return Page();
         }
@@ -55,7 +51,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
         public async Task<IActionResult> OnPostInsertHabit()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || !Icons.Contains(Habit!.Icon!))
             {         
                 TempData["ErrorMessage"] = "Habit couldn't be added!";         
                 return RedirectToPage();
@@ -77,7 +73,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
             catch 
             {
-                TempData["ErrorMessage"] = "Habit couldn't be added!";
+                TempData["ErrorMessage"] = "An error occurred while attempting to insert data into the database!";
             }
             
             return RedirectToPage();
@@ -108,7 +104,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
             catch 
             {
-                TempData["ErrorMessage"] = "Habit couldn't be deleted!";
+                TempData["ErrorMessage"] = "An error occurred while attempting to delete data from the database!";
             }
 
             return RedirectToPage();
@@ -138,7 +134,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
             catch 
             {
-                TempData["ErrorMessage"] = "Habit couldn't be updated!";
+                TempData["ErrorMessage"] = "An error occurred while attempting to insert data into the database!";
             }
 
             return RedirectToPage();
@@ -146,40 +142,59 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
         private async Task<IEnumerable<HabitModel>> GetHabits()
         {
-            var sql = @"SELECT h.Id, h.Name, h.Measurement, h.Icon, r.Id, r.Date, r.Quantity 
+            try
+            {
+                var sql = @"SELECT h.Id, h.Name, h.Measurement, h.Icon, r.Id, r.Date, r.Quantity 
                         FROM Habits h 
                         LEFT JOIN Records r ON h.Id = r.HabitId AND r.Date >= @StartDate";
 
-            var habitDictionary = new Dictionary<int, HabitModel>();
+                var habitDictionary = new Dictionary<int, HabitModel>();
 
-            using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
+                using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
-            return await connection.QueryAsync<HabitModel, RecordModel, HabitModel>(
-                sql, (habit, record) =>
-                {
-                    if (!habitDictionary.TryGetValue(habit.Id, out HabitModel? habitModel))
+                return await connection.QueryAsync<HabitModel, RecordModel, HabitModel>(
+                    sql, (habit, record) =>
                     {
-                        habitModel = habit;
-                        habitDictionary.Add(habit.Id, habitModel);
-                    }
+                        if (!habitDictionary.TryGetValue(habit.Id, out HabitModel? habitModel))
+                        {
+                            habitModel = habit;
+                            habitDictionary.Add(habit.Id, habitModel);
+                        }
 
-                    if (record != null)
-                    {
-                        habitModel.Records.Add(record);
-                    }
+                        if (record != null)
+                        {
+                            habitModel.Records.Add(record);
+                        }
 
-                    return habitModel;
-                },
-                new { StartDate = DateTime.Now.AddDays(-6) });
+                        return habitModel;
+                    },
+                    new { StartDate = DateTime.Now.AddDays(-6) });
+            }
+
+            catch
+            {
+                TempData["ErrorMessage"] = "An error occurred while attempting to retrieve data from the database!";
+                return [];
+            }            
         }
    
         private async Task<bool> HabitWithIdExists(int id)
         {
-             var sql = "SELECT 1 FROM Habits WHERE Id = @id";
+            try 
+            {
+                     var sql = "SELECT 1 FROM Habits WHERE Id = @id";
 
-            using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
+                using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
-            return (await connection.QuerySingleOrDefaultAsync<HabitModel>(sql, new { id })) is not null;
+                return (await connection.QuerySingleOrDefaultAsync<HabitModel>(sql, new { id })) is not null;
+            }
+
+            catch
+            {
+                TempData["ErrorMessage"] = "An error occurred while attempting to retrieve data from the database!";
+                return false;
+            }
+       
         }
     }
 }

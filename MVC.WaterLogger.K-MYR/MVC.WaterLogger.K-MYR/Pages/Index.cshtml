@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Habiz";
+    ViewData["Title"] = "Home";
 }
 
 <div class="container d-flex justify-content-center align-items-center px-3 messageContainer">
@@ -179,7 +179,8 @@
                                     </label>
                                 </div>
                             }
-                        </div> 
+                        </div>
+                        <span asp-validation-for="Habit!.Icon" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Update" class="btn orange" />
@@ -193,5 +194,3 @@
 @section scripts{
     <partial name="_ValidationScriptsPartial" />
 }
-
-

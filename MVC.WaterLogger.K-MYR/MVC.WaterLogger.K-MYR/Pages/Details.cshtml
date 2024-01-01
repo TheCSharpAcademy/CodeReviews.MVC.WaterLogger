@@ -1,21 +1,31 @@
 ﻿@page "{id:int}"
 @model MVC.WaterLogger.K_MYR.Pages.DetailsModel
 @{
+    ViewData["Title"] = Model.HabitModel!.Name;
 }
+
+<div class="container d-flex justify-content-center align-items-center px-3 messageContainer">
+    @if(!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+    {
+        <div id="successMessage" class="alert alert-success fade show px-5 py-2 text-center" role="alert">
+            <strong>@TempData["successMessage"] </strong>                
+        </div>
+    }
+    else if(!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+    {
+        <div id="errorMessage" class="alert alert-danger fade show px-5 py-2 text-center" role="alert">
+            <strong>@TempData["errorMessage"] </strong>       
+        </div>
+    }
+</div>
 
 <section class="mt-1 mt-sm-2">
     <div class="container black rounded-3 py-2">
         <div class="d-flex">
-            <div class="h5 orangetext mx-5 my-2">@Model.HabitModel!.Name</div>
-
+            <div class="h5 orangetext mx-5 my-2 text-truncate">@Model.HabitModel!.Name</div>
             <button class="ms-auto details-button" type="button" data-bs-toggle="modal" data-bs-target="#addRecord">Add Record</button>
-        </div>
-        <div>
-
-        </div>
-
+        </div>   
     </div>
-
 </section>
 
 <section class="mt-1 mt-sm-2 text-white">
@@ -25,7 +35,7 @@
                 <tr class="text-center">
                     <th scope="col">#</th>
                     <th scope="col">Date</th>
-                    <th scope="col">@Model.HabitModel.Measurement</th>
+                    <th scope="col text-truncate">@Model.HabitModel.Measurement</th>
                     <th class="px-0" style="width: 30px;" scope="col"></th>
                     <th class="px-0" style="width: 30px;" scope="col"></th>
                 </tr>
@@ -35,8 +45,8 @@
                 {
                     <tr class="text-center">
                         <th scope="row">@(i+1)</th>
-                        <td>@Model.Records[i].Date.ToString("dd/MM/yyyy")</td>
-                        <td>@Model.Records[i].Quantity</td>
+                        <td class="text-truncate">@Model.Records[i].Date.ToString("dd/MM/yyyy")</td>
+                        <td class="text-truncate">@Model.Records[i].Quantity</td>
                         <td class="px-0">
                             <button class="transparent-btn" type="button" onclick="openUpdateRecordModal('@Model.Records[i].Id', 
                                                                                                          '@Model.Records[i].Date.ToShortDateString()', 

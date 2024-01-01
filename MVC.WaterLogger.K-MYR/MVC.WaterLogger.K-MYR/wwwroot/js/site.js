@@ -7,8 +7,6 @@
             }            
         });
     });
-
-
     $('#activity_add').attr('checked', true);
 });
 
@@ -50,4 +48,3 @@ $(document).ready(function() {
         $("#successMessage").alert("close");
         $("#errorMessage").alert("close")}, 2500);
 });
-
