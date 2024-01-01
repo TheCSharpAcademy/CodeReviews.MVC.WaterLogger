@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterLogger.Speedierone", "WaterLogger.Speedierone\WaterLogger.Speedierone.csproj", "{B8B91C66-C0CF-4467-A313-EECF95AAABD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8B91C66-C0CF-4467-A313-EECF95AAABD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B91C66-C0CF-4467-A313-EECF95AAABD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B91C66-C0CF-4467-A313-EECF95AAABD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B91C66-C0CF-4467-A313-EECF95AAABD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {430BE37C-DF25-4684-8F12-7E9510D1F8CB}
+	EndGlobalSection
+EndGlobal

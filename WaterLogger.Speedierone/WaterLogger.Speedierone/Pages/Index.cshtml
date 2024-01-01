@@ -1,0 +1,58 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<style>
+    .custom-button-color {
+        background-color: #8EF9F3;
+    }
+    .custom-button-color-2{
+        background-color: #FF8A5B;
+    }
+    .custom-header-color-1{
+        color: #2D3142;
+    }
+    .custom-table-color-1{
+        color: #1F01B9;
+    }
+</style>
+<a button type="button" class="btn custom-button-color" asp-area="" asp-page="/Create">
+    Add New Record
+</a>
+
+<table id="records" class="table">
+    <thead>
+        <tr>
+            <th class="custom-header-color-1">
+                @Html.DisplayNameFor(model => model.Movies[1].MovieName)
+            </th>
+            <th class="custom-header-color-1">
+                @Html.DisplayNameFor(model => model.Movies[2].MovieGenre)
+            </th>
+            <th class="custom-header-color-1">
+                @Html.DisplayNameFor(model => model.Movies[3].MovieWatchDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model.Movies)
+        {
+            <tr class="list-row">
+                <td class="custom-table-color-1">
+                    @Html.DisplayFor(modelItem => record.MovieName)
+                </td>
+                <td class="custom-table-color-1">
+                    @Html.DisplayFor(modelItem => record.MovieGenre)
+                </td>
+                <td class="custom-table-color-1">
+                    @Html.DisplayFor(modelItem => record.MovieWatchDate)
+                </td>
+                <td>
+                    <a button type="button" class="btn custom-button-color-2" asp-page="./Delete" asp-route-id="@record.Id">Delete</a>
+                    <a button type="button" class="btn custom-button-color-2" asp-page="./Update" asp-route-id="@record.Id">Update</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
