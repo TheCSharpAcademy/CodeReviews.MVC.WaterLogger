@@ -5,37 +5,43 @@
 }
 
 <div class="container d-flex justify-content-center align-items-center px-3 messageContainer">
-    @if(!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
     {
         <div id="successMessage" class="alert alert-success fade show px-5 py-2 text-center" role="alert">
-            <strong>@TempData["successMessage"] </strong>                
+            <strong>@TempData["successMessage"] </strong>
         </div>
     }
-    else if(!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+    else if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
     {
         <div id="errorMessage" class="alert alert-danger fade show px-5 py-2 text-center" role="alert">
-            <strong>@TempData["errorMessage"] </strong>       
+            <strong>@TempData["errorMessage"] </strong>
         </div>
     }
 </div>
 
 <section class="mt-1 mt-sm-2">
     <div class="container black rounded-3 py-2">
-        <div class="d-flex">
-            <div class="h5 orangetext mx-5 my-2 text-truncate">@Model.HabitModel!.Name</div>
-            <button class="ms-auto details-button" type="button" data-bs-toggle="modal" data-bs-target="#addRecord">Add Record</button>
-        </div>   
+        <div class="d-flex mx-5 my-2">
+            <div class="h5 orangetext fs-3 text-truncate">@Model.HabitModel!.Name</div>
+            <button class="ms-auto addRecord-btn" type="button" data-bs-toggle="modal" data-bs-target="#addRecord">Add Record</button>
+        </div>
+        <div class="d-flex mx-5 my-3 text-center">
+            <span class="col-md-3 text-white lead">Last 7 Days: <strong>@(Model.Records.Where(x => x.Date > DateTime.Now.Date.AddDays(-6)).Sum(x => x.Quantity))</strong></span>
+            <span class="col-md-3 text-white lead">Last 30 Days: <strong>@(Model.Records.Where(x => x.Date > DateTime.Now.Date.AddDays(-30)).Sum(x => x.Quantity))</strong></span>
+            <span class="col-md-3 text-white lead">Last 365 Days: <strong>@(Model.Records.Where(x => x.Date > DateTime.Now.Date.AddDays(-365)).Sum(x => x.Quantity))</strong></span>
+            <span class="col-md-3 text-white lead">Overall: <strong>@(Model.Records.Sum(x => x.Quantity))</strong></span>
+        </div>
     </div>
 </section>
 
 <section class="mt-1 mt-sm-2 text-white">
     <div class="container black rounded-3">
-        <table class="table table-borderless table-hover">
+        <table class="table table-borderless table-hover" id="records-table">
             <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
                     <th scope="col">Date</th>
-                    <th scope="col text-truncate">@Model.HabitModel.Measurement</th>
+                    <th class="text-truncate" scope="col">@Model.HabitModel.Measurement</th>
                     <th class="px-0" style="width: 30px;" scope="col"></th>
                     <th class="px-0" style="width: 30px;" scope="col"></th>
                 </tr>
@@ -44,13 +50,13 @@
                 @for (int i = 0; i < Model.Records.Count; i++)
                 {
                     <tr class="text-center">
-                        <th scope="row">@(i+1)</th>
+                        <th scope="row">@(i + 1)</th>
                         <td class="text-truncate">@Model.Records[i].Date.ToString("dd/MM/yyyy")</td>
                         <td class="text-truncate">@Model.Records[i].Quantity</td>
                         <td class="px-0">
-                            <button class="transparent-btn" type="button" onclick="openUpdateRecordModal('@Model.Records[i].Id', 
-                                                                                                         '@Model.Records[i].Date.ToShortDateString()', 
-                                                                                                         '@Model.Records[i].Date.ToString("yyyy-MM-dd")', 
+                            <button class="transparent-btn" type="button" onclick="openUpdateRecordModal('@Model.Records[i].Id',
+                                                                                                         '@Model.Records[i].Date.ToShortDateString()',
+                                                                                                         '@Model.Records[i].Date.ToString("yyyy-MM-dd")',
                                                                                                          '@Model.Records[i].Quantity')">
                                 <img class="img-fluid" src="/img/pencil_white.svg" alt="editRecord" />
                             </button>
@@ -58,7 +64,7 @@
                         <td class="px-0">
                             <button class="transparent-btn" type="button" onclick="openDeleteRecordModal('@Model.Records[i].Id', '@Model.Records[i].Date.ToShortDateString()')">
                                 <img class="img-fluid" src="/img/trash_white.svg" alt="deleteRecord" />
-                            </button>                            
+                            </button>
                         </td>
                     </tr>
                 }
@@ -105,7 +111,7 @@
             </div>
             <div class="modal-body">
                 <form id="updateRecordForm" method="post" asp-page-handler="UpdateRecord">
-                    <input type="hidden" id="input-id_updateRecord" asp-for="Record!.Id"/>
+                    <input type="hidden" id="input-id_updateRecord" asp-for="Record!.Id" />
                     <div class="form-group">
                         <label asp-for="Record!.Date" class="control-label"></label>
                         <input id="input-date_updateRecord" type="date" asp-for="Record!.Date" class="form-control" />
@@ -131,22 +137,21 @@
                 <h5 class="modal-title text-truncate" id="deleteRecordLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p id="deleteConfirmationMessage"></p>
+            <div class="modal-body py-4">
+                <p class="mb-0" id="deleteConfirmationMessage"></p>
             </div>
-            <div class="modal-body">
+            <div class="modal-footer py-1">
                 <form id="deleteRecordForm" method="post" asp-page-handler="DeleteRecord">
-                    <input type="hidden" id="input-id_deleteRecord" asp-for="Record!.Id"/>                   
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </div>
+                    <input type="hidden" id="input-id_deleteRecord" asp-for="Record!.Id" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-@section scripts{
+@section scripts {
+    <script src="~/js/details.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
 }

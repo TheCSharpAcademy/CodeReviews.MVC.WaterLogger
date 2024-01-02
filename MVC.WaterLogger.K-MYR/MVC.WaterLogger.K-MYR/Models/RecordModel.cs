@@ -4,13 +4,13 @@ namespace MVC.WaterLogger.K_MYR.Models
 {
     public class RecordModel
     {
-        public int Id { get; set; }  
-        [Required]      
+        public int Id { get; set; }
+        [Required]
         public DateTime Date { get; set; }
-        [Required]  
+        [Required]
         [Range(0, float.MaxValue, ErrorMessage = $"Please enter a value between 0 and ~3.4E+38!")]
-        public float Quantity { get; set; } 
-        [Required]      
+        public float Quantity { get; set; }
+        [Required]
         public int HabitId { get; set; }
     }
 }

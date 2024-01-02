@@ -7,14 +7,14 @@ using System.Data.SQLite;
 namespace MVC.WaterLogger.K_MYR.Pages
 {
     public class DetailsModel : PageModel
-    {       
+    {
         private readonly IConfiguration _configuration;
 
         public HabitModel? HabitModel { get; set; }
-        public List<RecordModel> Records { get; set; } = [];     
+        public List<RecordModel> Records { get; set; } = [];
 
-        public DetailsModel(ILogger<DetailsModel> logger, IConfiguration configuration)
-        {            
+        public DetailsModel(IConfiguration configuration)
+        {
             _configuration = configuration;
         }
 
@@ -22,7 +22,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
         {
             HabitModel = await GetHabit(id);
 
-            if(HabitModel is null)
+            if (HabitModel is null)
             {
                 TempData["ErrorMessage"] = "Habit couldn't be found!";
                 return RedirectToPage("Index");
@@ -39,8 +39,8 @@ namespace MVC.WaterLogger.K_MYR.Pages
         public async Task<IActionResult> OnPostInsertRecord()
         {
             if (!ModelState.IsValid)
-            {         
-                TempData["ErrorMessage"] = "Record couldn't be added!";         
+            {
+                TempData["ErrorMessage"] = "Record couldn't be added!";
                 return RedirectToPage();
             }
 
@@ -50,27 +50,27 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
                 using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
-                var affectedRows = connection.ExecuteAsync(sql, Record);            
+                var affectedRows = connection.ExecuteAsync(sql, Record);
 
-                if(await affectedRows == 1)
-                        TempData["SuccessMessage"] = "Record was added successfully!";
-                    else                
-                        TempData["ErrorMessage"] = "Record couldn't be added!";            
+                if (await affectedRows == 1)
+                    TempData["SuccessMessage"] = "Record was added successfully!";
+                else
+                    TempData["ErrorMessage"] = "Record couldn't be added!";
             }
 
-            catch 
+            catch
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to insert data into the database!";
             }
-            
+
             return RedirectToPage();
         }
 
-         public async Task<IActionResult> OnPostDeleteRecord()
+        public async Task<IActionResult> OnPostDeleteRecord()
         {
             if (!ModelState.IsValid)
-            {         
-                TempData["ErrorMessage"] = "Record couldn't be added!";         
+            {
+                TempData["ErrorMessage"] = "Record couldn't be added!";
                 return RedirectToPage();
             }
 
@@ -78,53 +78,53 @@ namespace MVC.WaterLogger.K_MYR.Pages
             {
                 var sql = "DELETE FROM Records WHERE Id = @Id";
 
-                using SQLiteConnection connection = new (_configuration.GetConnectionString("ConnectionString"));
+                using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
-                var affectedRows = connection.ExecuteAsync(sql, Record);            
+                var affectedRows = connection.ExecuteAsync(sql, Record);
 
-                if(await affectedRows == 1)
-                        TempData["SuccessMessage"] = "Record was deleted successfully!";
-                    else                
-                        TempData["ErrorMessage"] = "Record couldn't be deleted!";            
+                if (await affectedRows == 1)
+                    TempData["SuccessMessage"] = "Record was deleted successfully!";
+                else
+                    TempData["ErrorMessage"] = "Record couldn't be deleted!";
             }
 
-            catch 
+            catch
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to delete data from the database!";
             }
-            
+
             return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostUpdateRecord()
-        {       
+        {
             if (!ModelState.IsValid)
-            {         
-                TempData["ErrorMessage"] = "Record couldn't be updated!";         
+            {
+                TempData["ErrorMessage"] = "Record couldn't be updated!";
                 return RedirectToPage();
             }
 
             try
-            {  
+            {
                 var sql = "UPDATE Records SET Date = @Date, Quantity = @Quantity WHERE Id = @Id";
 
-                using SQLiteConnection connection = new (_configuration.GetConnectionString("ConnectionString"));
+                using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
                 var affectedRows = connection.ExecuteAsync(sql, Record);
 
-                if(await affectedRows == 1)
-                            TempData["SuccessMessage"] = "Record was updated successfully!";
-                        else                
-                            TempData["ErrorMessage"] = "Record couldn't be updated!";  
+                if (await affectedRows == 1)
+                    TempData["SuccessMessage"] = "Record was updated successfully!";
+                else
+                    TempData["ErrorMessage"] = "Record couldn't be updated!";
 
                 return RedirectToPage();
             }
 
-            catch 
+            catch
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to insert data into the database!";
             }
-            
+
             return RedirectToPage();
         }
 
@@ -132,7 +132,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
         {
             try
             {
-                  var sql = "SELECT * FROM Habits WHERE Id = @id";
+                var sql = "SELECT * FROM Habits WHERE Id = @id";
 
                 using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
@@ -143,7 +143,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to retrieve data from the database!";
                 return null;
-            }          
+            }
         }
 
         private async Task<IEnumerable<RecordModel>> GetRecords(int id)
@@ -157,7 +157,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
                 return await connection.QueryAsync<RecordModel>(sql, new { id });
             }
 
-            catch 
+            catch
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to retrieve data from the database!";
                 return [];
@@ -165,5 +165,5 @@ namespace MVC.WaterLogger.K_MYR.Pages
         }
     }
 }
-    
+
 

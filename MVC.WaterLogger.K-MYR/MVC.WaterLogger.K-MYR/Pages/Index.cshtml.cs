@@ -8,8 +8,8 @@ using System.Data.SQLite;
 namespace MVC.WaterLogger.K_MYR.Pages
 {
     public class IndexModel : PageModel
-    {       
-        private readonly IConfiguration _configuration;       
+    {
+        private readonly IConfiguration _configuration;
         public List<HabitModel> Habits { get; set; } = [];
         public List<string> Icons { get; } =
         [
@@ -32,10 +32,10 @@ namespace MVC.WaterLogger.K_MYR.Pages
             "water-glass-3.svg",
             "workspace-desk-1.svg"
         ];
-       
-       
-        public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration)
-        {            
+
+
+        public IndexModel(IConfiguration configuration)
+        {
             _configuration = configuration;
         }
 
@@ -52,8 +52,8 @@ namespace MVC.WaterLogger.K_MYR.Pages
         public async Task<IActionResult> OnPostInsertHabit()
         {
             if (!ModelState.IsValid || !Icons.Contains(Habit!.Icon!))
-            {         
-                TempData["ErrorMessage"] = "Habit couldn't be added!";         
+            {
+                TempData["ErrorMessage"] = "Habit couldn't be added!";
                 return RedirectToPage();
             }
 
@@ -65,44 +65,44 @@ namespace MVC.WaterLogger.K_MYR.Pages
 
                 var affectedRows = connection.ExecuteAsync(sql, Habit);
 
-                if(await affectedRows == 1)
+                if (await affectedRows == 1)
                     TempData["SuccessMessage"] = "Habit was added successfully!";
-                else                
-                    TempData["ErrorMessage"] = "Habit couldn't be added!";            
+                else
+                    TempData["ErrorMessage"] = "Habit couldn't be added!";
             }
 
-            catch 
+            catch
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to insert data into the database!";
             }
-            
+
             return RedirectToPage();
-                        
+
         }
 
         public async Task<IActionResult> OnPostDeleteHabit()
         {
-            if(Habit is null || !await HabitWithIdExists(Habit.Id))
+            if (Habit is null || !await HabitWithIdExists(Habit.Id))
             {
                 TempData["ErrorMessage"] = "Habit couldn't be deleted!";
-                return RedirectToPage();                
+                return RedirectToPage();
             }
 
             try
-            {                                              
+            {
                 var sql = "DELETE FROM Habits Where Id = @Id";
 
                 using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
                 var affectedRows = connection.ExecuteAsync(sql, new { Habit.Id });
 
-                if(await affectedRows == 1)
+                if (await affectedRows == 1)
                     TempData["SuccessMessage"] = "Habit was deleted successfully!";
-                else                
-                    TempData["ErrorMessage"] = "Habit couldn't be deleted!";            
+                else
+                    TempData["ErrorMessage"] = "Habit couldn't be deleted!";
             }
 
-            catch 
+            catch
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to delete data from the database!";
             }
@@ -114,25 +114,25 @@ namespace MVC.WaterLogger.K_MYR.Pages
         {
             if (!ModelState.IsValid || !await HabitWithIdExists(Habit!.Id))
             {
-                TempData["ErrorMessage"] = "Habit couldn't be updated!";                                   
+                TempData["ErrorMessage"] = "Habit couldn't be updated!";
                 return RedirectToPage();
-            } 
+            }
 
             try
-            {   
+            {
                 var sql = "UPDATE Habits SET Name = @Name, Measurement = @Measurement, Icon = @Icon WHERE Id = @Id";
 
                 using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
                 var affectedRows = connection.ExecuteAsync(sql, Habit);
 
-                if(await affectedRows == 1)
+                if (await affectedRows == 1)
                     TempData["SuccessMessage"] = "Habit was updated successfully!";
-                else                
-                    TempData["ErrorMessage"] = "Habit couldn't be updated!";            
+                else
+                    TempData["ErrorMessage"] = "Habit couldn't be updated!";
             }
 
-            catch 
+            catch
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to insert data into the database!";
             }
@@ -175,14 +175,14 @@ namespace MVC.WaterLogger.K_MYR.Pages
             {
                 TempData["ErrorMessage"] = "An error occurred while attempting to retrieve data from the database!";
                 return [];
-            }            
+            }
         }
-   
+
         private async Task<bool> HabitWithIdExists(int id)
         {
-            try 
+            try
             {
-                     var sql = "SELECT 1 FROM Habits WHERE Id = @id";
+                var sql = "SELECT 1 FROM Habits WHERE Id = @id";
 
                 using SQLiteConnection connection = new(_configuration.GetConnectionString("ConnectionString"));
 
@@ -194,7 +194,7 @@ namespace MVC.WaterLogger.K_MYR.Pages
                 TempData["ErrorMessage"] = "An error occurred while attempting to retrieve data from the database!";
                 return false;
             }
-       
+
         }
     }
 }

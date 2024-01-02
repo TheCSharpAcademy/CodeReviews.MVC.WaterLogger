@@ -5,16 +5,16 @@
 }
 
 <div class="container d-flex justify-content-center align-items-center px-3 messageContainer">
-    @if(!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
     {
         <div id="successMessage" class="alert alert-success fade show px-5 py-2 text-center" role="alert">
-            <strong>@TempData["successMessage"] </strong>                
+            <strong>@TempData["successMessage"] </strong>
         </div>
     }
-    else if(!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+    else if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
     {
         <div id="errorMessage" class="alert alert-danger fade show px-5 py-2 text-center" role="alert">
-            <strong>@TempData["errorMessage"] </strong>       
+            <strong>@TempData["errorMessage"] </strong>
         </div>
     }
 </div>
@@ -42,40 +42,40 @@
                 <div class="col-xl-3 col-md-4 mb-1 mb-sm-3">
                     <div class="card habitCard rounded-3 orange h-100 w-100 position-relative" data-habit-id="@habit.Id">
                         <button type="button" class="update-button transparent-btn" onclick="openUpdateHabitModal('@habit.Id', '@habit.Name',  '@habit.Icon', '@habit.Measurement')">
-                            <img class=" img-fluid update-icon" src="/img/pencil.svg" alt="Update Icon"/>
+                            <img class=" img-fluid update-icon" src="/img/pencil.svg" alt="Update Icon" />
                         </button>
                         <button type="button" class="delete-button transparent-btn" onclick="openDeleteHabitModal('@habit.Id', '@habit.Name')">
                             <img class=" img-fluid delete-icon" src="/img/trash.svg" alt="Delete Icon" />
                         </button>
                         <div class="card-body text-center text-black pb-0 mb-3">
                             <h5 class="card-title m-0 mt-3 pb-3 text-truncate">@habit.Name</h5>
-                            <img class="img-fluid activity-icon" src="/img/ActivityIcons/@habit.Icon"/>                            
+                            <img class="img-fluid activity-icon" src="/img/ActivityIcons/@habit.Icon" />
                         </div>
                         <div class="card-footer m-0 ">
                             <div class="d-flex mt-1 mb-0 justify-content-evenly">
-                                @for(int i = 5; i>0; i--)
-                                {                        
+                                @for (int i = 5; i > 0; i--)
+                                {
                                     bool isDatePresent = habit.Records.Any(r => DateTime.Now.AddDays(-i).Date == r.Date.Date);
-                                    string icon = isDatePresent ? "/img/calendar-check.svg" : "/img/calendar-x.svg" ;
+                                    string icon = isDatePresent ? "/img/calendar-check.svg" : "/img/calendar-x.svg";
                                     string day = DateTime.Now.AddDays(-i).DayOfWeek.ToString()[..2];
 
                                     <div class="col mb-0 px-1 text-center">
                                         <div class="day-column-container">
-                                            <img class="img-fluid calendarDay-icon" src="@icon"/>
-                                            <h1 class="lead mb-0">@day</h1>    
-                                        </div>                                                                    
-                                    </div>  
-                                }                                                                                                                
+                                            <img class="img-fluid calendarDay-icon" src="@icon" />
+                                            <h1 class="lead mb-0">@day</h1>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
             }
-            
+
             <div class="col-xl-3 col-md-4 mb-1 mb-sm-3">
-                <div class="card rounded-3 orange h-100 w-100 position-relative" data-bs-toggle="modal" data-bs-target="#add-habit">                    
+                <div class="card rounded-3 orange h-100 w-100 position-relative" data-bs-toggle="modal" data-bs-target="#add-habit">
                     <div class="card-body my-3 text-center text-black">
-                        <h5 class="card-title m-0 pb-4">Add Habit</h5>                        
+                        <h5 class="card-title m-0 pb-4">Add Habit</h5>
                         <img class="img-fluid activity-icon mt-2" src="/img/add-sign.svg" alt="" />
                     </div>
                 </div>
@@ -130,11 +130,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-truncate" id="deleteHabitLabel"></h5> 
+                <h5 class="modal-title text-truncate" id="deleteHabitLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p id="deleteConfirmationMessage"></p>
+                <p class="text-break" id="deleteConfirmationMessage"></p>
             </div>
             <form id="deleteForm" method="post" asp-page-handler="DeleteHabit">
                 <input type="hidden" id="input-id_delete" asp-for="Habit!.Id" />
@@ -168,7 +168,7 @@
                         <span asp-validation-for="Habit!.Measurement" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3 mt-1">
-                        <label asp-for="Habit!.Icon" class="control-label"></label>                       
+                        <label asp-for="Habit!.Icon" class="control-label"></label>
                         <div class="row m-2">
                             @foreach (var icon in Model.Icons)
                             {
@@ -191,6 +191,7 @@
     </div>
 </div>
 
-@section scripts{
+@section scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/index.js" asp-append-version="true"></script>
 }

@@ -119,15 +119,21 @@ body {
     display: inline-block;
 }
 
-.details-button {
+#delete-habit {
+    hyphens: auto;
+}
+
+
+
+/*Details*/
+
+.addRecord-btn {
     background-color: #232528;
     color: #FFA400;
     border-color: #FFA400;
     border-radius: 10px;
-    border-style: groove;   
+    border-style: groove;
 }
-
-/*Details*/
 
 .table {
     background-color: #232528;
