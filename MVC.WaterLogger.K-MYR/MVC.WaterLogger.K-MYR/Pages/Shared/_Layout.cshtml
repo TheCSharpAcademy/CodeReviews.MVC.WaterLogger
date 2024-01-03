@@ -25,10 +25,24 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>       
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <div class="px-3 messageContainer">
+                @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+                {
+                    <div id="successMessage" class="alert alert-success fade show px-5 py-2 text-center" role="alert">
+                        <strong>@TempData["successMessage"] </strong>
+                    </div>
+                }
+                else if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+                {
+                    <div id="errorMessage" class="alert alert-danger fade show px-5 py-2 text-center" role="alert">
+                        <strong>@TempData["errorMessage"] </strong>
+                    </div>
+                }
+            </div>
             @RenderBody()
         </main>
     </div>

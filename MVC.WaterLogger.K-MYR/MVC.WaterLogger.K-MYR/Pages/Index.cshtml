@@ -4,21 +4,6 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="container d-flex justify-content-center align-items-center px-3 messageContainer">
-    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
-    {
-        <div id="successMessage" class="alert alert-success fade show px-5 py-2 text-center" role="alert">
-            <strong>@TempData["successMessage"] </strong>
-        </div>
-    }
-    else if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
-    {
-        <div id="errorMessage" class="alert alert-danger fade show px-5 py-2 text-center" role="alert">
-            <strong>@TempData["errorMessage"] </strong>
-        </div>
-    }
-</div>
-
 <section class="black text-light py-3 py-lg-5 mt-1 mt-sm-2 text-center text-sm-start rounded-3">
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between">
@@ -39,7 +24,7 @@
         <div class="row pt-3 px-2">
             @foreach (var habit in Model.Habits)
             {
-                <div class="col-xl-3 col-md-4 mb-1 mb-sm-3">
+                <div class="col-xl-3 col-md-4 mb-3">
                     <div class="card habitCard rounded-3 orange h-100 w-100 position-relative" data-habit-id="@habit.Id">
                         <button type="button" class="update-button transparent-btn" onclick="openUpdateHabitModal('@habit.Id', '@habit.Name',  '@habit.Icon', '@habit.Measurement')">
                             <img class=" img-fluid update-icon" src="/img/pencil.svg" alt="Update Icon" />
@@ -72,7 +57,7 @@
                 </div>
             }
 
-            <div class="col-xl-3 col-md-4 mb-1 mb-sm-3">
+            <div class="col-xl-3 col-md-4 mb-3">
                 <div class="card rounded-3 orange h-100 w-100 position-relative" data-bs-toggle="modal" data-bs-target="#add-habit">
                     <div class="card-body my-3 text-center text-black">
                         <h5 class="card-title m-0 pb-4">Add Habit</h5>
