@@ -1,0 +1,38 @@
+﻿@page
+@model FitnessTracker.StevieTV.Pages.Create
+
+<h4>Log a new Fitness Entry</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="FitnessItem.Date" class="form-label"></label>
+                <input type="date" asp-for="FitnessItem.Date" class="form-control" asp-format="{0:mm/dd/yyyy}"/>
+                <span asp-validation-for="FitnessItem.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FitnessItem.Type" class="form-label"></label>
+                <input asp-for="FitnessItem.Type" class="form-control" />
+                <span asp-validation-for="FitnessItem.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FitnessItem.Duration" class="form-label"></label>
+                <input type="time" asp-for="FitnessItem.Duration" class="form-control" />
+                <span asp-validation-for="FitnessItem.Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to Overview</a>
+</div>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
