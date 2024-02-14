@@ -3,7 +3,6 @@
 
 
 // Write your JavaScript code.
-const { start } = require("@popperjs/core"); // remove this line to make field update work
 var updateTotal = function () {
     console.log(endpage.value)
     console.log(startpage.value)

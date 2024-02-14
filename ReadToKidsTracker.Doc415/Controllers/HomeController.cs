@@ -55,7 +55,7 @@ namespace ReadToKidsTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddSession(ReadSessionView newSession) 
+        public IActionResult AddSession(ReadSessionView newSession)
         {
             if (!ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace ReadToKidsTracker.Controllers
                 return View("SessionDetailView", updatedSession);
             }
         }
-        
+
         [HttpPost]
         public IActionResult Delete(int id)
         {

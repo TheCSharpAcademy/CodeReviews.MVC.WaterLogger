@@ -25,7 +25,7 @@ public class TransformModel
         newModel.BookName = view.BookName;
         newModel.Duration = view.Duration;
         newModel.Comments = view.Comments;
-        newModel.Date=DateTime.Parse(view.Date);
+        newModel.Date = DateTime.Parse(view.Date);
 
         return newModel;
     }
@@ -40,7 +40,7 @@ public class TransformModel
         newViewModel.BookName = dbModel.BookName;
         newViewModel.Duration = dbModel.Duration;
         newViewModel.Comments = dbModel.Comments;
-        newViewModel.Date=dbModel.Date.ToShortDateString();
+        newViewModel.Date = dbModel.Date.ToShortDateString();
 
         return newViewModel;
     }

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using ReadToKidsTracker.Models;
+﻿using ReadToKidsTracker.Models;
 using ReadToKidsTracker.TransfromModel;
 namespace ReadToKidsTracker.Services;
 
@@ -29,7 +28,7 @@ public class ReadService
 
     public void AddSession(ReadSessionView session)
     {
-        var newsession=TransformModel.MaptoDb(session);
+        var newsession = TransformModel.MaptoDb(session);
         _context.ReadSessions.Add(newsession);
         _context.SaveChanges();
     }
@@ -40,7 +39,7 @@ public class ReadService
         currentSession.Date = DateTime.Parse(updatedSession.Date);
         currentSession.StartPage = updatedSession.StartPage;
         currentSession.EndPage = updatedSession.EndPage;
-        currentSession.TotalPages = updatedSession.EndPage-updatedSession.StartPage;
+        currentSession.TotalPages = updatedSession.EndPage - updatedSession.StartPage;
         currentSession.Duration = updatedSession.Duration;
         currentSession.Comments = updatedSession.Comments;
         currentSession.BookName = updatedSession.BookName;
@@ -62,7 +61,7 @@ public class ReadService
         int startPage = 1;
         int endPage = 0;
         string name = "mybook";
-        DateTime date = DateTime.Now-TimeSpan.FromDays(150);
+        DateTime date = DateTime.Now - TimeSpan.FromDays(150);
         Random random = new Random();
         for (int i = 0; i < 50; i++)
         {

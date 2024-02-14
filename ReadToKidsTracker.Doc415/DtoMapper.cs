@@ -1,9 +1,7 @@
-﻿using ReadToKidsTracker.Models;
-
-namespace ReadToKidsTracker;
+﻿namespace ReadToKidsTracker;
 
 public static class DtoMapper
 {
-    
+
 
 }

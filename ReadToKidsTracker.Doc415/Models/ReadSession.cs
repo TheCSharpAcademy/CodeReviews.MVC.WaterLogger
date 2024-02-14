@@ -32,7 +32,7 @@ public class ReadSession
 
     public string? Comments { get; set; }
 
-    
+
     public int TotalPages { get; set; }
 
 }
