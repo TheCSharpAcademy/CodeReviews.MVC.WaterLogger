@@ -1,0 +1,64 @@
+﻿@using ReadToKidsTracker.Models
+@model ReadSessionViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+    <!-- other head elements -->
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <a class="btn btn-outline-warning mt-3 mb-3 d-flex justify-content-center align-content-center" asp-controller="Home" asp-action="AddSessionView">
+        Add Session    </a>
+    </div>
+<h2 class="text-center">List of read sessions with kids</h2>
+
+@if (Model.ReadSessions != null && Model.ReadSessions.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Book Name</th>
+                <th>Total Pages</th>
+                <th>Duration</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var session in Model.ReadSessions)
+            {
+                <tr class="@(session.TotalPages > Model.PagesThreshold ? "greatRead" : "normalRead")">
+                    <td>@session.Date</td>
+                    <td>@session.BookName</td>
+                    <td>@session.TotalPages</td>
+                    <td>@session.Duration</td>
+                    <td>
+                        <a asp-controller="/Home" asp-action="SessionDetailView" asp-route-id="@session.Id" class="viewButton btn btn-outline-secondary btn-block">View Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="empty-list">No sessions available.</p>
+}

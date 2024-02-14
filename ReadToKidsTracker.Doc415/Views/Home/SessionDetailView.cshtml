@@ -1,0 +1,81 @@
+﻿@using ReadToKidsTracker
+@model ReadSessionView
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<a class="btn btn-outline-warning mt-3 mb-3" asp-action="Index" asp-controller="Home">Back to Session List</a>
+
+<h2>Session Details</h2>
+
+<form class="pb-3"  method="post" asp-action="Update" asp-controller="Home" id="updateSessionForm">
+    <div class="form-group pb-3">
+        <label asp-for="Date"></label>
+        <input asp-for="Date" value="@DateTime.Parse(Model.Date).ToString("yyyy-MM-dd")" type="date" class="form-control w-25" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="form-group pb-3">
+        <label asp-for="BookName"></label>
+        <input asp-for="BookName" class="form-control w-25" />
+    </div>
+    <div class="form-group pb-3">
+        <label asp-for="StartPage"></label>
+        <input asp-for="StartPage" id="StartPage"class="form-control w-25" />
+        <span asp-validation-for="StartPage" class="text-danger"></span>
+    </div>
+    <div class="form-group pb-3">
+        <label asp-for="EndPage"></label>
+        <input asp-for="EndPage" id="EndPage" class="form-control w-25" />
+        <span asp-validation-for="EndPage" class="text-danger"></span>
+    </div>
+
+    <div class="form-group pb-3">
+        <label asp-for="TotalPages"></label>
+        <input asp-for="TotalPages" id="TotalPages" class="form-control w-25" />
+        <span asp-validation-for="TotalPages" class="text-danger"></span>
+    </div>
+    <div class="form-group pb-3">
+        <label asp-for="Duration"></label>
+        <input asp-for="Duration" class="form-control w-25" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+    <div class="form-group pb-3">
+        <label asp-for="Comments"></label>
+        <input asp-for="Comments" class="form-control w-25" />
+    </div>
+    <input asp-for="Id" type="hidden" />
+    <button type="submit" class="btn btn-success">Save Changes</button>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete</button>
+
+</form>
+
+@* --------------------Burdan sonrası düzeltilecek-----------------------------*@
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this record?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" onclick="deleteSession(@Model.Id)">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
