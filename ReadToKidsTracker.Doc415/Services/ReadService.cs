@@ -14,7 +14,7 @@ public class ReadService
 
     public List<ReadSessionView> GetReadSessions()
     {
-        var sessionsFromDb = _context.ReadSessions.ToList();
+        var sessionsFromDb = _context.ReadSessions.OrderByDescending(x=> x.Date).ToList();
         var sessionsToController = TransformModel.Transform(sessionsFromDb);
         return sessionsToController;
     }

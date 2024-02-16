@@ -52,3 +52,17 @@ input[type="text"], input[type="date"], input[type="number"], textarea {
     background-color: #76453B;
     color: #F8FAE5;
 }
+
+#tableheads a {
+    text-decoration: none;
+    color: #B19470;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+    #tableheads a:hover {
+        text-decoration: none;
+        color: #F8FAE5;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }

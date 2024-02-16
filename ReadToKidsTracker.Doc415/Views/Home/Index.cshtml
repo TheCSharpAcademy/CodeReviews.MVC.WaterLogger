@@ -33,12 +33,12 @@
 @if (Model.ReadSessions != null && Model.ReadSessions.Count > 0)
 {
     <table class="table">
-        <thead>
+        <thead id="tableheads">
             <tr>
-                <th>Date</th>
-                <th>Book Name</th>
-                <th>Total Pages</th>
-                <th>Duration</th>
+                <th><a asp-controller="Home" asp-action="SortByDate">Date</a></th>
+                <th><a asp-controller="Home" asp-action="SortByBookName">Book name</a></th>
+                <th><a asp-controller="Home" asp-action="SortByTotalPages">TotalPages</a></th>
+                <th><a asp-controller="Home" asp-action="SortByDuration">Duration</a></th>
                 <th></th>
             </tr>
         </thead>
