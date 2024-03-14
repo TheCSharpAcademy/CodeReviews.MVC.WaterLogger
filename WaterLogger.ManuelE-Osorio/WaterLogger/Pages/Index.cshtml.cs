@@ -13,7 +13,7 @@ public class IndexModel(DrinkingWaterContext context) : PageModel
     [BindProperty(SupportsGet = true)]
     public int? IdSearchValue { get; set; }
 
-    public IList<DrinkingWater> DrinkingWater { get;set; } = default!;
+    public List<DrinkingWater> DrinkingWater { get;set; } = default!;
 
     public async Task OnGetAsync()
     {
