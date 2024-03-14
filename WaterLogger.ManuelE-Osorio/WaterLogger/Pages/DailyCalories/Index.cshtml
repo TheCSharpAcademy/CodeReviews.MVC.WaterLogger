@@ -1,13 +1,13 @@
 ﻿@page "{searchString?}"
-@model IndexModel
+@model DailyCalories.IndexModel
 
 
 @{
-    ViewData["Title"] = "Water Logger - Water Logger";
+    ViewData["Title"] = "Daily Calories - Daily Calories";
 }
 
 <h1>
-    Water Logger
+    Daily Calories
 </h1>
 
 <ul class="nav nav-tabs">
@@ -34,19 +34,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor( model => model.DrinkingWater[0].Id)
+                @Html.DisplayNameFor( model => model.DailyCalories[0].Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DrinkingWater[0].Date)
+                @Html.DisplayNameFor(model => model.DailyCalories[0].Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DrinkingWater[0].Quantity)
+                @Html.DisplayNameFor(model => model.DailyCalories[0].Quantity)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.DrinkingWater) {
+@foreach (var item in Model.DailyCalories) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WaterLogger.Models;
 
-public class DrinkingWater
+public class DailyCaloriesModel
 {
     public int Id {get; set;}
     
