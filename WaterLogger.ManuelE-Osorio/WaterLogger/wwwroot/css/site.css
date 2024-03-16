@@ -17,6 +17,11 @@ html {
   min-height: 100%;
 }
 
+/* header {
+  background-color: #111
+} */
+
 body {
   margin-bottom: 60px;
+  /* background-color: grey; */
 }
