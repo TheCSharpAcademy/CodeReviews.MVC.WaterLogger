@@ -20,12 +20,9 @@ public class IndexModel(DrinkingWaterContext context) : PageModel
     {
         var drinkingWater = from m in _context.DrinkingWater
             select m;
-
         
         if (IdSearchValue is not null)
-        {
             drinkingWater = drinkingWater.Where(s => s.Id == IdSearchValue);
-        }
 
 
         DrinkingWater = await drinkingWater.ToListAsync();

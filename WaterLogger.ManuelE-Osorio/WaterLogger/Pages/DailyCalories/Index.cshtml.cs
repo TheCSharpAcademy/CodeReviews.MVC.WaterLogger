@@ -21,15 +21,10 @@ public class IndexModel(DrinkingWaterContext context) : PageModel
         var dailyCalories = from m in _context.DailyCalories
             select m;
 
-        
         if (IdSearchValue is not null)
-        {
             dailyCalories = dailyCalories.Where(s => s.Id == IdSearchValue);
-        }
 
-
-        DailyCalories = await dailyCalories.ToListAsync();
-        
+        DailyCalories = await dailyCalories.ToListAsync();    
         ViewData["Total"] = DailyCalories.Sum(p => p.Quantity);
     }
 }

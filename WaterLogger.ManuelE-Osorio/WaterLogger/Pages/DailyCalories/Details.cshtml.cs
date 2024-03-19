@@ -14,19 +14,13 @@ public class DetailsModel(DrinkingWaterContext context) : PageModel
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id == null)
-        {
             return NotFound();
-        }
 
         var dailyCalories = await _context.DailyCalories.FirstOrDefaultAsync(m => m.Id == id);
         if (dailyCalories == null)
-        {
             return NotFound();
-        }
         else
-        {
             DailyCalories = dailyCalories;
-        }
         return Page();
     }
 }

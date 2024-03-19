@@ -15,29 +15,21 @@ public class DeleteModel(DrinkingWaterContext context) : PageModel
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id == null)
-        {
             return NotFound();
-        }
 
         var dailyCalories = await _context.DailyCalories.FirstOrDefaultAsync(m => m.Id == id);
 
         if (dailyCalories == null)
-        {
             return NotFound();
-        }
         else
-        {
             DailyCalories = dailyCalories;
-        }
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync(int? id)
     {
         if (id == null)
-        {
             return NotFound();
-        }
 
         var dailyCalories = await _context.DailyCalories.FindAsync(id);
         if (dailyCalories != null)

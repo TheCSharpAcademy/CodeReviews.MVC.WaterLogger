@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -17,27 +15,20 @@ public class EditModel(DrinkingWaterContext context) : PageModel
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id == null)
-        {
             return NotFound();
-        }
 
         var dailyCalories =  await _context.DailyCalories.FirstOrDefaultAsync(m => m.Id == id);
         if (dailyCalories == null)
-        {
             return NotFound();
-        }
+        
         DailyCalories = dailyCalories;
         return Page();
     }
 
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
-        {
             return Page();
-        }
 
         _context.Attach(DailyCalories).State = EntityState.Modified;
 
@@ -48,13 +39,9 @@ public class EditModel(DrinkingWaterContext context) : PageModel
         catch (DbUpdateConcurrencyException)
         {
             if (!DailyCaloriesExists(DailyCalories.Id))
-            {
                 return NotFound();
-            }
             else
-            {
                 throw;
-            }
         }
 
         return RedirectToPage("./Index");

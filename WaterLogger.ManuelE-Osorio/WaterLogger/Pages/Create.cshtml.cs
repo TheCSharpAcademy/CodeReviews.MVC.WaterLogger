@@ -16,13 +16,10 @@ public class CreateModel(DrinkingWaterContext context) : PageModel
     [BindProperty]
     public DrinkingWater DrinkingWater { get; set; } = default!;
 
-    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
-        {
             return Page();
-        }
 
         _context.DrinkingWater.Add(DrinkingWater);
         await _context.SaveChangesAsync();

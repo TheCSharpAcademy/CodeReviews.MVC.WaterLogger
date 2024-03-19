@@ -14,19 +14,15 @@ public class DetailsModel(DrinkingWaterContext context) : PageModel
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id == null)
-        {
             return NotFound();
-        }
+        
 
         var drinkingwater = await _context.DrinkingWater.FirstOrDefaultAsync(m => m.Id == id);
         if (drinkingwater == null)
-        {
             return NotFound();
-        }
         else
-        {
             DrinkingWater = drinkingwater;
-        }
+            
         return Page();
     }
 }

@@ -1,8 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using WaterLogger.Data;
-using System;
-using System.Linq;
 
 namespace WaterLogger.Models;
 
@@ -10,26 +7,19 @@ public static class SeedData
 {
     public static void Initialize(IServiceProvider serviceProvider)
     {
-        using (var context = new DrinkingWaterContext(
+        using var context = new DrinkingWaterContext(
             serviceProvider.GetRequiredService<
-                DbContextOptions<DrinkingWaterContext>>()))
-        {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+                DbContextOptions<DrinkingWaterContext>>());
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
 
-            if (!context.DrinkingWater.Any())
-            {
-                AddDrinkingWater(context);   // DB has been seeded
-            }
-            
-            if (!context.DailyCalories.Any())
-            {
-                AddDailyCalories(context);
-            }
+        if (!context.DrinkingWater.Any())
+            AddDrinkingWater(context);
 
-            return;
+        if (!context.DailyCalories.Any())
+            AddDailyCalories(context);
 
-        }
+        return;
     }
 
     private static void AddDailyCalories(DrinkingWaterContext context)

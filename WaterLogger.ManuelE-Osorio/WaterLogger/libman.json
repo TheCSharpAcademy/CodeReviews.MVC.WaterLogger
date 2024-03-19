@@ -4,7 +4,7 @@
   "libraries": [
     {
       "library": "bootstrap@5.3.3",
-      "destination": "wwwroot/lib/bootstrap/dist6"
+      "destination": "wwwroot/lib/bootstrap/dist"
     }
   ]
 }
