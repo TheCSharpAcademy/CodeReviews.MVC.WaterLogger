@@ -1,0 +1,52 @@
+@page "{id:int?}"
+@model DetailsModel
+
+@{
+    ViewData["Title"] = "Details - Water Logger";
+}
+
+<div class="row">
+    <div class="col">
+      <h1>Water Logger</h1>
+    </div>
+    <div class="col">
+      <img src="~/img/water-bottle.png" width="15%" class="float-end">
+    </div>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+        <a class="nav-link" asp-page="Index">Index</a>
+  </li>
+  <li class="nav-item">
+        <a class="nav-link" asp-page="Create">Create New</a>
+  </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" asp-page="Details">Details</a>
+    </li>
+</ul>
+
+<div class="tab-content p-3" id="myTabContent">
+
+    <h4>Drinking Water</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DrinkingWater.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DrinkingWater.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DrinkingWater.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DrinkingWater.Quantity)
+        </dd>
+    </dl>
+
+    <div>
+        <a class="btn btn-primary p-1" asp-page="./Edit" asp-route-id="@Model.DrinkingWater.Id">Edit</a>
+    </div>
+</div>
+

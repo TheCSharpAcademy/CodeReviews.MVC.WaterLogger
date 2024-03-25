@@ -1,0 +1,52 @@
+@page
+@model DailyCalories.CreateModel
+
+@{
+    ViewData["Title"] = "Create - Daily Calories";
+}
+
+<div class="row">
+    <div class="col">
+      <h1>Daily Calories</h1>
+    </div>
+    <div class="col">
+      <img src="~/img/calories-calculator.png" width="15%" class="float-end">
+    </div>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+        <a class="nav-link" asp-page="Index">Index</a>
+  </li>
+  <li class="nav-item">
+        <a class="nav-link active" aria-current="page" asp-page="Create">Create New</a>
+  </li>
+</ul>
+
+
+
+<div class="tab-content p-3" id="myTabContent">
+<h4>Daily Calories</h4>
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DailyCalories.Date" class="control-label"></label>
+                <input asp-for="DailyCalories.Date" class="form-control" />
+                <span asp-validation-for="DailyCalories.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DailyCalories.Quantity" class="control-label"></label>
+                <input asp-for="DailyCalories.Quantity" class="form-control" />
+                <span asp-validation-for="DailyCalories.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group p-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

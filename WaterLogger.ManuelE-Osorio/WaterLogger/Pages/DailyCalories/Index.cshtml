@@ -1,0 +1,86 @@
+﻿@page "{searchString?}"
+@model DailyCalories.IndexModel
+
+
+@{
+    ViewData["Title"] = "Daily Calories - Daily Calories";
+}
+
+<div class="row">
+    <div class="col">
+      <h1>Daily Calories</h1>
+    </div>
+    <div class="col">
+      <img src="~/img/calories-calculator.png" width="15%" class="float-end">
+    </div>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+        <a class="nav-link active" aria-current="page" asp-page="Index">Index</a>
+  </li>
+  <li class="nav-item">
+    <a asp-page="Create" class="nav-link">Create New</a>
+  </li>
+</ul>
+
+
+<div class="tab-content p-3" id="myTabContent">
+<form>
+    <p>
+        Id: <input type="number" asp-for="IdSearchValue" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor( model => model.DailyCalories[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DailyCalories[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DailyCalories[0].Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DailyCalories) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+<tfoot>
+    <tr>
+        <th>
+            Total
+        </th>
+        <td></td>
+        <td>
+            @ViewData["Total"]
+        </td>
+        <td></td>
+    </tr>
+    </tbody>
+</tfoot>
+</table>
+</div>
