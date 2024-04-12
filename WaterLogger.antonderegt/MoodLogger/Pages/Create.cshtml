@@ -1,0 +1,38 @@
+@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Add New Record</h2>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="MoodRecord.Date" class="control-label"></label>
+                <input type="date" asp-for="MoodRecord.Date" class="form-control" />
+                <span asp-validation-for="MoodRecord.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label left">Sad</label>
+                <label class="control-label right">Happy</label>
+                <input type="range" asp-for="MoodRecord.MoodLevel"min="1" max="5" class="form-range" />
+                <span asp-validation-for="MoodRecord.MoodLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <i class="fa fa-arrow-left"></i> <a asp-page="./Index">Back to list</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
