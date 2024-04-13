@@ -46,3 +46,12 @@ body {
     border: 0px;
 }
 
+.btn-success {
+    background-color: darkgreen;
+    border: 0px;
+}
+
+.form-group{
+    padding: 1em;
+}
+
