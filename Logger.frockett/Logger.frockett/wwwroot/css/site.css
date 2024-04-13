@@ -1,3 +1,13 @@
+/* Custom Properties */
+
+:root {
+    --clr-dark: #32292F;
+    --clr-light: #F0F7F4;
+    --clr-accent: #70ABAF;
+    --clr-accent-drk: #705D56;
+}
+
+
 html {
   font-size: 14px;
 }

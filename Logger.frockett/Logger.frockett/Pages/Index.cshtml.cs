@@ -11,7 +11,7 @@ namespace Logger.frockett.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IConfiguration config;
 
-        public List<DrinkingWaterModel> Records { get; set; }
+        public List<DailyPushupsModel> Records { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration)
         {
@@ -24,7 +24,7 @@ namespace Logger.frockett.Pages
             Records = GetAllRecords();
         }
 
-		private List<DrinkingWaterModel> GetAllRecords()
+		private List<DailyPushupsModel> GetAllRecords()
 		{
             using (var connection = new SqliteConnection(config.GetConnectionString("ConnectionString")))
             {
@@ -32,13 +32,13 @@ namespace Logger.frockett.Pages
                 var command = connection.CreateCommand();
                 command.CommandText = $"SELECT * FROM drinking_water";
 
-                var tableData = new List<DrinkingWaterModel>();
+                var tableData = new List<DailyPushupsModel>();
                 SqliteDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
                     tableData.Add(
-                        new DrinkingWaterModel
+                        new DailyPushupsModel
                         {
                             Id = reader.GetInt32(0),
                             Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),

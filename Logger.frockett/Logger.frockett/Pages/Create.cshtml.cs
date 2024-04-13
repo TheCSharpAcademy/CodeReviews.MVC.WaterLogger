@@ -20,7 +20,7 @@ namespace Logger.frockett.Pages
         }
 
         [BindProperty]
-        public DrinkingWaterModel DrinkingWater { get; set; }
+        public DailyPushupsModel Pushups { get; set; }
 
         public IActionResult OnPost()
         {
@@ -33,7 +33,7 @@ namespace Logger.frockett.Pages
             {
                 connection.Open();
                 var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = $"INSERT INTO drinking_water(date, quantity) VALUES('{DrinkingWater.Date}', {DrinkingWater.Quantity})";
+                tableCmd.CommandText = $"INSERT INTO drinking_water(date, quantity) VALUES('{Pushups.Date}', {Pushups.Quantity})";
                 tableCmd.ExecuteNonQuery();
                 connection.Close();
             }

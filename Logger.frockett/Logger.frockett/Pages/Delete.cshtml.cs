@@ -11,7 +11,7 @@ public class DeleteModel : PageModel
     private readonly IConfiguration config;
 
     [BindProperty]
-    public DrinkingWaterModel DrinkingWater { get; set; }
+    public DailyPushupsModel pushups { get; set; }
 
     public DeleteModel(IConfiguration config)
     {
@@ -20,13 +20,13 @@ public class DeleteModel : PageModel
 
     public IActionResult OnGet(int id)
     {
-        DrinkingWater = GetById(id);
+        pushups = GetById(id);
         return Page();
     }
 
-    private DrinkingWaterModel GetById(int id)
+    private DailyPushupsModel GetById(int id)
     {
-        var drinkingWaterRecord = new DrinkingWaterModel();
+        var pushups = new DailyPushupsModel();
 
         using (var connection = new SqliteConnection(config.GetConnectionString("ConnectionString")))
         {
@@ -38,12 +38,12 @@ public class DeleteModel : PageModel
 
             while (reader.Read())
             {
-                drinkingWaterRecord.Id = reader.GetInt32(0);
-                drinkingWaterRecord.Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat);
-                drinkingWaterRecord.Quantity = reader.GetInt32(2);
+                pushups.Id = reader.GetInt32(0);
+                pushups.Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat);
+                pushups.Quantity = reader.GetInt32(2);
             }
             connection.Close();
-            return drinkingWaterRecord;
+            return pushups;
         }
     }
 
