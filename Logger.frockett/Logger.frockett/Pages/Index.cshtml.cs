@@ -30,7 +30,7 @@ namespace Logger.frockett.Pages
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT * FROM pushups";
+                command.CommandText = $"SELECT * FROM pushups ORDER BY Date";
 
                 var tableData = new List<DailyPushupsModel>();
                 SqliteDataReader reader = command.ExecuteReader();
