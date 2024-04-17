@@ -33,7 +33,7 @@ namespace Logger.frockett.Pages
             {
                 connection.Open();
                 var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = $"INSERT INTO drinking_water(date, quantity) VALUES('{Pushups.Date}', {Pushups.Quantity})";
+                tableCmd.CommandText = $"INSERT INTO pushups(date, quantity) VALUES('{Pushups.Date}', {Pushups.Quantity})";
                 tableCmd.ExecuteNonQuery();
                 connection.Close();
             }

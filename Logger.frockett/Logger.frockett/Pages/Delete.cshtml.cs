@@ -32,7 +32,7 @@ public class DeleteModel : PageModel
         {
             connection.Open();
             var cmd = connection.CreateCommand();
-            cmd.CommandText = $"SELECT * FROM drinking_water WHERE Id = {id}";
+            cmd.CommandText = $"SELECT * FROM pushups WHERE Id = {id}";
 
             SqliteDataReader reader = cmd.ExecuteReader();
 
@@ -53,7 +53,7 @@ public class DeleteModel : PageModel
         {
             connection.Open();
             var cmd = connection.CreateCommand();
-            cmd.CommandText = $"DELETE from drinking_water WHERE Id = {id}";
+            cmd.CommandText = $"DELETE from pushups WHERE Id = {id}";
             cmd.ExecuteNonQuery();
             connection.Close();
         }

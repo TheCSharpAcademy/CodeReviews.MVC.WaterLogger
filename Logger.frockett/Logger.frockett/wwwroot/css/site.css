@@ -7,7 +7,6 @@
     --clr-accent-drk: #705D56;
 }
 
-
 html {
   font-size: 14px;
 
@@ -31,10 +30,14 @@ html {
 
 body {
     margin-bottom: 60px;
-    background-color: var(--clr-light);
 }
 
-.btn-danger {
+header img {
+    max-width: 50px;
+    height: auto;
+}
+
+/*.btn-danger {
     background-color: var(--clr-accent-drk);
     color: var(--clr-light);
     border: 0px;
@@ -47,9 +50,10 @@ body {
 }
 
 .btn-success {
-    background-color: darkgreen;
+    background-color: var(--clr-accent-drk);
     border: 0px;
-}
+    
+}*/
 
 .form-group{
     padding: 1em;

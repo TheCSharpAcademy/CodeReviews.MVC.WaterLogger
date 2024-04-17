@@ -33,7 +33,7 @@ public class UpdateModel : PageModel
 		{
 			connection.Open();
 			var cmd = connection.CreateCommand();
-			cmd.CommandText = $"SELECT * FROM drinking_water WHERE Id = {id}";
+			cmd.CommandText = $"SELECT * FROM pushups WHERE Id = {id}";
 
 			SqliteDataReader reader = cmd.ExecuteReader();
 
@@ -59,7 +59,7 @@ public class UpdateModel : PageModel
 		{
 			connection.Open();
 			var tableCmd = connection.CreateCommand();
-			tableCmd.CommandText = @$"UPDATE drinking_water SET date ='{pushups.Date}',
+			tableCmd.CommandText = @$"UPDATE pushups SET date ='{pushups.Date}',
 									quantity = {pushups.Quantity} 
 									WHERE Id = {pushups.Id}";
 			tableCmd.ExecuteNonQuery();
