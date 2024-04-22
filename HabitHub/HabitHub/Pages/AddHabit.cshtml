@@ -1,0 +1,52 @@
+﻿@page
+@model HabitHub.Pages.AddHabitModel
+@{
+    ViewData["Title"] = "Add habit";
+}
+
+<h3 class="text-white">Add new habit</h3>
+<hr class="text-white" />
+<div class="row text-white">
+    <div class="col-md-4">
+        <form method="post" asp-page-handler="Add" id="habit-add-form">
+            <div class="form-group">
+                <label asp-for="Habit.HabitName" class="control-label">Habit name</label>
+                <input type="text" asp-for="Habit.HabitName" class="form-control" id="habit-add-input" />
+                <span asp-validation-for="Habit.HabitName" class="text-danger"></span>
+                <label class="control-label" id="habit-warning">@Model.HabitWarning</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add habit" class="btn btn-dark" id="add-habit-button" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <form method="post" asp-page-handler="Delete">
+            <div class="dropdown" id="habit-dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="habit-dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select habit
+                </button>
+                <ul class="dropdown-menu">
+                    @foreach (string savedHabit in Model.SavedHabits)
+                    {
+                        <li><a class="dropdown-item">@savedHabit</a></li>
+                    }
+                </ul>
+                <input type="hidden" asp-for="HabitToDelete" id="habit-input" value="" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Delete habit" class="btn btn-dark" id="delete-habit-button" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<svg class="bi me-2" id="background-icon-large" width="350" height="350"><use xlink:href="#plus-folder" /></svg>
+<svg class="bi me-2" id="background-icon-small" width="250" height="250"><use xlink:href="#plus-folder" /></svg>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
