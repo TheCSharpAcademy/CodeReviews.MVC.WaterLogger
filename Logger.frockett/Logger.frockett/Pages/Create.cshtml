@@ -1,0 +1,26 @@
+﻿@page
+@model Logger.frockett.Pages.CreateModel
+@{
+}
+
+<h4>Add New Record</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form method="post">
+			<div class="form-group">
+				<label asp-for="Pushups.Date" class="control-label"></label>
+				<input type="date" asp-for="Pushups.Date" class="form-control" />
+				<span asp-validation-for="Pushups.Date" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Pushups.Quantity" class="control-label"></label>
+				<input asp-for="Pushups.Quantity" class="form-control" />
+				<span asp-validation-for="Pushups.Quantity" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-success" />
+			</div>
+		</form>
+	</div>
+</div>
