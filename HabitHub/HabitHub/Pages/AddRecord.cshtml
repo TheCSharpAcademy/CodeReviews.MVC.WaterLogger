@@ -1,0 +1,58 @@
+﻿@page
+@model HabitHub.Pages.AddRecordModel
+@{
+    ViewData["Title"] = "Record habit";
+}
+
+<h3 class="text-white">Record habit</h3>
+<hr class="text-white" />
+<form method="post" asp-page-handler="Add">
+    <div class="row text-white">
+        <div class="col-12 col-md-4 col-lg-3">
+            <div class="form-group">
+                <div class="dropdown" id="habit-dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="habit-dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select habit
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach (string savedHabit in Model.SavedHabits)
+                        {
+                            <li><a class="dropdown-item">@savedHabit</a></li>
+                        }
+                    </ul>
+                    <input type="hidden" asp-for="HabitToRecord" id="habit-input" value="" />
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="HabitRecord.Amount" class="control-label">Amount</label>
+                <input type="number" asp-for="HabitRecord.Amount" class="form-control" />
+                <span asp-validation-for="HabitRecord.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HabitRecord.Unit" class="control-label">Unit</label>
+                <input type="text" asp-for="HabitRecord.Unit" class="form-control" />
+                <span asp-validation-for="HabitRecord.Unit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HabitRecord.Date" class="control-label">Date</label>
+                <input type="datetime-local" asp-for="HabitRecord.Date" class="form-control" />
+                <span asp-validation-for="HabitRecord.Date" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Record habit" class="btn btn-dark" id="add-record-button" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<svg class="bi me-2" id="background-icon-large" width="350" height="350"><use xlink:href="#plus" /></svg>
+<svg class="bi me-2" id="background-icon-small" width="250" height="250"><use xlink:href="#plus" /></svg>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

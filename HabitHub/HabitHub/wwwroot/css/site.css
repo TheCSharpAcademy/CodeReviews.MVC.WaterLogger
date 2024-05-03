@@ -1,0 +1,185 @@
+/* General */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: #495057;
+    height: 100vh;
+}
+
+main {
+    margin-top: 80px;
+    margin-right: 80px;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.form-control {
+    max-width: 200px;
+}
+
+#main-container {
+    padding-left: 0px;
+}
+
+#habit-dropdown, #habit-dropdown-filter {
+    padding-top: 24px;
+}
+
+.form-group #habit-dropdown {
+    padding-bottom: 18px;
+}
+
+#add-habit-button, #add-record-button, #modal-save-button {
+    background-color: #014000;
+    border-color: #014000;
+}
+
+    #add-habit-button:hover, #add-record-button:hover, #modal-save-button:hover {
+        background-color: #012e00;
+        border-color: #012e00;
+    }
+
+.text-danger, #habit-warning {
+    color: white !important;
+    font-size: 12px;
+}
+
+#delete-habit-button, #delete-record-button {
+    background-color: #6C2126;
+    border-color: #6C2126;
+}
+
+    #delete-habit-button:hover, #delete-record-button:hover {
+        background-color: #4f161a;
+        border-color: #4f161a;
+    }
+
+#filter-button, #filter-button-revert, #dropdown-order {
+    margin-bottom: 20px;
+}
+
+#order-apply-button, #order-asc-desc-buttons {
+    display: none;
+}
+
+#table-container {
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+
+#background-icon-large, #background-icon-small {
+    color: #adb5bd;
+    opacity: 0.05;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    z-index: -1;
+    display: none;
+}
+
+/* Side (main) navbar **/
+#navbar-column {
+    font-size: 16px;
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    max-height: 100vh;
+}
+
+#navbar {
+    width: 220px;
+    padding-left: 0px;
+}
+
+.bi {
+    vertical-align: -.125em;
+    pointer-events: none;
+    fill: currentColor;
+}
+
+.nav-item {
+    text-decoration: none;
+    font-size: 16px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.nav-link:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+/*Top navbar*/
+.nav-link-active {
+    text-decoration: none;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+}
+
+    .nav-link-active:hover {
+        text-decoration: underline;
+    }
+
+/* Modals */
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.modal-content {
+    background-color: #495057;
+}
+
+/*Viewport sizes*/
+@media (max-width: 992px) {
+    main {
+        margin-right: 40px;
+    }
+
+    td {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+
+    #background-icon-large {
+        display: initial;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        margin-top: 40px;
+        margin-right: 0px;
+    }
+
+    td {
+        font-size: 10px;
+    }
+
+    #habit-dropdown {
+        padding-top: 20px;
+    }
+
+    #background-icon-small {
+        display: initial;
+    }
+}
+
+@media (max-height: 576px) {
+    #background-icon-large, #background-icon-small {
+        display: none;
+    }
+}
