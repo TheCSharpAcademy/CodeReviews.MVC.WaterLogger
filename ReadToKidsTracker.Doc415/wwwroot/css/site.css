@@ -66,3 +66,10 @@ input[type="text"], input[type="date"], input[type="number"], textarea {
         font-weight: bold;
         font-size: 1.1rem;
     }
+
+#TotalPages {
+    background-color: #754435;
+    color: #F8FAE5;
+    opacity: 0.4;
+    cursor: not-allowed;
+}
