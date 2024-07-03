@@ -200,5 +200,4 @@ public class LogsRepository
 
         return list;
     }
-
 }

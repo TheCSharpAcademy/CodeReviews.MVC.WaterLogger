@@ -5,13 +5,6 @@ public class Unit
     public int UnitId { get; set; }
     public string Name { get; set; } = "";
 
-    public readonly static string[] RUNNING_UNITS = {
-            "Kilometers",
-            "Meters",
-            "Miles",
-            "Yards"
-        };
-
     public static decimal StandardiseLogQuantityToUnit(decimal fromQuantity, string fromUnit, string targetUnit)
     {
         return targetUnit switch

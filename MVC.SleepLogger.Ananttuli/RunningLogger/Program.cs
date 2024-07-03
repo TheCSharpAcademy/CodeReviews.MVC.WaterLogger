@@ -12,7 +12,6 @@ var app = builder.Build();
 
 app.Services.GetRequiredService<Database>().InitDatabase();
 
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

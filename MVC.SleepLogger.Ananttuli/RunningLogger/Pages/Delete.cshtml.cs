@@ -32,7 +32,7 @@ namespace RunningLogger.Pages
                 return Redirect("./Index");
             }
 
-            var success = _logsRepo.DeleteById(Log.LogId);
+            _logsRepo.DeleteById(Log.LogId);
 
             return Redirect("./Index");
         }

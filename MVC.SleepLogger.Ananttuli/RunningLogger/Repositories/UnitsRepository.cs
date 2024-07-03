@@ -35,7 +35,6 @@ public class UnitsRepository
             return list;
         }
     }
-
     public Unit? GetUnitById(int unitId)
     {
 
@@ -62,7 +61,6 @@ public class UnitsRepository
             return list?[0] ?? null;
         }
     }
-
 
     private List<Unit> ExtractUnitFromReader(SqliteDataReader reader)
     {
