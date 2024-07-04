@@ -32,7 +32,7 @@ public class CreateModel : PageModel
         {
             return Page();
         }
-        _repository.AddDailyExpense(Expense);
+        _repository.Add(Expense);
         return RedirectToPage("./Index");
     }
 

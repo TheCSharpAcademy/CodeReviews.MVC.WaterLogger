@@ -24,13 +24,13 @@ public class DeleteModel : PageModel
     public DailyExpense Expense { get; set; }
     public IActionResult OnGet(int id)
     {
-        Expense = _repository.GetDailyExpenseById(id);
+        Expense = _repository.GetById(id);
         return Page();
     }
 
     public IActionResult OnPost(int id)
     {
-        _repository.DeleteDailyExpense(id);
+        _repository.Delete(id);
         return RedirectToPage("./Index");
     }
 

@@ -16,7 +16,15 @@ builder.Services.AddSingleton<DailyExpensesDbContext>(provider =>
     return new DailyExpensesDbContext(connectionString);
 });
 
+builder.Services.AddSingleton<HabitUnitDbContext>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnectionString");
+    return new HabitUnitDbContext(connectionString);
+});
+
 builder.Services.AddScoped<IDailyExpenseRepository, DailyExpenseRepository>();
+builder.Services.AddScoped<IHabitUnitRepository, HabitUnitRepository>();
 
 var app = builder.Build();
 

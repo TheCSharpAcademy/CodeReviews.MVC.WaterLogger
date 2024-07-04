@@ -4,27 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WaterLogger.Models;
+using WaterLogger.DTOs;
 using WaterLogger.Repositories.Interfaces;
 
-namespace WaterLogger.Pages
+namespace WaterLogger.Pages.HabitUnits
 {
-    public class UpdateModel : PageModel
+    public class CreateModel : PageModel
     {
-        private readonly IDailyExpenseRepository _repository;
 
-        public UpdateModel(IDailyExpenseRepository repository)
+        private readonly IHabitUnitRepository _repository;
+        public CreateModel(IHabitUnitRepository repository)
         {
             _repository = repository;
         }
 
-        [BindProperty]
-        public DailyExpense Expense {get;set;}
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet()
         {
-            Expense = _repository.GetById(id);
             return Page();
         }
+
+        [BindProperty]
+        public HabitUnitAddDTO HabitUnit { get; set; }
 
         public IActionResult OnPost()
         {
@@ -32,7 +32,7 @@ namespace WaterLogger.Pages
             {
                 return Page();
             }
-            _repository.Update(Expense);
+            _repository.Add(HabitUnit);
             return RedirectToPage("./Index");
         }
 

@@ -14,14 +14,14 @@ public class DailyExpenseRepository : IDailyExpenseRepository
         _context = context;
     }
 
-    public void AddDailyExpense(DailyExpenseAddDTO record) => _context.Add(record);
+    public void Add(DailyExpenseAddDTO record) => _context.Add(record);
 
-    public void DeleteDailyExpense(int id) => _context.Delete(id);
+    public void Delete(int id) => _context.Delete(id);
 
-    public void UpdateDailyExpense(DailyExpense record) => _context.Update(record);
+    public void Update(DailyExpense record) => _context.Update(record);
 
-    public List<DailyExpense> GetAllDailyExpense() => _context.GetAll();
+    public List<DailyExpense> GetAll() => _context.GetAll();
 
-    public DailyExpense GetDailyExpenseById(int id) => _context.GetById(id);
+    public DailyExpense GetById(int id) => _context.GetById(id);
 
 }

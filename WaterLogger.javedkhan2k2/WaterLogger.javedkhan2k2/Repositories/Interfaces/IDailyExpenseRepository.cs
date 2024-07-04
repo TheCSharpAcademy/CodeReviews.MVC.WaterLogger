@@ -5,9 +5,9 @@ namespace WaterLogger.Repositories.Interfaces;
 
 public interface IDailyExpenseRepository
 {
-    List<DailyExpense> GetAllDailyExpense();
-    DailyExpense GetDailyExpenseById(int id);
-    void AddDailyExpense(DailyExpenseAddDTO record);
-    void UpdateDailyExpense(DailyExpense record);
-    void DeleteDailyExpense(int id);
+    List<DailyExpense> GetAll();
+    DailyExpense GetById(int id);
+    void Add(DailyExpenseAddDTO record);
+    void Update(DailyExpense record);
+    void Delete(int id);
 }

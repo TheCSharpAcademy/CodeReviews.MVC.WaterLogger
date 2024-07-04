@@ -1,0 +1,29 @@
+@page
+@model WaterLogger.Pages.HabitUnits.IndexModel
+@{
+}
+<a button type="button" class="btn btn-success" asp-page="./Create">Add Habit Unit</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Habit Unit</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var habitUnit in Model.HabitUnits)
+        {
+            <tr>
+                <td>@habitUnit.Id</td>
+                <td>@habitUnit.Unit</td>
+                <td>
+                    <a button type="button" class="btn btn-primary" asp-page="./Update"
+                        asp-route-id="@habitUnit.Id">Update</a>
+                    <a button type="button" class="btn btn-danger" asp-page="./Delete"
+                        asp-route-id="@habitUnit.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

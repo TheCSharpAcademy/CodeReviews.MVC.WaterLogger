@@ -16,6 +16,6 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-        Expenses = _repository.GetAllDailyExpense();
+        Expenses = _repository.GetAll();
     }
 }
