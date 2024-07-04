@@ -1,0 +1,20 @@
+@page
+@model WaterLogger.Pages.DeleteModel
+@{
+    
+}
+
+<div>
+    <h4>Do you want to delete Expense with 
+        Id: @Model.Expense.Id<br/>
+        Date: @Model.Expense.Date.ToString("dd-MM-yyyy")<br/>
+        Amount: @Model.Expense.Amount<br/>
+        Expense Type: @Model.Expense.ExpenseType
+    </h4>
+    <form method="post">
+        <div class="form-group">
+            <input type="hidden" asp-for="Expense.Id">
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </div>
+    </form>
+</div>

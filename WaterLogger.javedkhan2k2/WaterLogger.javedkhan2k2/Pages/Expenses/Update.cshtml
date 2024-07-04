@@ -1,0 +1,31 @@
+@page
+@model WaterLogger.Pages.UpdateModel
+@{
+
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="Expense.Id" />
+            <div class="form-group">
+                <label asp-for="Expense.Date" class="control-label"></label>
+                <input type="date" asp-for="Expense.Date" class="form-control">
+                <span asp-validation-for="Expense.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Expense.Amount" class="control-label"></label>
+                <input type="text" asp-for="Expense.Amount" class="form-control">
+                <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Expense.ExpenseType" class="control-label"></label>
+                <input asp-for="Expense.ExpenseType" type="text" class="form-control">
+                <span asp-validation-for="Expense.ExpenseType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+</div>

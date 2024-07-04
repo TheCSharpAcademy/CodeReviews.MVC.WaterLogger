@@ -1,0 +1,36 @@
+@page
+@model WaterLogger.Pages.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Add Daily Expense</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Expense.Date" class="control-label"></label>
+                <input type="date" asp-for="Expense.Date" class="form-control" />
+                <span asp-validation-for="Expense.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Expense.Amount" class="control-label"></label>
+                <input type="number" asp-for="Expense.Amount" class="form-control" />
+                <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Expense.ExpenseType" class="control-label"></label>
+                <input type="text" asp-for="Expense.ExpenseType" class="form-control">
+                <span asp-validation-for="Expense.ExpenseType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
