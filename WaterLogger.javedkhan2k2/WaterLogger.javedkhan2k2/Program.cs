@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using WaterLogger.Data;
 using WaterLogger.Repositories;
 using WaterLogger.Repositories.Interfaces;
@@ -23,8 +24,24 @@ builder.Services.AddSingleton<HabitUnitDbContext>(provider =>
     return new HabitUnitDbContext(connectionString);
 });
 
+builder.Services.AddSingleton<HabitDbContext>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnectionString");
+    return new HabitDbContext(connectionString);
+});
+
+builder.Services.AddSingleton<MyLogDbContext>(providers =>
+{
+    var configuration = providers.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnectionString");
+    return new MyLogDbContext(connectionString);
+});
+
 builder.Services.AddScoped<IDailyExpenseRepository, DailyExpenseRepository>();
 builder.Services.AddScoped<IHabitUnitRepository, HabitUnitRepository>();
+builder.Services.AddScoped<IHabitRepository, HabitRepository>();
+builder.Services.AddScoped<IMyLogRepository, MyLogRepository>();
 
 var app = builder.Build();
 

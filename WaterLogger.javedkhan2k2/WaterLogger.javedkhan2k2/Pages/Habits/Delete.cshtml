@@ -1,7 +1,9 @@
 @page
-@model WaterLogger.Pages.HabitUnits.DeleteModel
+@model WaterLogger.Pages.Habits.DeleteModel
 @{
+    
 }
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -14,16 +16,20 @@
                     <h5 class="card-title">Are you sure you want to delete this record?</h5>
                     <div class="row p-2">
                         <div class="col-4"><strong>ID</strong></div>
-                        <div class="col-6"><span>@Model.HabitUnit.Id</span></div>
+                        <div class="col-6"><span>@Model.Habit.Id</span></div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-4"><strong>Habit</strong></div>
+                        <div class="col-6"><span>@Model.Habit.HabitName</span></div>
                     </div>
                     <div class="row p-2">
                         <div class="col-4"><strong>Habit Unit</strong></div>
-                        <div class="col-6"><span>@Model.HabitUnit.Unit</span></div>
+                        <div class="col-6"><span>@Model.Habit.HabitUnit.Unit</span></div>
                     </div>
                     <div class="d-flex justify-content-end mt-2">
                         <form method="post">
-                            <input type="hidden" asp-for="HabitUnit.Id">
-                            <a button type="button" class="btn btn-primary" asp-page="/HabitUnits/Index">Go back</a>
+                            <input type="hidden" asp-for="Habit.Id">
+                            <a button type="button" class="btn btn-primary" asp-page="/Habits/Index">Go back</a>
                             <input type="submit" value="Delete" class="btn btn-danger">
                         </form>
                     </div>

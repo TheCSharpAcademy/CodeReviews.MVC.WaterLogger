@@ -2,7 +2,7 @@
 @model WaterLogger.Pages.HabitUnits.IndexModel
 @{
 }
-<a button type="button" class="btn btn-success" asp-page="./Create">Add Habit Unit</a>
+<a button type="button" class="btn btn-success btn-sm" asp-page="./Create">Add Habit Unit</a>
 <table class="table">
     <thead>
         <tr>
@@ -18,9 +18,9 @@
                 <td>@habitUnit.Id</td>
                 <td>@habitUnit.Unit</td>
                 <td>
-                    <a button type="button" class="btn btn-primary" asp-page="./Update"
+                    <a button type="button" class="btn btn-primary btn-sm" asp-page="./Update"
                         asp-route-id="@habitUnit.Id">Update</a>
-                    <a button type="button" class="btn btn-danger" asp-page="./Delete"
+                    <a button type="button" class="btn btn-danger btn-sm" asp-page="./Delete"
                         asp-route-id="@habitUnit.Id">Delete</a>
                 </td>
             </tr>
