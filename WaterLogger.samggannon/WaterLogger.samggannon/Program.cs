@@ -1,7 +1,15 @@
+using WaterLogger.samggannon.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<DataAccess>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    return new DataAccess(configuration.GetConnectionString("ConnectionString"));
+});
 
 var app = builder.Build();
 

@@ -7,13 +7,11 @@ namespace WaterLogger.samggannon.Pages;
 
 public class CreateModel : PageModel
 {
-    private readonly IConfiguration _configuration;
     private readonly DataAccess _dataFunctions;
 
-    public CreateModel(IConfiguration configuration)
+    public CreateModel(DataAccess dataFunctions)
     {
-        _configuration = configuration;
-        _dataFunctions = new DataAccess(_configuration.GetConnectionString("ConnectionString"));
+        _dataFunctions = dataFunctions;
     }
 
     [BindProperty]
