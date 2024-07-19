@@ -17,19 +17,30 @@ document.addEventListener('DOMContentLoaded', function () {
         "<i>*Beboop Beboop*</i> Water maintains normal bowel function."
     ];
 
-    bubble.innerHTML = initialMessage;
-    bubble.style.display = 'block';
+    //bubble.innerHTML = initialMessage;
+    //bubble.style.display = 'block';
 
-    let dismissed = false;
+    if (sessionStorage.getItem('welcomeDismissed') === null) {
+        sessionStorage.setItem('welcomeDismissed', 'false');
+    }
+
+    let dismissed = sessionStorage.getItem('welcomeDismissed') === 'true';
+
+    if (!dismissed) {
+        bubble.innerHTML = initialMessage;
+        bubble.style.display = 'block';
+    }
 
     robotSpeak.addEventListener('click', function () {
         if (!dismissed) {
             bubble.style.display = 'none';
+            sessionStorage.setItem('welcomeDismissed', 'true');
             dismissed = true;
         } else {
             const randomFact = waterFacts[Math.floor(Math.random() * waterFacts.length)];
             bubble.innerHTML = randomFact;
             bubble.style.display = 'block';
+            sessionStorage.setItem('welcomeDismissed', 'false');
             dismissed = false;
         }
     });
