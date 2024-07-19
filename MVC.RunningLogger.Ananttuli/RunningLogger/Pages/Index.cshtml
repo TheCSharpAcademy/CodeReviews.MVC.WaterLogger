@@ -1,0 +1,78 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const logChartData = @Html.Raw(Json.Serialize(Model.LogChartData));
+        showRunningHistoryChart(logChartData);
+    });
+</script>
+
+@if (Model.LogChartData.Count > 0)
+{
+    <div class="chart-container d-flex justify-content-center" style="position: relative; height:40vh; width: 100%;">
+        <canvas id="running-chart">
+    </div>
+}
+
+<div class="container">
+    <div class="d-flex justify-content-center m-5">
+        <a type="button" class="btn btn-success float-right" asp-area="" asp-page="/Create">
+            + Add run log
+        </a>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Start date & time
+                    </th>
+                    <th>
+                        Distance (Quantity)
+                    </th>
+                    <th>
+                        Unit
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Logs.Count == 0)
+                {
+                    <tr class="list-row">
+                        <td colspan="5">
+                            <span><i>No entries yet. Click "+ Add run log" to create an entry.</i></span>
+                        </td>
+
+                    </tr>
+                }
+
+                @foreach (var log in Model.Logs)
+                {
+                    <tr class="list-row">
+                        <td>
+                            @Html.DisplayFor(modelItem => log.StartDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => log.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => log.UnitName)
+                        </td>
+                        <td>
+                            <a type="button" class="btn btn-warning" asp-route-id="@log.LogId" asp-area=""
+                                asp-page="/Edit">Edit</a>
+                            <a type="button" class="btn btn-danger" asp-route-id="@log.LogId" asp-area=""
+                                asp-page="/Delete">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
