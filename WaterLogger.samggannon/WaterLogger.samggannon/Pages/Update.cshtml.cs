@@ -4,52 +4,51 @@ using WaterLogger.samggannon.Data;
 using WaterLogger.samggannon.Models;
 using WaterLogger.samggannon.Services;
 
-namespace WaterLogger.samggannon.Pages
+namespace WaterLogger.samggannon.Pages;
+
+public class UpdateModel : PageModel
 {
-    public class UpdateModel : PageModel
+    private readonly DataAccess _dataFunctions;
+
+    [BindProperty]
+    public DrinkingWaterModel drinkingWater { get; set; }
+
+    public UpdateModel(DataAccess dataFunctions)
     {
-        private readonly DataAccess _dataFunctions;
+        _dataFunctions = dataFunctions;
+    }
 
-        [BindProperty]
-        public DrinkingWaterModel drinkingWater { get; set; }
+    public IActionResult OnGet(int id)
+    {
+        drinkingWater = GetById(id);
 
-        public UpdateModel(DataAccess dataFunctions)
+        if (drinkingWater == null)
         {
-            _dataFunctions = dataFunctions;
+            return NotFound();
         }
 
-        public IActionResult OnGet(int id)
+        return Page();
+    }
+
+    public IActionResult OnPost()
+    {
+        if (!ModelState.IsValid)
         {
-            drinkingWater = GetById(id);
-
-            if (drinkingWater == null)
-            {
-                return NotFound();
-            }
-
             return Page();
         }
 
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+        DrinkingWaterDto drinkingWaterDto = DtoMapper.MapToDto(drinkingWater);
+        _dataFunctions.EditDrinkingWaterRecordById(drinkingWaterDto);
 
-            DrinkingWaterDto drinkingWaterDto = DtoMapper.MapToDto(drinkingWater);
-            _dataFunctions.EditDrinkingWaterRecordById(drinkingWaterDto);
+        return RedirectToPage("./Index");
+    }
 
-            return RedirectToPage("./Index");
-        }
+    private DrinkingWaterModel GetById(int id)
+    {
+        DrinkingWaterDto tempData = _dataFunctions.GetDrinkingWaterRecordById(id);
 
-        private DrinkingWaterModel GetById(int id)
-        {
-            DrinkingWaterDto tempData = _dataFunctions.GetDrinkingWaterRecordById(id);
+        DrinkingWaterModel retData = DtoMapper.MapToModel(tempData);
 
-            DrinkingWaterModel retData = DtoMapper.MapToModel(tempData);
-
-            return retData;
-        }
+        return retData;
     }
 }

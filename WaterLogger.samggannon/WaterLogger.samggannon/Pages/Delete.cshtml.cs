@@ -1,50 +1,48 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Data;
 using WaterLogger.samggannon.Data;
 using WaterLogger.samggannon.Models;
 using WaterLogger.samggannon.Services;
 
-namespace WaterLogger.samggannon.Pages
+namespace WaterLogger.samggannon.Pages;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly DataAccess _dataFunctions;
+
+    [BindProperty]
+    public DrinkingWaterModel drinkingWater { get; set; }
+
+    public DeleteModel(DataAccess dataFunctions)
     {
-        private readonly DataAccess _dataFunctions;
+        _dataFunctions = dataFunctions;
+    }
 
-        [BindProperty]
-        public DrinkingWaterModel drinkingWater { get; set; }
+    public IActionResult OnGet(int id)
+    {
+        drinkingWater = GetById(id);
 
-        public DeleteModel(DataAccess dataFunctions)
+        if (drinkingWater == null)
         {
-            _dataFunctions = dataFunctions;
+            return NotFound();
         }
 
-        public IActionResult OnGet(int id)
-        {
-            drinkingWater = GetById(id);
+        return Page();
+    }
 
-            if (drinkingWater == null)
-            {
-                return NotFound();
-            }
+    public IActionResult OnPost(int id)
+    {
+        _dataFunctions.DeleteDrinkingWaterRecordById(id);
 
-            return Page();
-        }
+        return RedirectToPage("./Index");
+    }
 
-        public IActionResult OnPost(int id)
-        {
-            _dataFunctions.DeleteDrinkingWaterRecordById(id);
+    private DrinkingWaterModel GetById(int id)
+    {
+        DrinkingWaterDto tempData = _dataFunctions.GetDrinkingWaterRecordById(id);
 
-            return RedirectToPage("./Index");
-        }
+        DrinkingWaterModel retData = DtoMapper.MapToModel(tempData);
 
-        private DrinkingWaterModel GetById(int id)
-        {
-            DrinkingWaterDto tempData = _dataFunctions.GetDrinkingWaterRecordById(id);
-             
-            DrinkingWaterModel retData = DtoMapper.MapToModel(tempData);
-            
-            return retData;
-        }
+        return retData;
     }
 }

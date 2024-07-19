@@ -4,41 +4,40 @@ using System.Data;
 using WaterLogger.samggannon.Data;
 using WaterLogger.samggannon.Models;
 
-namespace WaterLogger.samggannon.Pages
+namespace WaterLogger.samggannon.Pages;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly DataAccess _dataFunctions;
+
+    [BindProperty]
+    public List<DrinkingWaterModel> Records { get; set; }
+
+    public IndexModel(DataAccess dataFunctions)
     {
-        private readonly DataAccess _dataFunctions;
+        _dataFunctions = dataFunctions;
+    }
 
-        [BindProperty]
-        public List<DrinkingWaterModel> Records { get; set; }
+    public void OnGet()
+    {
+        Records = GetAllRecords();
+    }
 
-        public IndexModel(DataAccess dataFunctions)
+    private List<DrinkingWaterModel> GetAllRecords()
+    {
+        List<DrinkingWaterModel> retData = new List<DrinkingWaterModel>();
+        DataTable dtDrinkingWaterData = new DataTable();
+        dtDrinkingWaterData = _dataFunctions.GetAllDrinkingWaterRecords();
+        foreach(DataRow dr in dtDrinkingWaterData.Rows)
         {
-            _dataFunctions = dataFunctions;
+            DrinkingWaterModel drinkingWaterData = new DrinkingWaterModel();
+            drinkingWaterData.Id = Convert.ToInt32(dr["Id"]);
+            drinkingWaterData.Date = Convert.ToDateTime(dr["Date"]);
+            drinkingWaterData.Quantity = Convert.ToInt32(dr["Quantity"]);
+
+            retData.Add(drinkingWaterData);
         }
 
-        public void OnGet()
-        {
-            Records = GetAllRecords();
-        }
-
-        private List<DrinkingWaterModel> GetAllRecords()
-        {
-            List<DrinkingWaterModel> retData = new List<DrinkingWaterModel>();
-            DataTable dtDrinkingWaterData = new DataTable();
-            dtDrinkingWaterData = _dataFunctions.GetAllDrinkingWaterRecords();
-            foreach(DataRow dr in dtDrinkingWaterData.Rows)
-            {
-                DrinkingWaterModel drinkingWaterData = new DrinkingWaterModel();
-                drinkingWaterData.Id = Convert.ToInt32(dr["Id"]);
-                drinkingWaterData.Date = Convert.ToDateTime(dr["Date"]);
-                drinkingWaterData.Quantity = Convert.ToInt32(dr["Quantity"]);
-
-                retData.Add(drinkingWaterData);
-            }
-
-            return retData;
-        }
+        return retData;
     }
 }

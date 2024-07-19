@@ -2,108 +2,107 @@
 using System.Data.SQLite;
 using System.Data;
 
-namespace WaterLogger.samggannon.Data
+namespace WaterLogger.samggannon.Data;
+
+public class DatabaseAccess
 {
-    public class DatabaseAccess
+    private readonly string _connectionString;
+
+    public DatabaseAccess(string connectionString)
     {
-        private readonly string _connectionString;
+        _connectionString = connectionString;
+        SQLitePCL.Batteries.Init();
+    }
 
-        public DatabaseAccess(string connectionString)
+    public void Insert(string sql)
+    {
+        using (var connection = new SqliteConnection(_connectionString))
         {
-            _connectionString = connectionString;
-            SQLitePCL.Batteries.Init();
+            connection.Open();
+
+            var tableCmd = connection.CreateCommand();
+            tableCmd.CommandText = sql;
+            tableCmd.ExecuteNonQuery();
+
+            connection.Close();
         }
+    }
 
-        public void Insert(string sql)
+    internal void Update(string sql)
+    {
+        using (var connection = new SqliteConnection(_connectionString))
         {
-            using (var connection = new SqliteConnection(_connectionString))
-            {
-                connection.Open();
+            connection.Open();
 
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = sql;
-                tableCmd.ExecuteNonQuery();
+            var tableCmd = connection.CreateCommand();
+            tableCmd.CommandText = sql;
+            tableCmd.ExecuteNonQuery();
 
-                connection.Close();
-            }
+            connection.Close();
         }
+    }
 
-        internal void Update(string sql)
+    internal void Delete(string sql)
+    {
+        using (var connection = new SqliteConnection(_connectionString))
         {
-            using (var connection = new SqliteConnection(_connectionString))
-            {
-                connection.Open();
+            connection.Open();
 
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = sql;
-                tableCmd.ExecuteNonQuery();
+            var tableCmd = connection.CreateCommand();
+            tableCmd.CommandText = sql;
+            tableCmd.ExecuteNonQuery();
 
-                connection.Close();
-            }
+            connection.Close();
         }
+    }
 
-        internal void Delete(string sql)
+    internal DataTable GetDataTable(string sql)
+    {
+        DataTable dataTable = new DataTable();
+
+        using (var connection = new SQLiteConnection(_connectionString))
         {
-            using (var connection = new SqliteConnection(_connectionString))
+            connection.Open();
+
+            using (var command = new SQLiteCommand(sql, connection))
             {
-                connection.Open();
-
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = sql;
-                tableCmd.ExecuteNonQuery();
-
-                connection.Close();
-            }
-        }
-
-        internal DataTable GetDataTable(string sql)
-        {
-            DataTable dataTable = new DataTable();
-
-            using (var connection = new SQLiteConnection(_connectionString))
-            {
-                connection.Open();
-
-                using (var command = new SQLiteCommand(sql, connection))
+                using (var adapter = new SQLiteDataAdapter(command))
                 {
-                    using (var adapter = new SQLiteDataAdapter(command))
-                    {
-                        adapter.Fill(dataTable);
-                    }
+                    adapter.Fill(dataTable);
                 }
-
-                connection.Close();
             }
 
-            return dataTable;
+            connection.Close();
         }
 
-        internal DrinkingWaterDto GetDrinkingWaterRecordById(string sql)
+        return dataTable;
+    }
+
+    internal DrinkingWaterDto GetDrinkingWaterRecordById(string sql)
+    {
+        DrinkingWaterDto drinkingWaterData = new DrinkingWaterDto();
+
+        using (var connection = new SQLiteConnection(_connectionString))
         {
-            DrinkingWaterDto drinkingWaterData = new DrinkingWaterDto();
+            connection.Open();
 
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var command = new SQLiteCommand(sql, connection))
             {
-                connection.Open();
-
-                using (var command = new SQLiteCommand(sql, connection))
+                using (var reader = command.ExecuteReader())
                 {
-                    using (var reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        drinkingWaterData = new DrinkingWaterDto
                         {
-                            drinkingWaterData = new DrinkingWaterDto
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Date = DateTime.Parse(reader.GetString(reader.GetOrdinal("Date"))),
-                                Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"))
-                            };
-                        }
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Date = DateTime.Parse(reader.GetString(reader.GetOrdinal("Date"))),
+                            Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"))
+                        };
                     }
                 }
             }
-
-            return drinkingWaterData;
         }
+
+        return drinkingWaterData;
     }
 }
