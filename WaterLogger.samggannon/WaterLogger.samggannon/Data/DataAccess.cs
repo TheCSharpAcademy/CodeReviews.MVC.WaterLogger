@@ -29,6 +29,12 @@ namespace WaterLogger.samggannon.Data
             _dbConnection.Delete(sql);
         }
 
+        internal void EditDrinkingWaterRecordById(DrinkingWaterDto drinkingWater)
+        {
+            string sql = $"UPDATE drinking_water SET Date = '{drinkingWater.Date}', Quantity = {drinkingWater.Quantity} WHERE Id = {drinkingWater.Id} ";
+            _dbConnection.Update(sql);
+        }
+
         internal DataTable GetAllDrinkingWaterRecords()
         {
             string sql = "SELECT * FROM drinking_water";

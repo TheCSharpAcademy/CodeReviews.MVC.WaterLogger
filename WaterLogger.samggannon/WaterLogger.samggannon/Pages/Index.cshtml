@@ -4,7 +4,10 @@
     ViewData["Title"] = "Home page";
 }
 
-<a button type="button" class="btn btn-success" asp-area="" asp-page="/Create">Add Record</a>
+<div class="form-group">
+    <a button type="button" class="btn btn-success" asp-area="" asp-page="/Create">Add Record</a>
+</div>
+
 
 <table id="records" class="table">
     <thead>
@@ -34,7 +37,7 @@
                     <a button type="button" class="btn btn-danger" asp-page="./Delete" 
                     asp-route-id="@record.Id">Delete</a>
                     <a button type="button" class="btn btn-primary" asp-page="./Update"
-                       id="@record.Id">Edit</a>
+                    asp-route-id="@record.Id">Edit</a>
                 </td>
             </tr>
         }

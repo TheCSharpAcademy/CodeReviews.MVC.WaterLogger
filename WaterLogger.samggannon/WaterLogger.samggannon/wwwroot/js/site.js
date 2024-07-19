@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const initialMessage = "<i>*Beboop Beboop*</i> Welcome! Glad to see you are making healthy choices. <i>*Beboop Beboop*</i> </br> </br> (Click me to dismiss. To read a random water fact, click me again at anytime.)";
     const waterFacts = [
-        "Did you know that water makes up about 60% of the human body?",
-        "Drinking water helps maintain the balance of bodily fluids.",
-        "Water can help control calories.",
-        "Water energizes muscles.",
-        "Water helps keep skin looking good.",
-        "Water helps your kidneys.",
-        "Water maintains normal bowel function."
+        "<i>*Beboop Beboop*</i> Did you know that water makes up about 60% of the human body?",
+        "<i>*Beboop Beboop*</i> Drinking water helps maintain the balance of bodily fluids.",
+        "<i>*Beboop Beboop*</i> Water can help control calories.",
+        "<i>*Beboop Beboop*</i> Water energizes muscles.",
+        "<i>*Beboop Beboop*</i> Water helps keep skin looking good.",
+        "<i>*Beboop Beboop*</i> Water helps your kidneys.",
+        "<i>*Beboop Beboop*</i> Water maintains normal bowel function."
     ];
 
     bubble.innerHTML = initialMessage;

@@ -1,0 +1,37 @@
+﻿@page
+@model WaterLogger.samggannon.Pages.UpdateModel
+@{
+}
+
+<h2>Update Record</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <input type="hidden" asp-for="drinkingWater.Id" />
+                <label asp-for="drinkingWater.Date" class="control-label"></label>
+                <input type="date" asp-for="drinkingWater.Date" class="form-control" />
+                <span asp-validation-for="drinkingWater.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="drinkingWater.Quantity" class="control-label"></label>
+                <input type="number" asp-for="drinkingWater.Quantity" class="form-control" />
+                <span asp-validation-for="drinkingWater.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -28,6 +28,20 @@ namespace WaterLogger.samggannon.Data
             }
         }
 
+        internal void Update(string sql)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var tableCmd = connection.CreateCommand();
+                tableCmd.CommandText = sql;
+                tableCmd.ExecuteNonQuery();
+
+                connection.Close();
+            }
+        }
+
         internal void Delete(string sql)
         {
             using (var connection = new SqliteConnection(_connectionString))

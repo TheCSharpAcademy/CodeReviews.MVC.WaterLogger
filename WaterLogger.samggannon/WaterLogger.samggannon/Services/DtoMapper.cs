@@ -14,5 +14,15 @@ namespace WaterLogger.samggannon.Services
                 Quantity = dto.Quantity,
             };
         }
+
+        internal static DrinkingWaterDto MapToDto(DrinkingWaterModel drinkingWater)
+        {
+            return new DrinkingWaterDto
+            {
+                Id = drinkingWater.Id,
+                Date = drinkingWater.Date,
+                Quantity = drinkingWater.Quantity,
+            };
+        }
     }
 }

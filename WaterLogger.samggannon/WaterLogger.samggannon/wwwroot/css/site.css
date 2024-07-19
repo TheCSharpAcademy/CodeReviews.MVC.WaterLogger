@@ -18,8 +18,17 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-image: url("../images/waterDropBackground.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
 
 #robot-buddy-container {
     position: fixed;
@@ -30,6 +39,8 @@ body {
 
 #robot-buddy {
     cursor: pointer;
+    width:200px;
+    height: auto;
 }
 
 #speech-bubble {
