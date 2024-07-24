@@ -1,0 +1,34 @@
+@page
+@model WaterLogger.Pages.MyLogs.IndexModel
+@{
+    
+}
+
+<a button type="button" class="btn btn-success btn-sm" asp-page="./Create">Add Log</a>
+
+<table class="table">
+    <thead>
+        <th>Id</th>
+        <th>Date</th>
+        <th>Quantity</th>
+        <th>Habit</th>
+        <th>Habit Unit</th>
+        <th></th>
+    </thead>
+    <tbody>
+        @foreach(var record in Model.MyLogs)
+        {
+            <tr>
+                <td>@record.Id</td>
+                <td>@(record.Date.ToString("dd-MM-yyyy"))</td>
+                <td>@record.Quantity</td>
+                <td>@record.Habit.HabitName</td>
+                <td>@record.Habit.HabitUnit.Unit</td>
+                <td>
+                    <a button type="button" class="btn btn-primary btn-sm" asp-page="./Update" asp-route-id="@record.Id">Update</a>
+                    <a button type="button" class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@record.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

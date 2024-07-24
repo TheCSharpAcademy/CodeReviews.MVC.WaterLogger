@@ -1,0 +1,47 @@
+@page
+@model WaterLogger.Pages.MyLogs.CreateModel
+@{
+    
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-primary bg-gradient">
+                    Add Log
+                </div>
+                <div class="card-body bg-light bg-gradient">
+                    <form method="post">
+                        <div class="form-floating mb-2 row">
+                            <input type="date" class="form-control form-control-sm" asp-for="MyLog.Date"
+                                placeholder="">
+                            <label asp-for="MyLog.Date"></label>
+                            <span asp-validation-for="MyLog.Date" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating">
+                            <select asp-for="MyLog.HabitId" class="form-select mb-2 row">
+                                <option selected>Slect an Unit from the Menu</option>
+                                @foreach(var item in Model.Habits)
+                                {
+                                    <option value="@item.Id">@item.HabitName</option>
+                                }
+                            </select>
+                            <label asp-for="MyLog.HabitId"></label>
+                            <span asp-validation-for="MyLog.HabitId" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-2 row">
+                            <input type="text" class="form-control form-control-sm" asp-for="MyLog.Quantity"
+                                placeholder="">
+                            <label asp-for="MyLog.Quantity"></label>
+                            <span asp-validation-for="MyLog.Quantity" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <input type="submit" value="Add" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
