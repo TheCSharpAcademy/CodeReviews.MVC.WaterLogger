@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Data.SqlClient;
+using WeightLogger.samggannon.Models;
 
 namespace WeightLogger.samggannon.Data
 {
@@ -32,6 +33,11 @@ namespace WeightLogger.samggannon.Data
             {
                 return false;
             }
+        }
+
+        internal void LogThisWeight(Weight logWeight)
+        {
+            throw new NotImplementedException();
         }
     }
 }
