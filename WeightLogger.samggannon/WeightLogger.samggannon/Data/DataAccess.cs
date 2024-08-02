@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Data.SqlClient;
 using WeightLogger.samggannon.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WeightLogger.samggannon.Data
 {
@@ -35,9 +36,10 @@ namespace WeightLogger.samggannon.Data
             }
         }
 
-        internal void LogThisWeight(Weight logWeight)
+        internal void LogThisWeight(decimal weight, string logDate)
         {
-            throw new NotImplementedException();
+            string sql = $"INSERT INTO WeightLogs(weight, log_date) VALUES('{weight}', {logDate})";
+            _dbConnection.Insert(sql);
         }
     }
 }

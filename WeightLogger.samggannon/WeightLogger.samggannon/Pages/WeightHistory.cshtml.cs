@@ -38,13 +38,13 @@ public class WeightHistoryModel : PageModel
         if (needsToConvert)
         {
             logWeight.weight = ConvertWeightToKg(logWeight.weight);
-            _dataFunctions.LogThisWeight(logWeight);
+            _dataFunctions.LogThisWeight(logWeight.weight, logWeight.loggedDate.ToString());
 
             return RedirectToPage("./Index");
         }
         else
         {
-            _dataFunctions.LogThisWeight(logWeight);
+            _dataFunctions.LogThisWeight(logWeight.weight, logWeight.loggedDate.ToString());
             return RedirectToPage("./Index");
         }
     }
