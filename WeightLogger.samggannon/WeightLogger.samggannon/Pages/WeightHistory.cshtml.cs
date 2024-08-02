@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 using WeightLogger.samggannon.Data;
 using WeightLogger.samggannon.Models;
 
@@ -26,6 +27,33 @@ public class WeightHistoryModel : PageModel
     
     public void OnGet()
     {
+        GetWeightHistoy();
+    }
+
+    private void GetWeightHistoy()
+    {
+        DataTable dtWeightHistory = _dataFunctions.GetWeightHistory();
+
+        foreach (DataRow dr in dtWeightHistory.Rows)
+        {
+            Weight thisWeight = new Weight();
+            thisWeight.Id = Convert.ToInt32(dr["log_id"]);
+            thisWeight.weight = Convert.ToDecimal(dr["weight"]);
+
+            // Check and convert the log_date
+            string logDateString = dr["log_date"].ToString();
+            DateTime logDate;
+            if (logDateString == "0" || string.IsNullOrWhiteSpace(logDateString) || !DateTime.TryParse(logDateString, out logDate))
+            {
+                // Handle invalid date, set to a default value if needed
+                logDate = DateTime.MinValue; // or any other default date
+            }
+
+            thisWeight.loggedDate = logDate;
+
+            WeightLogs.Add(thisWeight);
+        }
+
     }
 
     public IActionResult OnPost()
