@@ -78,6 +78,34 @@ namespace WeightLogger.samggannon.Data
 
             return dataTable;
         }
-        
+
+        internal WeightRecordDto GetWeightLogRecordById(string sql)
+        {
+            WeightRecordDto weightDto = new WeightRecordDto();
+
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            weightDto = new WeightRecordDto
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("log_id")),
+                                loggedDate = DateTime.Parse(reader.GetString(reader.GetOrdinal("log_date"))),
+                                weight = reader.GetInt32(reader.GetOrdinal("weight"))
+                            };
+                        }
+                    }
+                }
+            }
+
+            return weightDto;
+        }
+
     }
 }

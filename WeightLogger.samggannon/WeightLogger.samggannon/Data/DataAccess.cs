@@ -43,6 +43,12 @@ namespace WeightLogger.samggannon.Data
             return  _dbConnection.GetDataTable(sql);
         }
 
+        internal WeightRecordDto GetWeightLogById(int id)
+        {
+            string sql = $"SELECT * FROM WeightLogs WHERE log_id = {id}";
+            return _dbConnection.GetWeightLogRecordById(sql);
+        }
+
         internal void LogThisWeight(decimal weight, string logDate)
         {
             string sql = $"INSERT INTO WeightLogs(weight, log_date) VALUES({weight}, '{logDate}')";

@@ -20,7 +20,7 @@ function showWeightHistory(logs = []) {
                 acc[key] = 0;
             }
 
-            acc[key] += log.weight ?? 0;
+            acc[key] += log.weightValue ?? 0;
 
             return acc;
         }, {});

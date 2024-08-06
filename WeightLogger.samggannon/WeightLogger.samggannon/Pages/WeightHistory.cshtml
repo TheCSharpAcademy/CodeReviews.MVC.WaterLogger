@@ -23,7 +23,7 @@
 <form method="post">
     <div>
         <label for="weight">Please enter your weight:</label>
-        <input type="number" id="weight" asp-for="logWeight.weight" />
+        <input type="number" id="weight" asp-for="logWeight.weightValue" />
 
         <label for="dateLogged">Date Logged:</label>
         <input type="date" id="dateLogged" asp-for="logWeight.loggedDate" />
@@ -48,7 +48,7 @@
         {
             <tr>
                 <td>@log.loggedDate.ToString("yyyy-MM-dd")</td>
-                <td>@log.weight</td>
+                <td>@log.weightValue</td>
                 <td>
                     <a type="button" class="btn btn-info" asp-route-id="@log.Id" asp-area=""
                        asp-page="/Edit">Edit</a>

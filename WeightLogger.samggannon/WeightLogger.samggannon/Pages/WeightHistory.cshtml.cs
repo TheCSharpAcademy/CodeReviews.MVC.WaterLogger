@@ -38,7 +38,7 @@ public class WeightHistoryModel : PageModel
         {
             Weight thisWeight = new Weight();
             thisWeight.Id = Convert.ToInt32(dr["log_id"]);
-            thisWeight.weight = Convert.ToDecimal(dr["weight"]);
+            thisWeight.weightValue = Convert.ToDecimal(dr["weight"]);
 
             // Check and convert the log_date
             string logDateString = dr["log_date"].ToString();
@@ -67,14 +67,14 @@ public class WeightHistoryModel : PageModel
 
         if (needsToConvert)
         {
-            logWeight.weight = ConvertWeightToKg(logWeight.weight);
-            _dataFunctions.LogThisWeight(logWeight.weight, logWeight.loggedDate.ToString());
+            logWeight.weightValue = ConvertWeightToKg(logWeight.weightValue);
+            _dataFunctions.LogThisWeight(logWeight.weightValue, logWeight.loggedDate.ToString());
 
             return RedirectToPage("./Index");
         }
         else
         {
-            _dataFunctions.LogThisWeight(logWeight.weight, logWeight.loggedDate.ToString());
+            _dataFunctions.LogThisWeight(logWeight.weightValue, logWeight.loggedDate.ToString());
             return RedirectToPage("./Index");
         }
     }
