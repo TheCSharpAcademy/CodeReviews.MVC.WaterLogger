@@ -52,6 +52,8 @@ public class WeightHistoryModel : PageModel
             thisWeight.loggedDate = logDate;
 
             WeightLogs.Add(thisWeight);
+
+            WeightLogs = WeightLogs.OrderBy(w => w.loggedDate).ToList();
         }
 
     }

@@ -6,6 +6,20 @@
 
 <h2>Your Weight History</h2>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const weightLogData = @Html.Raw(Json.Serialize(Model.WeightLogs));
+        showWeightHistory(weightLogData);
+    });
+</script>
+
+@if (Model.WeightLogs.Count > 0)
+{
+    <div class="chart-container d-flex justify-content-center" style="position: relative; height:40vh; width: 100%;">
+        <canvas id="weightChart"></canvas>
+    </div>
+}
+
 <form method="post">
     <div>
         <label for="weight">Please enter your weight:</label>
@@ -16,23 +30,17 @@
 
         <input type="hidden" id="needsToConvert" name="needsToConvert" value="false" />
 
-        <div>
-            <button type="submit" onclick="document.getElementById('needsToConvert').value='true'">Convert to Kg</button>
-            <button type="submit">Submit</button>
-        </div>
+         @*  <button type="submit" onclick="document.getElementById('needsToConvert').value='true'">Convert to Kg</button> *@
+        <button class="btn-primary" type="submit">Submit</button>
     </div>
 </form>
-
-<div>
-    <canvas id="weightChart"></canvas>
-</div>
 
 <table class="table">
     <thead>
         <tr>
             <th>Date</th>
             <th>Weight</th>
-            
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -41,13 +49,18 @@
             <tr>
                 <td>@log.loggedDate.ToString("yyyy-MM-dd")</td>
                 <td>@log.weight</td>
-               
+                <td>
+                    <a type="button" class="btn btn-info" asp-route-id="@log.Id" asp-area=""
+                       asp-page="/Edit">Edit</a>
+                    <a type="button" class="btn btn-danger" asp-route-id="@log.Id" asp-area=""
+                       asp-page="/Delete">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
-@section Scripts {
+@* @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         var ctx = document.getElementById('weightChart').getContext('2d');
@@ -77,4 +90,4 @@
             }
         });
     </script>
-}
+} *@
