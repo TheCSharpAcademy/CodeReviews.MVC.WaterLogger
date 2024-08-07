@@ -30,17 +30,28 @@ namespace WeightLogger.samggannon.Data
             }
         }
 
-        internal void Update(string sql)
+        internal bool Update(string sql)
         {
-            using (var connection = new SqliteConnection(_connectionString))
+            try
             {
-                connection.Open();
+                using (var connection = new SqliteConnection(_connectionString))
+                {
+                    connection.Open();
 
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = sql;
-                tableCmd.ExecuteNonQuery();
+                    var tableCmd = connection.CreateCommand();
+                    tableCmd.CommandText = sql;
+                    int rowsAffected = tableCmd.ExecuteNonQuery();
 
-                connection.Close();
+                    connection.Close();
+
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Debug.Print($"Error executing SQL update command: {ex.Message}");
+                return false;
             }
         }
 

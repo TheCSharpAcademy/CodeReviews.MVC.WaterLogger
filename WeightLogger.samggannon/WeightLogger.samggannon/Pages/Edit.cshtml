@@ -47,14 +47,14 @@
                 <!-- Form or content for editing goes here -->
                 <form id="editForm" method="post">
                     <input type="hidden" id="editId" name="Id" />
-                    <!-- Other fields for editing -->
+  
                     <div class="form-group">
                         <label for="editDate">Date</label>
-                        <input type="date" class="form-control" id="editDate" name="loggedDate" />
+                        <input type="date" asp-for="weightRecord.loggedDate" class="form-control" id="editDate" name="loggedDate" />
                     </div>
                     <div class="form-group">
                         <label for="editWeight">Weight</label>
-                        <input type="text" class="form-control" id="editWeight" name="weightValue" />
+                        <input type="text" asp-for="weightRecord.weightValue" class="form-control" id="editWeight" name="weightValue" />
                     </div>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>
