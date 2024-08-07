@@ -37,6 +37,12 @@ namespace WeightLogger.samggannon.Data
             }
         }
 
+        internal bool DeleteWeightLog(int id)
+        {
+            string sql = $"DELETE FROM WeightLogs WHERE log_id = {id}";
+            return _dbConnection.Delete(sql);
+        }
+
         internal DataTable GetWeightHistory()
         {
             string sql = "SELECT * FROM WeightLogs";

@@ -29,7 +29,27 @@ namespace WeightLogger.samggannon.Pages
 
         public IActionResult OnPost(int id)
         {
+            
+            if (id <= 0)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid ID.");
+                return Page();
+            }
 
+            if (!ModelState.IsValid)
+            { 
+                return Page();
+            }
+
+            var result = _dataFunctions.DeleteWeightLog(id);
+
+            if (!result)
+            {
+                ModelState.AddModelError(string.Empty, "Unable to delete the weight record.");
+                return Page();
+            }
+
+            return RedirectToPage("/Index");
         }
     }
 }

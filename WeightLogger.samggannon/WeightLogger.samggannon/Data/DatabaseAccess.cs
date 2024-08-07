@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Data.SQLite;
 using System.Data;
+using System.Diagnostics;
 
 namespace WeightLogger.samggannon.Data
 {
@@ -43,19 +44,31 @@ namespace WeightLogger.samggannon.Data
             }
         }
 
-        internal void Delete(string sql)
+        internal bool Delete(string sql)
         {
-            using (var connection = new SqliteConnection(_connectionString))
+            try
             {
-                connection.Open();
+                using (var connection = new SqliteConnection(_connectionString))
+                {
+                    connection.Open();
 
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = sql;
-                tableCmd.ExecuteNonQuery();
+                    var tableCmd = connection.CreateCommand();
+                    tableCmd.CommandText = sql;
+                    int rowsAffected = tableCmd.ExecuteNonQuery();
 
-                connection.Close();
+                    connection.Close();
+
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Debug.Print($"Error executing SQL delete command: {ex.Message}");
+                return false;
             }
         }
+
 
         internal DataTable GetDataTable(string sql)
         {
