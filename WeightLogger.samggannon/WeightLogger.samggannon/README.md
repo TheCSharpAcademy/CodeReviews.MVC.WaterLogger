@@ -129,5 +129,3 @@ Certainly! Here’s the updated "Future Enhancements" section for the README:
 **Benefits**:
 - **Enhanced Flexibility**: Users can track their weight in their preferred unit of measurement.
 - **Improved Usability**: Provides a more user-friendly experience by accommodating different measurement systems.
-
----
