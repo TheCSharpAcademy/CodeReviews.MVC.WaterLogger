@@ -129,3 +129,14 @@ Certainly! Here’s the updated "Future Enhancements" section for the README:
 **Benefits**:
 - **Enhanced Flexibility**: Users can track their weight in their preferred unit of measurement.
 - **Improved Usability**: Provides a more user-friendly experience by accommodating different measurement systems.
+
+## Acknowledgements
+
+I would like to express my gratitude to the following contributors and resources:
+
+- **C# Academy**: For providing the foundational backend code model. The structure and implementation of the view models and code-behind are based on their tutorials and resources.
+  
+- **PNG Images**: The images used in this project were created by IYIKON and are available on Flaticon. Thank you for providing these great visual assets.
+  - Footprint and scale icons created by IYIKON - Flaticon: <a href="https://www.flaticon.com/free-icons/paw" title="paw icons">Footprint created by IYIKON - Flaticon</a>
+
+- **JavaScript Code**: Special thanks to user antondereget for the JavaScript code that enhances the user interface and provides additional functionality to the project. This code was copied verbatim from the run tracker project of the WaterLogger.antonderegt fork of The C# Academy CodeReviews.MVC.WaterLogger repository and curated for this use case
