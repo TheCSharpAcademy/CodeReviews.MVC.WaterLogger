@@ -35,7 +35,7 @@
     </div>
 </form>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Date</th>
@@ -47,7 +47,7 @@
         @foreach (var log in Model.WeightLogs)
         {
             <tr>
-                <td>@log.loggedDate.ToString("yyyy-MM-dd")</td>
+                <td>@log.loggedDate?.ToString("yyyy-MM-dd")</td>
                 <td>@log.weightValue</td>
                 <td>
                     <a type="button" class="btn btn-info" asp-route-id="@log.Id" asp-area=""

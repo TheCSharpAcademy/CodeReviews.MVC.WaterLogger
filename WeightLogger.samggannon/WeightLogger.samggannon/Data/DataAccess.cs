@@ -43,6 +43,16 @@ namespace WeightLogger.samggannon.Data
             return _dbConnection.Delete(sql);
         }
 
+        internal bool EditWeightLog(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool EditWeightLog(decimal weightValue, DateTime? loggedDate)
+        {
+            throw new NotImplementedException();
+        }
+
         internal DataTable GetWeightHistory()
         {
             string sql = "SELECT * FROM WeightLogs";

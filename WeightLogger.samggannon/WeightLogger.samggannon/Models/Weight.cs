@@ -6,7 +6,7 @@ namespace WeightLogger.samggannon.Models
     {
         public int Id { get; set; }
         public decimal weightValue { get; set; }
-        public DateTime loggedDate { get; set; }
+        public DateTime? loggedDate { get; set; }
 
         public static Weight MapFromDto(WeightRecordDto dto)
         {

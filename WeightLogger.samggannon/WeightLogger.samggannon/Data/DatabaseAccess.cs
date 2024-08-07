@@ -109,8 +109,8 @@ namespace WeightLogger.samggannon.Data
                             weightDto = new WeightRecordDto
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("log_id")),
-                                loggedDate = DateTime.Parse(reader.GetString(reader.GetOrdinal("log_date"))),
-                                weight = reader.GetInt32(reader.GetOrdinal("weight"))
+                                weight = reader.GetInt32(reader.GetOrdinal("weight")),
+                                loggedDate = GetDateTime(reader, "log_date")
                             };
                         }
                     }
@@ -120,5 +120,16 @@ namespace WeightLogger.samggannon.Data
             return weightDto;
         }
 
+        private DateTime? GetDateTime(SQLiteDataReader reader, string columnName)
+        {
+            var dateString = reader.GetString(reader.GetOrdinal(columnName));
+
+            if (DateTime.TryParse(dateString, out DateTime parsedDate))
+            {
+                return parsedDate;
+            }
+
+            return DateTime.MinValue;
+        }
     }
 }

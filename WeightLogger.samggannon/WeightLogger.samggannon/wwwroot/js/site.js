@@ -57,3 +57,10 @@ function showWeightHistory(logs = []) {
         },
     });
 }
+
+
+//function populateEditForm(id, loggedDate, weightValue) {
+//    document.getElementById('editId').value = id;
+//    document.getElementById('editDate').value = loggedDate;
+//    document.getElementById('editWeight').value = weightValue;
+//}
