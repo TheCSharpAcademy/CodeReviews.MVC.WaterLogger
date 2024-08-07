@@ -1,0 +1,74 @@
+﻿@page
+@model WeightLogger.samggannon.Pages.EditModel
+@{
+}
+
+<h3>Are you sure you want to edit this record </h3>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @if (Model.weightRecord != null)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.weightRecord.loggedDate?.ToString("yyyy-MM-dd")</td>
+                    <td> @Model.weightRecord.weightValue</td>
+                    <td>
+                        <input type="hidden" asp-for="weightRecord.Id" id="recordId" />
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="populateEditForm('@Model.weightRecord.Id', '@Model.weightRecord.loggedDate', '@Model.weightRecord.weightValue')">Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No available data</p>
+    }
+</form>
+
+<div>
+    <a asp-page="./WeightHistory">Back to List</a>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Record</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" method="post">
+                    <input type="hidden" id="editId" name="Id" />
+  
+                    <div class="form-group">
+                        <label for="editDate">Date</label>
+                        <input type="date" asp-for="weightRecord.loggedDate" class="form-control" id="editDate" name="loggedDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editWeight">Weight</label>
+                        <input type="number" asp-for="weightRecord.weightValue" class="form-control" id="editWeight" name="weightValue" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

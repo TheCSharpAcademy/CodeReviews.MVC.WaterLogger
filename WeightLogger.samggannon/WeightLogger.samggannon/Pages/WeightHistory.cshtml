@@ -1,0 +1,70 @@
+﻿@page
+@model WeightHistoryModel
+@{
+    ViewData["Title"] = "Weight History";
+}
+
+<h2>Your Weight History</h2>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const weightLogData = @Html.Raw(Json.Serialize(Model.WeightLogs));
+        showWeightHistory(weightLogData);
+    });
+</script>
+
+@if (Model.WeightLogs.Count > 0)
+{
+    <div class="chart-container d-flex justify-content-center" style="position: relative; height:40vh; width: 100%;">
+        <canvas id="weightChart"></canvas>
+    </div>
+}
+
+<form method="post">
+    <div>
+        <label for="weight">Please enter your weight:</label>
+        <input type="number" id="weight" asp-for="logWeight.weightValue" />
+        <span asp-validation-for="logWeight.weightValue" class="text-danger"></span>
+
+        <label for="dateLogged">Date Logged:</label>
+        <input type="date" id="dateLogged" asp-for="logWeight.loggedDate" />
+        <span asp-validation-for="logWeight.loggedDate" class="text-danger"></span>
+
+        <button class="btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+
+@if (Model.WeightLogs.Count > 0 || Model.WeightLogs != null)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Weight</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.WeightLogs)
+            {
+                <tr>
+                    <td>@log.loggedDate?.ToString("yyyy-MM-dd")</td>
+                    <td>@log.weightValue</td>
+                    <td>
+                        <a type="button" class="btn btn-info" asp-route-id="@log.Id" asp-area=""
+                           asp-page="/Edit">Edit</a>
+                        <a type="button" class="btn btn-danger" asp-route-id="@log.Id" asp-area=""
+                           asp-page="/Delete">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+}
+
+
+
