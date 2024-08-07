@@ -93,4 +93,41 @@ This folder contains Razor Pages that define the user interface:
 - ASP.NET Core for building and running the web application.
 - Entity Framework Core (if using with EF for ORM).
 
-## Contributing
+Certainly! Here’s the updated "Future Enhancements" section for the README:
+
+---
+
+## Future Enhancements
+
+### 1. Add Unit Property for Weight Records
+
+**Objective**: Introduce a property to store the unit of measurement for weight records (e.g., Pounds or Kilograms).
+
+**Implementation Steps**:
+- **Modify Data Model**: Update the `WeightRecordDto` class to include a `Unit` property.
+- **Database Schema Update**: Adjust the database schema to add a column for the unit in the `WeightLogs` table.
+- **Update CRUD Operations**: Modify the `Insert`, `Update`, and retrieval methods in `DatabaseAccess` and `DataAccess` to handle the new `Unit` property.
+- **UI Changes**: Update forms and views to allow users to select or input the unit of measurement when logging or editing weight records.
+
+### 2. Allow Users to Toggle Between Pounds and Kilograms
+
+**Objective**: Provide users with the ability to view and enter weight records in either pounds or kilograms.
+
+**Implementation Steps**:
+- **Unit Conversion Logic**: Implement conversion methods to switch between pounds and kilograms.
+- **Update Data Model**: Ensure that the `WeightRecordDto` can accommodate the unit changes.
+- **UI Enhancements**:
+  - Add a toggle switch or dropdown to allow users to select their preferred unit of measurement.
+  - Update forms to display weight values in the selected unit.
+  - Ensure the weight chart on the index page reflects the selected unit.
+- **Persist User Preferences**: Store user preferences for units (e.g., in a cookie or user profile) and apply them when displaying or inputting weight records.
+
+**Example UI Update**:
+- **Add Toggle Switch**:
+- **JavaScript Function to Handle Conversion**:
+
+**Benefits**:
+- **Enhanced Flexibility**: Users can track their weight in their preferred unit of measurement.
+- **Improved Usability**: Provides a more user-friendly experience by accommodating different measurement systems.
+
+---
