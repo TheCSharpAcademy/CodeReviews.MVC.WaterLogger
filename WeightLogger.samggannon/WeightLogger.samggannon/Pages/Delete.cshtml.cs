@@ -22,6 +22,7 @@ namespace WeightLogger.samggannon.Pages
             if (dto == null)
             {
                 // log, set to null, throw an exception
+                weightRecord = null;
             }
 
             weightRecord = Weight.MapFromDto(dto);

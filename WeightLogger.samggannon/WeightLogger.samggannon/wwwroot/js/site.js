@@ -47,7 +47,7 @@ function showWeightHistory(logs = []) {
             labels: Object.keys(weightHistoryLogs),
             datasets: [
                 {
-                    label: `Weight /*(${logs[0].unitName})*/`,
+                    label: `Weight`,
                     data: Object.values(weightHistoryLogs),
                     fill: true,
                     cubicInterpolationMode: "monotone",
@@ -59,8 +59,8 @@ function showWeightHistory(logs = []) {
 }
 
 
-//function populateEditForm(id, loggedDate, weightValue) {
-//    document.getElementById('editId').value = id;
-//    document.getElementById('editDate').value = loggedDate;
-//    document.getElementById('editWeight').value = weightValue;
-//}
+function populateEditForm(id, loggedDate, weightValue) {
+    document.getElementById('editId').value = id;
+    document.getElementById('editDate').value = loggedDate;
+    document.getElementById('editWeight').value = weightValue;
+}

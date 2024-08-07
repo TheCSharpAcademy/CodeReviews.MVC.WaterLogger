@@ -93,9 +93,7 @@ This folder contains Razor Pages that define the user interface:
 - ASP.NET Core for building and running the web application.
 - Entity Framework Core (if using with EF for ORM).
 
-Certainly! Here’s the updated "Future Enhancements" section for the README:
 
----
 
 ## Future Enhancements
 

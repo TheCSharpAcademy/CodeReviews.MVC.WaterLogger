@@ -8,29 +8,36 @@
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Weight</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>  @Model.weightRecord.loggedDate</td>
-                <td> @Model.weightRecord.weightValue</td>
-                <td>
-                    <input type="hidden" asp-for="weightRecord.Id" id="recordId" />
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="populateEditForm('@Model.weightRecord.Id', '@Model.weightRecord.loggedDate', '@Model.weightRecord.weightValue')">Edit</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    @if (Model.weightRecord != null)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.weightRecord.loggedDate?.ToString("yyyy-MM-dd")</td>
+                    <td> @Model.weightRecord.weightValue</td>
+                    <td>
+                        <input type="hidden" asp-for="weightRecord.Id" id="recordId" />
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="populateEditForm('@Model.weightRecord.Id', '@Model.weightRecord.loggedDate', '@Model.weightRecord.weightValue')">Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No available data</p>
+    }
 </form>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./WeightHistory">Back to List</a>
 </div>
 
 <!-- Edit Modal -->
@@ -39,12 +46,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">Edit Record</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Form or content for editing goes here -->
                 <form id="editForm" method="post">
                     <input type="hidden" id="editId" name="Id" />
   
@@ -65,12 +71,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    function populateEditForm(id, loggedDate, weightValue) {
-        document.getElementById('editId').value = id;
-        document.getElementById('editDate').value = loggedDate;
-        document.getElementById('editWeight').value = weightValue;
-    }
-</script>
 

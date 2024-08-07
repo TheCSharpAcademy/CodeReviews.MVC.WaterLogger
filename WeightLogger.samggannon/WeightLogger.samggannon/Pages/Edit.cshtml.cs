@@ -34,7 +34,7 @@ namespace WeightLogger.samggannon.Pages
 
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, "Invalid Id");
+                ModelState.AddModelError(string.Empty, "Unable to edit record");
                 return Page();
             }
 
@@ -56,6 +56,7 @@ namespace WeightLogger.samggannon.Pages
             if (dto == null)
             {
                 // log, set to null, throw an exception
+                weightRecord = null;
             }
 
             weightRecord = Weight.MapFromDto(dto);

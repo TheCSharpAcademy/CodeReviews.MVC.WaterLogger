@@ -24,70 +24,47 @@
     <div>
         <label for="weight">Please enter your weight:</label>
         <input type="number" id="weight" asp-for="logWeight.weightValue" />
+        <span asp-validation-for="logWeight.weightValue" class="text-danger"></span>
 
         <label for="dateLogged">Date Logged:</label>
         <input type="date" id="dateLogged" asp-for="logWeight.loggedDate" />
+        <span asp-validation-for="logWeight.loggedDate" class="text-danger"></span>
 
-        <input type="hidden" id="needsToConvert" name="needsToConvert" value="false" />
-
-         @*  <button type="submit" onclick="document.getElementById('needsToConvert').value='true'">Convert to Kg</button> *@
         <button class="btn-primary" type="submit">Submit</button>
     </div>
 </form>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Weight</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var log in Model.WeightLogs)
-        {
+@if (Model.WeightLogs.Count > 0 || Model.WeightLogs != null)
+{
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@log.loggedDate?.ToString("yyyy-MM-dd")</td>
-                <td>@log.weightValue</td>
-                <td>
-                    <a type="button" class="btn btn-info" asp-route-id="@log.Id" asp-area=""
-                       asp-page="/Edit">Edit</a>
-                    <a type="button" class="btn btn-danger" asp-route-id="@log.Id" asp-area=""
-                       asp-page="/Delete">Delete</a>
-                </td>
+                <th>Date</th>
+                <th>Weight</th>
+                <th>Action</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-@* @section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        var ctx = document.getElementById('weightChart').getContext('2d');
-        var weightChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: @Html.Raw(Json.Serialize(Model.WeightLogs.Select(log => log.loggedDate.ToString("yyyy-MM-dd")))),
-                datasets: [{
-                    label: 'Weight',
-                    data: @Html.Raw(Json.Serialize(Model.WeightLogs.Select(log => log.weight))),
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day'
-                        }
-                    },
-                    y: {
-                        beginAtZero: false
-                    }
-                }
+        </thead>
+        <tbody>
+            @foreach (var log in Model.WeightLogs)
+            {
+                <tr>
+                    <td>@log.loggedDate?.ToString("yyyy-MM-dd")</td>
+                    <td>@log.weightValue</td>
+                    <td>
+                        <a type="button" class="btn btn-info" asp-route-id="@log.Id" asp-area=""
+                           asp-page="/Edit">Edit</a>
+                        <a type="button" class="btn btn-danger" asp-route-id="@log.Id" asp-area=""
+                           asp-page="/Delete">Delete</a>
+                    </td>
+                </tr>
             }
-        });
-    </script>
-} *@
+        </tbody>
+    </table>
+}
+else
+{
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+}
+
+
+

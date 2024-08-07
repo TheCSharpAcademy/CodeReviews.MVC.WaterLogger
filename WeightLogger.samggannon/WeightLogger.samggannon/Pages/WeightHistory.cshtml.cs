@@ -11,9 +11,6 @@ public class WeightHistoryModel : PageModel
     [BindProperty]
     public Weight logWeight { get; set; }
 
-    [BindProperty]
-    public bool needsToConvert { get; set; }
-
     // no bind
     public List<Weight> WeightLogs = new List<Weight>();
 
@@ -45,8 +42,7 @@ public class WeightHistoryModel : PageModel
             DateTime logDate;
             if (logDateString == "0" || string.IsNullOrWhiteSpace(logDateString) || !DateTime.TryParse(logDateString, out logDate))
             {
-                // Handle invalid date, set to a default value if needed
-                logDate = DateTime.MinValue; // or any other default date
+                logDate = DateTime.MinValue;
             }
 
             thisWeight.loggedDate = logDate;
@@ -62,26 +58,11 @@ public class WeightHistoryModel : PageModel
     {
         if(!ModelState.IsValid)
         {
+            ModelState.AddModelError(string.Empty, "Unable to Create record");
             return Page();
         }
 
-        if (needsToConvert)
-        {
-            logWeight.weightValue = ConvertWeightToKg(logWeight.weightValue);
-            _dataFunctions.LogThisWeight(logWeight.weightValue, logWeight.loggedDate.ToString());
-
-            return RedirectToPage("./Index");
-        }
-        else
-        {
-            _dataFunctions.LogThisWeight(logWeight.weightValue, logWeight.loggedDate.ToString());
-            return RedirectToPage("./Index");
-        }
-    }
-
-    public decimal ConvertWeightToKg(decimal weightInPounds)
-    {
-        decimal kg = weightInPounds / 2.20462m;
-        return kg;
+        _dataFunctions.LogThisWeight(logWeight.weightValue, logWeight.loggedDate.ToString());
+        return RedirectToPage("./Index");
     }
 }
