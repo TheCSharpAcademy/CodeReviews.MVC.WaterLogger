@@ -1,0 +1,14 @@
+﻿@page
+@model HabitTracker.WebUI.Pages.ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h2 class="page-title text-danger">Error</h2>
+<hr />
+@if (Model.ShowErrorMessage)
+{
+    <p>
+        <strong>Message:</strong> @Model.Message
+    </p>
+}
