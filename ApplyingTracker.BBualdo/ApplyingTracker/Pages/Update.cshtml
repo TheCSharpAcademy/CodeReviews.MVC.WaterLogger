@@ -17,22 +17,22 @@
                 <input type="text" asp-for="Application.CompanyName" class="form-control"/>
                 <span asp-validation-for="Application.CompanyName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label asp-for="Application.Date" class="control-label"></label>
                 <input type="date" asp-for="Application.Date" class="form-control"/>
                 <span asp-validation-for="Application.Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label asp-for="Application.IsCoverLetterIncluded" class="control-label"></label>
                 <input type="checkbox" asp-for="Application.IsCoverLetterIncluded"/>
                 <span asp-validation-for="Application.IsCoverLetterIncluded" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label asp-for="Application.Status" class="control-label"></label>
                 <select asp-for="Application.Status" class="form-control" asp-items="Html.GetEnumSelectList<StatusOptions>()"></select>
                 <span asp-validation-for="Application.IsCoverLetterIncluded" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-success">Update</button>
+            <button type="submit" class="btn btn-success mt-2">Update</button>
         </form>
     </div>
 </div>
