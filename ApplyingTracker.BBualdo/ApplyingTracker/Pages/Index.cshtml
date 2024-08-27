@@ -1,0 +1,44 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Applications";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Applications</h1>
+    <div>
+        @if (!Model.Applications.Any())
+        {
+            <p>You haven't applied to any jobs yet.</p>
+        }
+        else
+        {
+            <table class="table table-striped-columns">
+                <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Applications.First().CompanyName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Applications.First().Date)</th>
+                    <th>@Html.DisplayNameFor(model => model.Applications.First().IsCoverLetterIncluded)</th>
+                    <th>@Html.DisplayNameFor(model => model.Applications.First().Status)</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var app in Model.Applications)
+                {
+                    <tr>
+                        <td>@app.CompanyName</td>
+                        <td>@app.Date</td>
+                        <td>@app.IsCoverLetterIncluded</td>
+                        <td>@app.Status</td>
+                        <td class="text-end">
+                            <a type="button" class="btn btn-outline-dark btn-sm" asp-page="/Update" asp-route-id="@app.Id">Edit</a>
+                            <a type="button" class="btn btn-danger btn-sm" asp-page="/Delete" asp-route-id="@app.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
