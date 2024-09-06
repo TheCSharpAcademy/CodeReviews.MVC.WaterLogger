@@ -3,6 +3,8 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Applications";
+    DateOnly? previousDate = null;
+    bool useDarkerBg = true;
 }
 
 <div class="text-center">
@@ -31,7 +33,12 @@
                 <tbody>
                 @foreach (var app in Model.Applications)
                 {
-                    <tr>
+                    if (previousDate != app.Date)
+                        useDarkerBg = !useDarkerBg;
+                  
+                    previousDate = app.Date;
+                    
+                    <tr class="@(useDarkerBg ? "bg-darker" : "")">
                         <td>@app.CompanyName</td>
                         <td>@app.Date</td>
                         <td>@app.IsCoverLetterIncluded</td>
@@ -47,3 +54,9 @@
         }
     </div>
 </div>
+
+<style>
+    .bg-darker {
+        background-color: #f4f4f4;
+    }
+</style>
