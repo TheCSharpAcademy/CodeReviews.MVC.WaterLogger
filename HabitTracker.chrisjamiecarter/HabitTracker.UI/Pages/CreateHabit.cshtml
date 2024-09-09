@@ -1,0 +1,34 @@
+﻿@page
+@model HabitTracker.WebUI.Pages.CreateHabitModel
+@{
+    ViewData["Title"] = "Add Habit";
+}
+
+<h2 class ="page-title">Create Habit</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Habit!.Name" class="control-label">Name</label>
+                <input type="text" asp-for="Habit!.Name" class="form-control" />
+                <span asp-validation-for="Habit!.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Habit!.Measure" class="control-label">Measure</label>
+                <input type="text" asp-for="Habit!.Measure" class="form-control" />
+                <span asp-validation-for="Habit!.Measure" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+                <a button type="button" class="btn btn-secondary" asp-page="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,40 @@
+﻿@page
+@model HabitTracker.WebUI.Pages.UpdateHabitModel
+@{
+    ViewData["Title"] = "Update Habit";
+}
+
+<h2 class="page-title">Update Habit</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="Habit!.Id" />
+            <div class="form-group">
+                <label asp-for="Habit!.Name" class="form-label">Name</label>
+                <input type="text" asp-for="Habit!.Name" class="form-control" />
+                <span asp-validation-for="Habit!.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Habit!.Measure" class="form-label">Measure</label>
+                <input type="text" asp-for="Habit!.Measure" class="form-control" />
+                <span asp-validation-for="Habit!.Measure" class="text-danger"></span>
+            </div>
+            <div class="form-check form-group">
+                <input type="checkbox" asp-for="Habit!.IsActive" class="form-check-input" />
+                <label asp-for="Habit!.IsActive" class="form-check-label">IsActive</label>
+                <span asp-validation-for="Habit!.IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a button type="button" class="btn btn-secondary" asp-page="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

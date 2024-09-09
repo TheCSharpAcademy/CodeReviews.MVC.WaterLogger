@@ -1,0 +1,35 @@
+﻿@page
+@model HabitTracker.WebUI.Pages.CreateHabitLogModel
+@{
+    ViewData["Title"] = "Log Habit";
+}
+
+<h2 class="page-title">Log @Html.DisplayFor(x => x.Habit!.Name)</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="HabitLog!.HabitId" />
+            <div class="form-group">
+                <label class="control-label" asp-for="HabitLog!.Date">Date</label>
+                <input class="form-control" type="date" asp-for="HabitLog!.Date" />
+                <span class="text-danger" asp-validation-for="HabitLog!.Date"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="HabitLog!.Quantity">Quantity</label>
+                <input class="form-control" type="number" asp-for="HabitLog!.Quantity" />
+                <span class="text-danger" asp-validation-for="HabitLog!.Quantity"></span>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" value="Create" />
+                <a button type="button" class="btn btn-secondary" asp-page="ViewHabitLogs" asp-route-habitId="@Model.HabitLog.HabitId">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
