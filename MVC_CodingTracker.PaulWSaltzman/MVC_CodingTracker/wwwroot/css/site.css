@@ -1,0 +1,85 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.logo {
+    width: 80px;
+}
+
+.background {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+}
+    .background::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: -10px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        background-image: url('/img/matrix-1274888_1280.png');
+        background-repeat: repeat-x;
+        background-size: 60%;
+        background-position: top;
+        opacity: .1
+        ;
+    }
+
+.btn-danger {
+    background-color: #4A0D67;
+    border: none;
+}
+    .btn-danger:hover {
+        background-color: #00E808;
+        border: none;
+    }
+
+
+.btn-primary {
+    background-color: white;
+    border: none;
+    color: #502274;
+}
+    .btn-primary:hover {
+        background-color: white;
+        border: none;
+        color: #00E808;
+    }
+
+.btn-success {
+    background-color: #502274;
+    border: none;
+}
+    .btn-success:hover {
+        background-color: #00E808;
+        border: none;
+    }
+.form-groupp {
+    margin-bottom: 20px;
+}
+
+.table {
+    color: black;
+}
