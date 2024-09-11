@@ -1,0 +1,62 @@
+﻿@page
+@using Data
+@model IndexModel
+@{
+    ViewData["Title"] = "Applications";
+    DateOnly? previousDate = null;
+    bool useDarkerBg = true;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Applications</h1>
+    <div class="mt-4">
+        @if (!Model.Applications.Any())
+        {
+            <p>You haven't applied to any jobs yet.</p>
+        }
+        else
+        {
+            <div class="d-flex align-items-center justify-content-center gap-4">
+                <p>Total: @Model.Applications.Count()</p>
+                <p>Refused: @Model.Applications.Count(a => a.Status == StatusOptions.Refused)</p>
+            </div>
+            <table class="table table-striped-columns">
+                <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Applications.First().CompanyName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Applications.First().Date)</th>
+                    <th>@Html.DisplayNameFor(model => model.Applications.First().IsCoverLetterIncluded)</th>
+                    <th>@Html.DisplayNameFor(model => model.Applications.First().Status)</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var app in Model.Applications)
+                {
+                    if (previousDate != app.Date)
+                        useDarkerBg = !useDarkerBg;
+                  
+                    previousDate = app.Date;
+                    
+                    <tr class="@(useDarkerBg ? "bg-darker" : "")">
+                        <td>@app.CompanyName</td>
+                        <td>@app.Date</td>
+                        <td>@app.IsCoverLetterIncluded</td>
+                        <td class="@(app.Status == StatusOptions.Pending ? "text-primary" : app.Status == StatusOptions.Refused ? "text-danger" : "text-success")">@app.Status</td>
+                        <td class="text-end">
+                            <a type="button" class="btn btn-outline-dark btn-sm" asp-page="/Update" asp-route-id="@app.Id">Edit</a>
+                            <a type="button" class="btn btn-danger btn-sm" asp-page="/Delete" asp-route-id="@app.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<style>
+    .bg-darker {
+        background-color: #f4f4f4;
+    }
+</style>
