@@ -1,0 +1,39 @@
+﻿@page
+@model MVC_CodingTracker.Pages.CreateModel
+@{
+}
+<h2>Add New Record</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="DevelopmentTime.DateStart" class="control-label"></label>
+                <input type="datetime-local" asp-for="DevelopmentTime.DateStart" class="form-control" />
+                <span asp-validation-for="DevelopmentTime.DateStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevelopmentTime.DateEnd" class="control-label"></label>
+                <input type="datetime-local" asp-for="DevelopmentTime.DateEnd" class="form-control" />
+                <span asp-validation-for="DevelopmentTime.DateEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevelopmentTime.Comments" class="control-label"></label>
+                <textarea asp-for="DevelopmentTime.Comments" class="form-control"></textarea>
+                <span asp-validation-for="DevelopmentTime.Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
