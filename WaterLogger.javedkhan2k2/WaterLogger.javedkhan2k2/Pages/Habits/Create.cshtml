@@ -1,0 +1,41 @@
+@page
+@model WaterLogger.Pages.Habits.CreateModel
+@{
+
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-primary bg-gradient">
+                    Add Habit
+                </div>
+                <div class="card-body bg-light bg-gradient">
+                    <form method="post">
+                        <div class="form-floating mb-2 row">
+                            <input type="text" class="form-control form-control-sm" asp-for="Habit.HabitName"
+                                placeholder="">
+                            <label asp-for="Habit.HabitName"></label>
+                            <span asp-validation-for="Habit.HabitName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating">
+                            <select asp-for="Habit.HabitUintId" class="form-select mb-2 row">
+                                <option selected>Slect an Unit from the Menu</option>
+                                @foreach(var item in Model.AllHabitUnits)
+                                {
+                                    <option value="@item.Id">@item.Unit</option>
+                                }
+                            </select>
+                            <label asp-for="Habit.HabitUintId"></label>
+                            <span asp-validation-for="Habit.HabitUintId" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <input type="submit" value="Add" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
