@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using MVC.RecipeLogger.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<RecipeContext>(options =>
+{
+    string dbPath;
+    dbPath = builder.Configuration.GetConnectionString("DefaultConnection") 
+        ?? throw new ArgumentNullException(nameof(dbPath), "Please make sure to add a connection string to the configuration");
+
+    options.UseSqlServer(dbPath);
+});
 
 var app = builder.Build();
 

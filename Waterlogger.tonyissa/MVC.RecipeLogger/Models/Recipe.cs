@@ -1,3 +1,8 @@
 ﻿namespace MVC.RecipeLogger.Models;
 
-public record class Recipe(List<Ingredient> Ingredients, string Instructions);
+public class Recipe
+{
+    public int Id { get; set; }
+    public List<Ingredient> Ingredients { get; set; } = [];
+    public string Instructions { get; set; } = string.Empty;
+}
