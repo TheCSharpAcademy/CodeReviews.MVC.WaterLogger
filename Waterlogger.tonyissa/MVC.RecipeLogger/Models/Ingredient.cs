@@ -8,5 +8,5 @@ public class Ingredient
     public string Measure { get; set; } = string.Empty;
     public string? Comment { get; set; } = string.Empty;
     public int RecipeId { get; set; }
-    public Recipe Recipe { get; set; }
+    public Recipe Recipe { get; set; } = default!;
 }

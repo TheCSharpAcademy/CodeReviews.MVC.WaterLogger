@@ -3,25 +3,21 @@ using MVC.RecipeLogger.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<RecipeContext>(options =>
 {
-    string dbPath;
-    dbPath = builder.Configuration.GetConnectionString("DefaultConnection") 
-        ?? throw new ArgumentNullException(nameof(dbPath), "Please make sure to add a connection string to the configuration");
+    string dbPath = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new Exception("ConfigurationValueMissingException: Please make sure to add a valid connection string to the config");
 
     options.UseSqlServer(dbPath);
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
