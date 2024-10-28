@@ -29,7 +29,7 @@ namespace MVC.RecipeLogger.Pages.Recipes
                 return NotFound();
             }
 
-            var recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            var recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(m => m.Id == id);
 
             if (recipe == null)
             {
