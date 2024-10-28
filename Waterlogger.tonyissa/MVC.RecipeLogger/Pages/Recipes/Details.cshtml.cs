@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MVC.RecipeLogger.Context;
@@ -12,9 +8,9 @@ namespace MVC.RecipeLogger.Pages.Recipes
 {
     public class DetailsModel : PageModel
     {
-        private readonly MVC.RecipeLogger.Context.RecipeContext _context;
+        private readonly RecipeContext _context;
 
-        public DetailsModel(MVC.RecipeLogger.Context.RecipeContext context)
+        public DetailsModel(RecipeContext context)
         {
             _context = context;
         }
@@ -28,7 +24,7 @@ namespace MVC.RecipeLogger.Pages.Recipes
                 return NotFound();
             }
 
-            var recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            var recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(m => m.Id == id);
             if (recipe == null)
             {
                 return NotFound();
