@@ -14,11 +14,53 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Recipe.Id" />
+
             <div class="form-group">
+                <label asp-for="Recipe.Name" class="control-label"></label>
+                <input type="text" asp-for="Recipe.Name" class="form-control" />
+                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group pb-3">
                 <label asp-for="Recipe.Instructions" class="control-label"></label>
-                <input asp-for="Recipe.Instructions" class="form-control" />
+                <textarea asp-for="Recipe.Instructions" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
             </div>
+
+            @for (var i = 0; i < Model.NumberOfIngredients; i++)
+            {
+                <div class="pb-3">
+                    <strong>Ingredient @(i + 1)</strong>
+                    <div class="form-group">
+                        <label asp-for="Recipe.Ingredients[@i].Name" class="control-label"></label>
+                        <input type="text" asp-for="Recipe.Ingredients[@i].Name" class="form-control" />
+                        <span asp-validation-for="Recipe.Ingredients[@i].Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Recipe.Ingredients[@i].Amount" class="control-label"></label>
+                        <input type="number" asp-for="Recipe.Ingredients[@i].Amount" class="form-control" />
+                        <span asp-validation-for="Recipe.Ingredients[@i].Amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Recipe.Ingredients[@i].Measure" class="control-label"></label>
+                        <input type="text" asp-for="Recipe.Ingredients[@i].Measure" class="form-control" />
+                        <span asp-validation-for="Recipe.Ingredients[@i].Measure" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Recipe.Ingredients[@i].Comment" class="control-label"></label>
+                        <input type="text" asp-for="Recipe.Ingredients[@i].Comment" class="form-control" />
+                        <span asp-validation-for="Recipe.Ingredients[@i].Comment" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+
+            <input id="IngredientCount" type="hidden" asp-for="@Model.NumberOfIngredients" />
+
+            <div class="mb-2">
+                <button class="btn btn-success" type="button" onclick="changeIngredientCount(1)">Add Ingredient</button>
+                <button class="btn btn-danger" type="button" onclick="changeIngredientCount(-1)">Remove Ingredient</button>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -32,4 +74,17 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function changeIngredientCount(change) {
+            const ingredientCount = document.querySelector("#IngredientCount");
+            const newValue = parseInt(ingredientCount.value) + change;
+
+            if (newValue < 1) {
+                return;
+            }
+
+            ingredientCount.value = newValue;
+            document.forms[0].submit();
+        }
+    </script>
 }

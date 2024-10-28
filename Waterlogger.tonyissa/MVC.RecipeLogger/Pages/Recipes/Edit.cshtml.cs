@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC.RecipeLogger.Context;
 using MVC.RecipeLogger.Models;
@@ -13,11 +8,26 @@ namespace MVC.RecipeLogger.Pages.Recipes
 {
     public class EditModel : PageModel
     {
-        private readonly MVC.RecipeLogger.Context.RecipeContext _context;
+        private readonly RecipeContext _context;
 
-        public EditModel(MVC.RecipeLogger.Context.RecipeContext context)
+        public EditModel(RecipeContext context)
         {
             _context = context;
+        }
+
+        private int _numberOfIngredients;
+
+        [BindProperty]
+        public int NumberOfIngredients
+        {
+            get => _numberOfIngredients;
+            set
+            {
+                if (value < 1)
+                    return;
+
+                _numberOfIngredients = value;
+            }
         }
 
         [BindProperty]
@@ -30,25 +40,48 @@ namespace MVC.RecipeLogger.Pages.Recipes
                 return NotFound();
             }
 
-            var recipe =  await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            var recipe =  await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(m => m.Id == id);
             if (recipe == null)
             {
                 return NotFound();
             }
             Recipe = recipe;
+            NumberOfIngredients = recipe.Ingredients.Count;
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (Recipe.Ingredients.Count < NumberOfIngredients)
+            {
+                for (int i = Recipe.Ingredients.Count; i < NumberOfIngredients; i++)
+                {
+                    Recipe.Ingredients.Add(new Ingredient());
+                }
+            }
+            else if (Recipe.Ingredients.Count > NumberOfIngredients)
+            {
+                for (int i = Recipe.Ingredients.Count; i > NumberOfIngredients; i--)
+                {
+                    Recipe.Ingredients.Remove(Recipe.Ingredients[i - 1]);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < NumberOfIngredients; i++)
+                {
+                    ModelState.Remove($"Recipe.Ingredients[{i}].Recipe");
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Recipe).State = EntityState.Modified;
+            var oldIngredients = await _context.Ingredients.Where(i => i.RecipeId == Recipe.Id).ToListAsync();
+            _context.Ingredients.RemoveRange(oldIngredients);
+            _context.Recipes.Update(Recipe);
 
             try
             {
