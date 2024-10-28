@@ -13,10 +13,22 @@
     <div class="col-md-4 gap-3">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+
+            <div class="form-group">
+                <label asp-for="Recipe.Name" class="control-label"></label>
+                <input type="text" asp-for="Recipe.Name" class="form-control" />
+                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group pb-3">
+                <label asp-for="Recipe.Instructions" class="control-label"></label>
+                <textarea asp-for="Recipe.Instructions" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+            </div>
+
             @for (var i = 0; i < Model.NumberOfIngredients; i++)
             {
-                <div class="ingredients-container">
+                <div class="pb-3">
                     <strong>Ingredient @(i+1)</strong>
                     <div class="form-group">
                         <label asp-for="Recipe.Ingredients[@i].Name" class="control-label"></label>
@@ -43,30 +55,12 @@
 
             <input id="IngredientCount" type="hidden" asp-for="@Model.NumberOfIngredients" />
 
-            <button class="btn btn-success" type="button" onclick="changeIngredientCount(1)">Add Ingredient</button>
-            <button class="btn btn-danger" type="button" onclick="changeIngredientCount(-1)">Remove Ingredient</button>
-
-            <script>
-                function changeIngredientCount(change) {
-                    const ingredientCount = document.querySelector("#IngredientCount");
-                    const newValue = parseInt(ingredientCount.value) + change;
-
-                    if (newValue < 1) {
-                        return;
-                    }
-
-                    ingredientCount.value = newValue;
-                    document.forms[0].submit();
-                }
-            </script>
-
-            <div class="form-group">
-                <label asp-for="Recipe.Instructions" class="control-label"></label>
-                <textarea asp-for="Recipe.Instructions" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+            <div class="mb-2">
+                <button class="btn btn-success" type="button" onclick="changeIngredientCount(1)">Add Ingredient</button>
+                <button class="btn btn-danger" type="button" onclick="changeIngredientCount(-1)">Remove Ingredient</button>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-1">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -79,4 +73,17 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function changeIngredientCount(change) {
+            const ingredientCount = document.querySelector("#IngredientCount");
+            const newValue = parseInt(ingredientCount.value) + change;
+
+            if (newValue < 1) {
+                return;
+            }
+
+            ingredientCount.value = newValue;
+            document.forms[0].submit();
+        }
+    </script>
 }
