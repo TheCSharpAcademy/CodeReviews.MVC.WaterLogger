@@ -46,6 +46,20 @@
             <button class="btn btn-success" type="button" onclick="changeIngredientCount(1)">Add Ingredient</button>
             <button class="btn btn-danger" type="button" onclick="changeIngredientCount(-1)">Remove Ingredient</button>
 
+            <script>
+                function changeIngredientCount(change) {
+                    const ingredientCount = document.querySelector("#IngredientCount");
+                    const newValue = parseInt(ingredientCount.value) + change;
+
+                    if (newValue < 1) {
+                        return;
+                    }
+
+                    ingredientCount.value = newValue;
+                    document.forms[0].submit();
+                }
+            </script>
+
             <div class="form-group">
                 <label asp-for="Recipe.Instructions" class="control-label"></label>
                 <textarea asp-for="Recipe.Instructions" class="form-control" rows="5"></textarea>
@@ -62,14 +76,6 @@
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
-
-<script>
-    function changeIngredientCount(change) {
-        const ingredientCount = document.querySelector("#IngredientCount");
-        ingredientCount.value = parseInt(ingredientCount.value) + change;
-        document.forms[0].submit();
-    }
-</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

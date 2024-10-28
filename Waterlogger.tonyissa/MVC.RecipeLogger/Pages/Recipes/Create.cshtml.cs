@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.EntityFrameworkCore;
 using MVC.RecipeLogger.Context;
 using MVC.RecipeLogger.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MVC.RecipeLogger.Pages.Recipes
 {
@@ -22,11 +25,12 @@ namespace MVC.RecipeLogger.Pages.Recipes
         private int _numberOfIngredients = 1;
 
         [BindProperty]
-        public int NumberOfIngredients {
+        public int NumberOfIngredients
+        {
             get => _numberOfIngredients;
             set
             {
-                if (value < 1) 
+                if (value < 1)
                     return;
 
                 _numberOfIngredients = value;
@@ -38,27 +42,32 @@ namespace MVC.RecipeLogger.Pages.Recipes
 
         public async Task<IActionResult> OnPostAsync()
         {
-            Recipe.Ingredients ??= [];
-
-            for (int i = 0; i < NumberOfIngredients; i++)
+            if (Recipe.Ingredients.Count < NumberOfIngredients)
             {
-                Recipe.Ingredients.Add(new Ingredient());
-                ModelState.Remove($"Recipe.Ingredients[{i}].Recipe");
+                for (int i = Recipe.Ingredients.Count; i < NumberOfIngredients; i++)
+                {
+                    Recipe.Ingredients.Add(new Ingredient());
+                }
+            }
+            else if (Recipe.Ingredients.Count > NumberOfIngredients)
+            {
+                for (int i = Recipe.Ingredients.Count; i > NumberOfIngredients; i--)
+                {
+                    Recipe.Ingredients.Remove(Recipe.Ingredients[i - 1]);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < NumberOfIngredients; i++)
+                {
+                    ModelState.Remove($"Recipe.Ingredients[{i}].Recipe");
+                }
             }
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
-            foreach (var ingredient in Recipe.Ingredients)
-            {
-                ingredient.Recipe = Recipe;
-            }
-
-            Recipe.Ingredients = Recipe.Ingredients
-                .Where(ingredient => !string.IsNullOrWhiteSpace(ingredient.Name))
-                .ToList();
 
             _context.Recipes.Add(Recipe);
             await _context.SaveChangesAsync();
