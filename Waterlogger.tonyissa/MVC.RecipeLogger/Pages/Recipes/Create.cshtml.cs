@@ -19,16 +19,46 @@ namespace MVC.RecipeLogger.Pages.Recipes
             return Page();
         }
 
+        private int _numberOfIngredients = 1;
+
+        [BindProperty]
+        public int NumberOfIngredients {
+            get => _numberOfIngredients;
+            set
+            {
+                if (value < 1) 
+                    return;
+
+                _numberOfIngredients = value;
+            }
+        }
+
         [BindProperty]
         public Recipe Recipe { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            Recipe.Ingredients ??= [];
+
+            for (int i = 0; i < NumberOfIngredients; i++)
+            {
+                Recipe.Ingredients.Add(new Ingredient());
+                ModelState.Remove($"Recipe.Ingredients[{i}].Recipe");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            foreach (var ingredient in Recipe.Ingredients)
+            {
+                ingredient.Recipe = Recipe;
+            }
+
+            Recipe.Ingredients = Recipe.Ingredients
+                .Where(ingredient => !string.IsNullOrWhiteSpace(ingredient.Name))
+                .ToList();
 
             _context.Recipes.Add(Recipe);
             await _context.SaveChangesAsync();
