@@ -13,9 +13,8 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Name)
-            </th>
+            <th>Recipe name</th>
+            <th>Ingredient count</th>
             <th></th>
         </tr>
     </thead>
@@ -24,6 +23,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ingredients.Count)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

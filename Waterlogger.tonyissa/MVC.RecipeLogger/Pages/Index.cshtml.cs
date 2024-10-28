@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MVC.RecipeLogger.Context;
-using MVC.RecipeLogger.Models;
 
 namespace MVC.RecipeLogger.Pages
 {

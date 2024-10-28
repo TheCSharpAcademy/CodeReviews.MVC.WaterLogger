@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.CodeAnalysis.Scripting;
-using Microsoft.EntityFrameworkCore;
 using MVC.RecipeLogger.Context;
 using MVC.RecipeLogger.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MVC.RecipeLogger.Pages.Recipes
 {

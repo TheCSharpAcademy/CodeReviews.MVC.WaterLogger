@@ -14,5 +14,5 @@ public class Ingredient
     [Display(Name = "Comment (optional)")]
     public string? Comment { get; set; } = string.Empty;
     public int RecipeId { get; set; }
-    public Recipe? Recipe { get; set; }
+    public Recipe Recipe { get; set; }
 }
