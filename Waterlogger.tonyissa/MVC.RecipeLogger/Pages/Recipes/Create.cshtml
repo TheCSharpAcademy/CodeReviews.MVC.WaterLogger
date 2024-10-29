@@ -30,7 +30,7 @@
             {
                 <div class="user-select-none d-flex justify-content-center align-items-center bg-light shadow-sm p-3 mb-3"
                 onclick="openModal(@(i+1))" role="button">
-                    @if (string.IsNullOrEmpty(Model?.Recipe?.Ingredients?[@i]?.Name))
+                    @if (string.IsNullOrEmpty(Model.Recipe?.Ingredients?[@i]?.Name))
                     {
                         <h3 class="ingredient-title-@(i+1) mb-0">Ingredient @(i + 1)</h3>
                     }
@@ -45,7 +45,7 @@
                     <div class="form-group">
                         <label asp-for="Recipe.Ingredients[@i].Name" class="control-label"></label>
                         <input type="text" asp-for="Recipe.Ingredients[@i].Name" class="form-control ingredient-input-@(i+1)" 
-                        onkeyup="changeIngredientTitle(@(i+1))" />
+                            onkeyup="changeIngredientTitle(@(i+1))" />
                         <span asp-validation-for="Recipe.Ingredients[@i].Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
