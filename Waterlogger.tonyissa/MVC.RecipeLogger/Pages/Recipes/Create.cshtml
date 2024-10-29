@@ -28,11 +28,24 @@
 
             @for (var i = 0; i < Model.NumberOfIngredients; i++)
             {
-                <div class="pb-3">
+                <div class="user-select-none d-flex justify-content-center align-items-center bg-light shadow-sm p-3 mb-3"
+                onclick="openModal(@(i+1))" role="button">
+                    @if (string.IsNullOrEmpty(Model?.Recipe?.Ingredients?[@i]?.Name))
+                    {
+                        <h3 class="ingredient-title-@(i+1) mb-0">Ingredient @(i + 1)</h3>
+                    }
+                    else
+                    {
+                        <h3 class="ingredient-title-@(i+1) mb-0">@Model.Recipe.Ingredients[@i].Name</h3>
+                    }
+                </div>
+
+                <dialog class="ingredient-modal-@(i+1) p-4 border border-1 border-secondary">
                     <strong>Ingredient @(i+1)</strong>
                     <div class="form-group">
                         <label asp-for="Recipe.Ingredients[@i].Name" class="control-label"></label>
-                        <input type="text" asp-for="Recipe.Ingredients[@i].Name" class="form-control" />
+                        <input type="text" asp-for="Recipe.Ingredients[@i].Name" class="form-control ingredient-input-@(i+1)" 
+                        onkeyup="changeIngredientTitle(@(i+1))" />
                         <span asp-validation-for="Recipe.Ingredients[@i].Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -50,12 +63,13 @@
                         <input type="text" asp-for="Recipe.Ingredients[@i].Comment" class="form-control" />
                         <span asp-validation-for="Recipe.Ingredients[@i].Comment" class="text-danger"></span>
                     </div>
-                </div>
+                    <button type="button" onclick="closeModal(@(i+1))" class="btn btn-primary mt-3">Close</button>
+                </dialog>
             }
 
             <input id="IngredientCount" type="hidden" asp-for="@Model.NumberOfIngredients" />
 
-            <div class="mb-2">
+            <div class="my-3">
                 <button class="btn btn-success" type="button" onclick="changeIngredientCount(1)">Add Ingredient</button>
                 <button class="btn btn-danger" type="button" onclick="changeIngredientCount(-1)">Remove Ingredient</button>
             </div>
@@ -84,6 +98,22 @@
 
             ingredientCount.value = newValue;
             document.forms[0].submit();
+        }
+
+        function openModal(iteration) {
+            const modal = document.querySelector(`.ingredient-modal-${iteration}`);
+            modal.showModal();
+        }
+
+        function closeModal(iteration) {
+            const modal = document.querySelector(`.ingredient-modal-${iteration}`);
+            modal.close();
+        }
+
+        function changeIngredientTitle(iteration) {
+            const ingredientTitle = document.querySelector(`.ingredient-title-${iteration}`);
+            ingredientTitle.textContent = document.querySelector(`.ingredient-input-${iteration}`).value
+            || `Ingredient ${iteration}`;
         }
     </script>
 }
