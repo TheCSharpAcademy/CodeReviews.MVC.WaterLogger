@@ -1,0 +1,42 @@
+﻿#subtask_records {
+    width: 100%;
+    margin: 20px 0;
+    border: none;
+}
+
+.subtask {
+    border: none;
+    display: flex; /* Use display flex if you want alignment */
+    align-items: center;
+    justify-content: center;
+}
+
+.subtask:hover {
+    background-color: #484848;
+}
+
+.subtaskIsCompleted.completed {
+    text-decoration-line: line-through !important;
+    text-decoration-color: white !important;
+    text-decoration-thickness: 0.2px;
+    color: #bebebe !important;
+}
+
+
+.subtaskIsCompleted.uncompleted {
+    text-decoration: underline;
+}
+tr.subtask{
+    background-color: #2c3034;
+    border: 5px #070707;
+
+}
+table, tr, td {
+    border: none;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: 5px;
+    border-spacing: 0;
+    display: flex;
+}
+

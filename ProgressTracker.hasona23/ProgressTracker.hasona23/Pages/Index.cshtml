@@ -1,0 +1,71 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<head>
+    <link rel="stylesheet" href="css/subtask.css"/>
+    <link rel="stylesheet" href="css/progress.css"/>
+</head>
+<body>
+
+
+<h3 style="margin-bottom: 20px">Progress :<a button type="button" class="btn btn-success  float-end" asp-area="" asp-page="/Create">Add Record</a></h3>
+
+<br>
+<div id="progress_records">
+
+    @foreach (var progress in Model.Progresses)
+    {
+        var completedPercentage = progress.Max > 0 ? (progress.Completed * 100) / progress.Max : 0;
+
+        string barColor = "";
+        switch (new Random().Next(4))
+        {
+            case 0:
+                barColor = "bg-success";
+                break;
+            case 1:
+                barColor = "bg-info";
+                break;
+            case 2:
+                barColor = "bg-warning";
+                break;
+            case 3:
+                barColor = "bg-danger";
+                break;
+
+        }
+
+        <div id="progress">
+            <div class="progress" style="height: 30px; margin-bottom: 15px">
+                <div class="progress-bar progress-bar-animated @barColor bg-gradient" role="progressbar"
+                     style="width: @completedPercentage%;color: black"
+                     aria-valuenow="@completedPercentage%" aria-valuemin="0"
+                     aria-valuemax="100">
+                    <span class="position-absolute start-50 translate-middle-x w-100 text-center text-dark" style="line-height: 30px; font-size: 20px">
+                        @progress.Title
+                    </span>
+                </div>
+            </div>
+            <a button type="button" class="btn btn-danger end-100" asp-page="./Delete" asp-route-id="@progress.Id">Delete</a>
+            <a button type="button" class="btn btn-primary end-100" asp-page="./Update" asp-route-id="@progress.Id">Update</a>
+
+            <table id="subtask_records">
+                <tbody>
+                @foreach (var subtask in progress.SubTasks)
+                {
+                <tr class="subtask">
+                    <td class="subtaskIsCompleted @(subtask.IsCompleted ? "completed" : "uncompleted")">
+                        @subtask.Title
+                    </td>
+                </tr>
+                }
+                </tbody>
+            </table>
+
+        </div>
+    }
+</div>
+</body>

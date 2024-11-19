@@ -1,0 +1,89 @@
+﻿@page
+@model ProgressTracker.hasona23.Pages.Update
+<h4>Update Progress</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div>
+                <label asp-for="Progress.Title">Title:</label>
+                <input type="text" asp-for="Progress.Title" class="form-control" />
+                <span asp-validation-for="Progress.Title" class="text-danger"></span>
+            </div>
+
+            <div id="subtasks" class="mt-3">
+                <label asp-for="Progress.SubTasks">Subtasks</label>
+                @for(int i = 0; i < Model.Progress.SubTasks.Count; i++)
+                {
+                    <div class="subtask mt-2">
+                        <input type="hidden" value="@Model.Progress.SubTasks[i].Id" asp-for="Progress.SubTasks[i].Id"/>
+                        <input type="hidden" value="@Model.Progress.SubTasks[i].ProgressId" asp-for="Progress.SubTasks[i].ProgressId"/>
+                        <input type="text" asp-for="Progress.SubTasks[i].Title" class="form-control mb-2" placeholder="Subtask Name"/>
+                        <span asp-validation-for="Progress.SubTasks[i].Title" class="text-danger"></span>
+                        <input type="checkbox" asp-for="Progress.SubTasks[i].IsCompleted"/>
+                        <label>Completed</label>
+                    </div>
+                }
+            </div>
+
+            <script>
+                let subtaskIndex = @Model.Progress.SubTasks.Count;  // Use Progress instead of Model
+
+                // Add new subtask dynamically
+                document.getElementById('addSubtask').addEventListener('click', () => {
+                    const container = document.getElementById('subtasks');
+                    const newSubtask = document.createElement('div');
+                    newSubtask.classList.add('subtask', 'd-flex', 'align-items-center', 'mt-2');
+                    newSubtask.innerHTML = `
+            <input name="Progress.SubTasks[${subtaskIndex}].Title" class="form-control me-2" placeholder="Subtask Title" />
+            <input type="checkbox" name="Progress.SubTasks[${subtaskIndex}].IsCompleted" />
+            <label>Completed</label>
+            <button type="button" class="btn btn-danger removeSubtask">
+                <i class="fas fa-minus"></i>
+            </button>
+        `;
+                    container.appendChild(newSubtask);
+                    subtaskIndex++;
+                    attachRemoveHandlers(); // Re-attach handlers to new remove buttons
+                });
+
+                // Attach remove handlers to dynamically added remove buttons
+                function attachRemoveHandlers() {
+                    document.querySelectorAll('.removeSubtask').forEach(button => {
+                        button.onclick = function () {
+                            const subtaskContainer = this.closest('.subtask');
+                            if (document.querySelectorAll('.subtask').length > 1) {
+                                subtaskContainer.remove();
+                                updateIndexes(); // Update indices after removing
+                            } else {
+                                alert('You must have at least one subtask.');
+                            }
+                        };
+                    });
+                }
+
+                // Update indices of remaining subtasks after one is removed
+                function updateIndexes() {
+                    const subtasks = document.querySelectorAll('.subtask');
+                    subtasks.forEach((subtask, index) => {
+                        // Update the name attributes of the inputs in the remaining subtasks
+                        const titleInput = subtask.querySelector('input[type="text"]');
+                        const checkboxInput = subtask.querySelector('input[type="checkbox"]');
+
+                        titleInput.name = `Progress.SubTasks[${index}].Title`;
+                        checkboxInput.name = `Progress.SubTasks[${index}].IsCompleted`;
+                    });
+                    subtaskIndex = subtasks.length; // Update subtask index to the new length
+                }
+
+                // Attach handlers to existing remove buttons on page load
+                attachRemoveHandlers();
+            </script>
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-success col-md-4" style="margin: 10px" />
+                <a button type="button" class="btn btn-success col-md-4" style="margin: 10px" asp-area="" asp-page="/Index">Home</a>
+            </div>
+        </form>
+    </div>
+</div>

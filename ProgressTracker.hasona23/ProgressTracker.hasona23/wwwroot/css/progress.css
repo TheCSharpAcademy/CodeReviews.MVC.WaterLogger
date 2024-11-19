@@ -1,0 +1,14 @@
+﻿
+#progress_records{
+    display: flex;
+    flex-direction: column;
+}
+#progress{
+    padding: 5px;
+    margin: 5px 5px 10px;
+    display: block;
+}
+#progress a{
+    align-self: end;
+}
+
