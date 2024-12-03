@@ -1,0 +1,34 @@
+﻿@page
+@model Water_Logger.Pages.EditModel
+@{
+}
+<form method="post">
+<input hidden asp-for="LoggingData.Id">
+    <div class="border mt-4 p-3">
+        <div class="row">
+            <h2 class="text-secondary pl-3">Edit Water Log</h2>
+            <hr/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LoggingData.Date"></label>
+            <input asp-for="LoggingData.Date" class="form-control mt-2" type="Date">
+            <span asp-validation-for="LoggingData.Date" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LoggingData.Quantity"></label>
+            <input asp-for="LoggingData.Quantity" class="form-control mt-2">
+            <span asp-validation-for="LoggingData.Quantity" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-primary" type="submit" style="width:25%;">UPDATE LOG</button>
+        <a class="btn btn-secondary" asp-page="/Index" style="width:25%;">BACK TO INDEX</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}

@@ -1,0 +1,65 @@
+﻿@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create Page";
+}
+<form method="post" id="form">
+    <div class="border mt-4 p-3">
+        <div class="row pb-3">
+            <h2 class="text-primary pl-3">CREATE LOG <i class="bi bi-droplet"></i></h2>
+            <hr />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="@(Model.LoggingData.DrinkingWater.Date)"></label>
+            <input asp-for="@Model.LoggingData.DrinkingWater.Date" class="form-control mt-2" type="Date">
+            <span asp-validation-for="LoggingData.DrinkingWater.Date" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <button id="convertor" class="btn border">USE STANDARD MEASURE</button>
+        </div>
+        <div class="mb-3 quantity-box">
+            <label asp-for="@Model.LoggingData.DrinkingWater.Quantity"></label>
+            <input asp-for="@Model.LoggingData.DrinkingWater.Quantity" class="form-control mt-2" id="quantity-input">
+            <span asp-validation-for="LoggingData.DrinkingWater.Quantity" class="text-danger"></span>
+        </div>
+        <div class="standard-measure" style="display:none;">
+            <div class="row mb-3 standard-measure">
+
+                <div class="col-6">
+                    <label asp-for="@Model.LoggingData.StandardList"></label>
+                    <select name="Standard - List" asp-items="@Model.LoggingData.StandardList" class="form-control mt-2" id="select-items" required>
+                        @* <option value="" disabled selected>-- Select Standard Measure -- </option> *@
+                    </select>
+                    <span asp-validation-for="LoggingData.StandardList"></span>
+
+                </div>
+
+
+                   <div class="col-1 text-center">
+                        <h2 class="pt-4">X</h2>
+                   </div> 
+
+                <div class="col-4 text-end">
+                    <label asp-for="@Model.LoggingData.Numbers"></label>
+                    <input asp-for="@Model.LoggingData.Numbers" class="form-control mt-2" id="measure-count">
+                    <span asp-validation-for="LoggingData.Numbers" class="text-danger"></span>
+                </div>
+
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" style="width:25%;" id="submit-button">CREATE</button>
+        <a asp-page="/Index" class="btn btn-secondary" style="width:25%;">BACK TO INDEX</a>
+    </div>
+
+</form>
+<script src="~/js/choice.js"></script>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}
