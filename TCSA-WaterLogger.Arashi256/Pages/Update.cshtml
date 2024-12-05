@@ -1,0 +1,38 @@
+﻿@page
+@model TCSA_WaterLogger.Arashi256.Pages.UpdateModel
+@{
+}
+<h2>Update Record</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="DrinkingWater.Id"/>
+            <div class="form-group">
+                <label asp-for="DrinkingWater.Date" class="control-label"></label>
+                <input type="date" asp-for="DrinkingWater.Date" class="form-control" />
+                <span asp-validation-for="DrinkingWater.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DrinkingWater.Quantity" class="control-label"></label>
+                <input asp-for="DrinkingWater.Quantity" class="form-control" />
+                <span asp-validation-for="DrinkingWater.Quantity" class="text-danger m-1"></span>
+            </div>
+            <div class="form-group">
+                <label for="Unit" class="control-label">Unit of Measurement</label>
+                <select asp-for="DrinkingWater.Unit" class="form-control">
+                    <option value="bottle">Bottle</option>
+                    <option value="big bottle">Big Bottle</option>
+                    <option value="glass">Glass</option>
+                </select>
+                <span asp-validation-for="DrinkingWater.Unit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+            <div class="form-group">
+                <a button type="button" class="btn btn-success" asp-area="" asp-page="./Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
