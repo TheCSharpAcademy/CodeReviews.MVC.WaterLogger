@@ -1,0 +1,67 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<section class="mt-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Stay hydrated with WaterLogger</h1>
+        <p class="lead">Track your daily water intake and stay healthy effortlessly.</p>
+    </div>
+</section>
+
+<section class="container-fluid d-flex justify-content-between mt-5 mb-3">
+    <h2>All water drinking records <span class="text-secondary">@Model.Records.Count</span></h2>
+    <div class="d-flex">
+        <a button type="button" class="btn btn-success d-flex justify-content-center align-items-center" asp-page="/Create">
+            <img src="~/images/Add.svg" class="me-2" />
+            <span>Add record</span>
+        </a>
+    </div>
+</section>
+
+<table id="records" class="table table-hover table-bordered align-middle">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Records.FirstOrDefault().Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Records.FirstOrDefault().Quantity)
+            </th>
+            <th>
+                MeasureName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Records.Any())
+        {
+            @foreach (var record in Model.Records)
+            {
+                <tr class="list-row">
+                    <td>@Html.DisplayFor(modelItem => record.Date)</td>
+                    <td>@Html.DisplayFor(modelItem => record.Quantity)</td>
+                    <td>@Html.DisplayFor(modelItem => record.Measure.Name)</td>
+                    <td>
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@record.Id">
+                            <img src="~/images/Trash.svg" class="me-2" />
+                            <span>Delete</span>
+                        </a>
+                        <a class="btn btn-warning" asp-page="./Update" asp-route-id="@record.Id">
+                            <img src="~/images/Edit.svg" class="me-2" />
+                            <span>Edit</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No records found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
