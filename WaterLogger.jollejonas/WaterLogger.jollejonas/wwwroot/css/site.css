@@ -1,0 +1,146 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background: linear-gradient(135deg, #E8F6F3, #EBF5FB);
+}
+
+.navbar {
+    background-color: #ECFDF5; /* Meget lys grøn/teal */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Diskret skygge */
+    color: #2C3E50; /* Mørk blågrå tekst */
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+    .navbar a {
+        color: #2C3E50; /* Mørk blågrå tekst */
+        text-decoration: none;
+        margin-right: 20px;
+        transition: color 0.2s ease-in-out;
+    }
+
+        .navbar a:hover {
+            color: #2980B9; /* Teal blå hover */
+        }
+
+/* Grøn knap */
+.btn-success {
+    background-color: #27AE60; /* Primær grøn */
+    color: #FFFFFF; /* Hvid tekst */
+    border: none;
+}
+
+    .btn-success:hover {
+        background-color: #229954; /* Mørkere grøn */
+    }
+
+/* Blå knap */
+.btn-primary {
+    background-color: #2980B9; /* Teal blå */
+    color: #FFFFFF;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #2471A3; /* Mørkere blå */
+    }
+
+/* Rød knap */
+.btn-danger {
+    background-color: #E74C3C; /* Dæmpet rød */
+    color: #FFFFFF;
+    border: none;
+}
+
+    .btn-danger:hover {
+        background-color: #CB4335; /* Mørkere rød */
+    }
+
+/* Grå knap */
+.btn-secondary {
+    background-color: #BDC3C7; /* Neutral grå */
+    color: #2C3E50; /* Mørk blågrå tekst */
+    border: none;
+}
+
+    .btn-secondary:hover {
+        background-color: #AAB7B8; /* Mørkere grå */
+    }
+
+/* Generelle knapper */
+button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.logo {
+    max-height: 80px;
+}
+
+/* Stil til tabellen */
+#expenses {
+    width: 100%;
+    background-color: #FDFEFE; /* Lys baggrund */
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Afstand mellem rækker */
+}
+
+    /* Stil til tabelhoveder */
+    #expenses thead th {
+        background-color: #27AE60; /* Grøn header baggrund */
+        color: #FFFFFF; /* Hvid tekst */
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    /* Stil til rækker */
+    #expenses tbody tr {
+        background-color: #ECFDF5; /* Meget lys grøn baggrund */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Diskret skygge */
+        border-radius: 8px;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+        #expenses tbody tr:hover {
+            background-color: #D4EFDF; /* Lidt mørkere grøn ved hover */
+        }
+
+    /* Stil til celler */
+    #expenses td {
+        padding: 12px;
+        color: #2C3E50; /* Mørk tekstfarve */
+    }
+
+/* Stil til knapper */
+.table-actions {
+    display: flex;
+    gap: 8px; /* Mindre afstand mellem knapper */
+}
+
+    .table-actions a {
+        text-decoration: none;
+    }

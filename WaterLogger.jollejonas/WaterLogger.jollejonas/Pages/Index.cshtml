@@ -1,0 +1,63 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Expenses";
+    var currentDate = Model.SelectedDate;
+    decimal sum = Model.ExpensesSum;
+}
+
+<a button type="button" class="btn btn-success" asp-area="" asp-page="/Create">Add Expense</a>
+
+<div class="d-flex justify-content-center align-items-center">
+    <a asp-asp-page="/Index" asp-route-date="@currentDate.AddMonths(-1).ToString("yyyy-MM-dd")" class="btn btn-secondary">Previous Month</a>
+    <h2>@currentDate.ToString("MMMM yyyy")</h2>
+    <a asp-asp-page="/Index" asp-route-date="@currentDate.AddMonths(1).ToString("yyyy-MM-dd")" class="btn btn-secondary">Next Month</a>
+</div>
+
+
+<table id="expenses" class="table">
+    <thead>
+        <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Expenses[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expenses[0].Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expenses[0].Amount)
+            </th>
+            <th></th>
+    </tr>
+    </thead>
+    <tbody>
+            @foreach (var expense in Model.Expenses)
+            {
+            <tr class="list-row">
+                <td>
+                    @Html.DisplayFor(modelItem => expense.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => expense.Date)
+                </td>
+                <td class="text-end">
+                    -@Html.DisplayFor(modelItem => expense.Amount)
+                </td>
+                <td>
+                    <div class="table-actions w-100 justify-content-center">
+                    <a button type="button" class="btn btn-primary" asp-area="" asp-page="/Update" asp-route-id="@expense.Id">Edit</a>
+                    <a button type="button" class="btn btn-danger" asp-area="" asp-page="/Delete" asp-route-id="@expense.Id">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            }
+            <tr class="list-row">
+                <td></td>
+            <td class="text-end fw-bolder">Sum</td>
+            <td class="text-end">-@sum</td>
+                <td></td>
+
+            </tr>
+    </tbody>
+</table>
+
