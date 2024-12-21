@@ -1,0 +1,38 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<a button type="button" class="btn btn-primary" asp-page="./Create">Create</a>
+<div class="text-center">
+    <table id="records" class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Records[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Records[0].Quantity)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var record in Model.Records)
+        {
+            <tr class="list-row">
+                <td>
+                    @Html.DisplayFor(modelItem => record.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => record.Quantity)
+                </td>
+                <td>
+                    <a button type="button" class="btn btn-danger" asp-page="./Delete" asp-route-id="@record.Id">Delete</a>
+                    <a button type="button" class="btn btn-primary" asp-page="./Update" asp-route-id="@record.Id">Edit</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

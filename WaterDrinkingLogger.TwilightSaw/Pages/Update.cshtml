@@ -1,0 +1,25 @@
+﻿@page
+@model WaterDrinkingLogger.TwilightSaw.Pages.UpdateModel
+@{
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="DrinkingWater.Date" class="control-label"></label>
+                <input type="date" asp-for="DrinkingWater.Date" class="form-control" />
+                <span asp-validation-for="DrinkingWater.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DrinkingWater.Quantity" class="control-label"></label>
+                <input type="number" asp-for="DrinkingWater.Quantity" class="form-control" />
+                <span asp-validation-for="DrinkingWater.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DrinkingWater.Id"/>
+                <input type="submit" value="Edit" class="btn btn-success"/>
+            </div>
+        </form>
+    </div>
+</div>
