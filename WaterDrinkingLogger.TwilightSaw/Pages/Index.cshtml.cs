@@ -17,7 +17,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
 
         public List<DrinkingWater> GetAllRecords()
         {
-            var connectionString = "Data Source=WaterLogger.db";
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();

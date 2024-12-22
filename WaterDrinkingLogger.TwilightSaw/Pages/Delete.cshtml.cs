@@ -19,7 +19,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
 
         private DrinkingWater GetById(int id)
         {
-            var connectionString = "Data Source=WaterLogger.db";
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
@@ -36,12 +36,13 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
                     Quantity = reader.GetInt32(2)
                 };
             }
+            connection.Close();
             return tableData;
         }
 
         public IActionResult OnPost(int id)
         {
-            var connectionString = "Data Source=WaterLogger.db";
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();

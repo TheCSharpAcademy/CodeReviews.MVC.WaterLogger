@@ -1,10 +1,9 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Sleep Tracker";
 }
 
-<a button type="button" class="btn btn-primary" asp-page="./Create">Create</a>
 <div class="text-center">
     <table id="records" class="table">
         <thead>
@@ -28,9 +27,11 @@
                     @Html.DisplayFor(modelItem => record.Quantity)
                 </td>
                 <td>
-                    <a button type="button" class="btn btn-danger" asp-page="./Delete" asp-route-id="@record.Id">Delete</a>
-                    <a button type="button" class="btn btn-primary" asp-page="./Update" asp-route-id="@record.Id">Edit</a>
-                </td>
+                        <div class="d-flex justify-content-center">
+                            <a button type="button" class="btn btn-success custom-button btn-sm me-2" asp-page="./Delete" asp-route-id="@record.Id">Delete</a>
+                            <a button type="button" class="btn btn-success custom-button btn-sm" asp-page="./Update" asp-route-id="@record.Id">Edit</a>
+                </div>
+                    </td>
             </tr>
         }
         </tbody>

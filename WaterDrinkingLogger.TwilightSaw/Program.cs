@@ -3,6 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 SQLitePCL.Batteries.Init();
 
 builder.Services.AddRazorPages();
+builder.Configuration.AddJsonFile("appsettings.json");
 
 var app = builder.Build();
 

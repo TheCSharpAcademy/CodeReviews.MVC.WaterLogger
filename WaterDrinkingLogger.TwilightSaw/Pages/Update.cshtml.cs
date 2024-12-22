@@ -18,7 +18,8 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
 
         private DrinkingWater GetById(int id)
         {
-            var connectionString = "Data Source=WaterLogger.db";
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
@@ -35,6 +36,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
                     Quantity = reader.GetInt32(2)
                 };
             }
+            connection.Close();
             return tableData;
         }
 
@@ -42,13 +44,14 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
         {
             if (!ModelState.IsValid) return Page();
 
-            var connectionString = "Data Source=WaterLogger.db";
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
             tableCmd.CommandText = $"UPDATE drinking_water SET date = '{DrinkingWater.Date}'," +
                                    $" quantity = {DrinkingWater.Quantity} WHERE Id = {DrinkingWater.Id}";
             tableCmd.ExecuteNonQuery();
+            connection.Close();
             return RedirectToPage("./Index");
         }
     }
