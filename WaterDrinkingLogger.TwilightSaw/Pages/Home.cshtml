@@ -1,0 +1,16 @@
+﻿@page
+@model SleepingTracker.TwilightSaw.Pages.HomeModel
+@{
+    Layout = "_Layout 2";
+}
+<div class="text-center header">
+    <h1 class="header-text">
+        Action Tracker
+    </h1>
+</div>
+<div class="links">
+    @foreach (var name in Model.ButtonNames)
+    {
+        <a class="btn btn-table" type="button">@name</a>
+    }
+</div>

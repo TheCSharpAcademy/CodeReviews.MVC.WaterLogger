@@ -12,3 +12,19 @@
         background-color: #cacfe6;
         color: black;
     }
+
+.btn-table {
+    font-family: 'Splash', sans-serif;
+    background-color: transparent;
+    color: black;
+    border: inherit;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.btn-table:hover {
+    background-color: #cacfe6;
+    color: black;
+}

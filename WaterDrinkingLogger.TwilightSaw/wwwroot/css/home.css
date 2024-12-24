@@ -1,0 +1,40 @@
+﻿body {
+}
+
+.container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    background-color: transparent; 
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+    font-family: 'Splash', sans-serif;
+    color: black;
+    height: 150px; 
+    width: 500px; 
+    margin-top: -310px;
+}
+
+.header-text{
+    font-size: 78px;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    gap: clamp(10px, 5%, 50px);
+    padding: 10px;
+    height: 70px;
+    width: 500px;
+}
+
