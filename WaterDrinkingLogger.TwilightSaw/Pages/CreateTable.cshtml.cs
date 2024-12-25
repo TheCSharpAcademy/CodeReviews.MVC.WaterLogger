@@ -5,14 +5,14 @@ using WaterDrinkingLogger.TwilightSaw.Models;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages
 {
-    public class CreateModel(IConfiguration configuration) : PageModel
+    public class CreateTableModel(IConfiguration configuration) : PageModel
     {
         public IActionResult OnGet()
         {
             return Page();
         }
 
-        public IActionResult OnPost(string name)
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
@@ -25,18 +25,21 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
 
             var tableCmd = connection.CreateCommand();
             tableCmd.CommandText = $@"
-        INSERT INTO '{name}' (date, quantity) 
-        VALUES (@date, @quantity);";
+    CREATE TABLE [{Table}] (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date TEXT,
+        quantity INTEGER
+    );
+";
 
-            tableCmd.Parameters.AddWithValue("@date", DrinkingWater.Date);
-            tableCmd.Parameters.AddWithValue("@quantity", DrinkingWater.Quantity);
+            tableCmd.Parameters.AddWithValue("@text", Table);
             tableCmd.ExecuteNonQuery();
             connection.Close();
 
-            return RedirectToPage("./Home", new { name });
+            return RedirectToPage("./Home");
         }
 
         [BindProperty]
-        public DrinkingWater DrinkingWater { get; set; }
+        public string Table { get; set; }
     }
 }

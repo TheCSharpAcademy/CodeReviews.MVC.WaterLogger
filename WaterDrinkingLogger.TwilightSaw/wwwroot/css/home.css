@@ -3,38 +3,58 @@
 
 .container {
     display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-    background-color: transparent; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: transparent;
+    width: 500px;
 }
 
 .header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; 
+    width: 100%;
     font-family: 'Splash', sans-serif;
     color: black;
-    height: 150px; 
-    width: 500px; 
+    height: 150px;
+    width: 500px;
     margin-top: -310px;
+    flex-wrap: wrap;
+    text-align: center;
 }
 
 .header-text{
     font-size: 78px;
 }
 
-.links {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 100%;
-    gap: clamp(10px, 5%, 50px);
-    padding: 10px;
-    height: 70px;
-    width: 500px;
+.header-undertext {
+    margin-top: -20px;
+    font-size: 40px;
 }
 
+.links {
+    display: flex;
+    flex-wrap: wrap; /* Дозволяє перенесення на новий рядок */
+    justify-content: flex-start; /* Вирівнювання кнопок по лівому краю */
+    align-items: flex-start; /* Вирівнювання рядків по верхньому краю */
+    row-gap: 15px; /* Відстань між рядками */
+    column-gap: 10px; 
+    padding: 10px;
+    background-color: white;
+    box-sizing: border-box; 
+}
+
+    .links a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        color: black;
+        border: 1px solid gray;
+        border-radius: 5px; 
+        text-decoration: none;
+        font-size: 14px;
+        box-sizing: border-box;
+    }

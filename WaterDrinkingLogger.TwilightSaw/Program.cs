@@ -20,4 +20,10 @@ app.UseRouting();
 
 app.MapRazorPages();
 
+
+app.UseEndpoints(static endpoints =>
+{
+    _ = endpoints.MapFallbackToPage("/Home");
+});
+
 app.Run();

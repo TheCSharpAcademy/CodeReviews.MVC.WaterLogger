@@ -1,16 +1,40 @@
 ﻿@page
-@model SleepingTracker.TwilightSaw.Pages.HomeModel
+@model HomeModel
 @{
-    Layout = "_Layout 2";
+    ViewData["Title"] = "Sleep Tracker";
 }
-<div class="text-center header">
-    <h1 class="header-text">
-        Action Tracker
-    </h1>
-</div>
-<div class="links">
-    @foreach (var name in Model.ButtonNames)
-    {
-        <a class="btn btn-table" type="button">@name</a>
-    }
+
+<div class="text-center">
+    <table id="records" class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Records[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Records[0].Quantity)
+            </th>
+        </tr>
+        </thead>
+        <a class="nav-link text-dark" asp-area="" asp-route-name="@Model.Name" asp-page="/Create">Create</a>
+        <tbody>
+        @foreach (var record in Model.Records)
+        {
+            <tr class="list-row">
+                <td>
+                    @Html.DisplayFor(modelItem => record.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => record.Quantity)
+                </td>
+                <td>
+                        <div class="d-flex justify-content-center">
+                            <a button type="button" class="btn btn-success custom-button btn-sm me-2" asp-page="./Delete" asp-route-id="@record.Id" >Delete</a>
+                            <a button type="button" class="btn btn-success custom-button btn-sm" asp-page="./Update" asp-route-id="@record.Id">Edit</a>
+                </div>
+                    </td>
+            </tr>
+        }
+        </tbody>
+    </table>
 </div>

@@ -1,39 +1,23 @@
 ﻿@page
-@model IndexModel
+@model SleepingTracker.TwilightSaw.Pages.IndexModel
 @{
-    ViewData["Title"] = "Sleep Tracker";
+    Layout = "_Layout 2";
 }
-
-<div class="text-center">
-    <table id="records" class="table">
-        <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Records[0].Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Records[0].Quantity)
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var record in Model.Records)
-        {
-            <tr class="list-row">
-                <td>
-                    @Html.DisplayFor(modelItem => record.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => record.Quantity)
-                </td>
-                <td>
-                        <div class="d-flex justify-content-center">
-                            <a button type="button" class="btn btn-success custom-button btn-sm me-2" asp-page="./Delete" asp-route-id="@record.Id">Delete</a>
-                            <a button type="button" class="btn btn-success custom-button btn-sm" asp-page="./Update" asp-route-id="@record.Id">Edit</a>
-                </div>
-                    </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+<div class="text-center header">
+    <h1 class="header-text">
+        Action Tracker
+    </h1>
+    <h2 class="header-undertext">
+        Your actions
+    </h2>
+</div>
+<div class="underheader">
+   
+</div>
+<div class="links">
+    @foreach (var name in Model.ButtonNames)
+    {
+        <a class="btn btn-table" asp-page="./Home" asp-route-name="@name">@name</a>
+    }
+    <a value="+" class="btn btn-table" asp-page="./CreateTable"/>+<br />
 </div>

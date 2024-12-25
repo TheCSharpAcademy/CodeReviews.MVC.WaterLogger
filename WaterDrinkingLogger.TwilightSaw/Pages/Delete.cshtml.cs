@@ -40,7 +40,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             return tableData;
         }
 
-        public IActionResult OnPost(int id)
+        public IActionResult OnPost(int id, string name)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
@@ -48,7 +48,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             var tableCmd = connection.CreateCommand();
             tableCmd.CommandText = $"DELETE FROM drinking_water WHERE Id = {id}";
             tableCmd.ExecuteNonQuery();
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Home", new {name});
         }
     }
 }

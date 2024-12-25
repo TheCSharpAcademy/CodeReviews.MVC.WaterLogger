@@ -1,41 +1,37 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
+using System.Globalization;
 using WaterDrinkingLogger.TwilightSaw.Models;
 
-namespace WaterDrinkingLogger.TwilightSaw.Pages
+namespace SleepingTracker.TwilightSaw.Pages
 {
     public class IndexModel(IConfiguration configuration) : PageModel
     {
-        public List<DrinkingWater> Records { get; set; }
-
+        public List<string> ButtonNames { get; set; }
         public void OnGet()
         {
-            Records = GetAllRecords();
+            ButtonNames = GetTables();
         }
-
-        public List<DrinkingWater> GetAllRecords()
+        private List<string> GetTables()
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"SELECT * FROM drinking_water";
-            var tableData = new List<DrinkingWater>();
+            tableCmd.CommandText = $@"SELECT name FROM sqlite_master 
+                                    WHERE type = 'table' AND name != 'sqlite_sequence'
+                                    ORDER BY name;";
+            var tableName = new List<string>();
             var reader = tableCmd.ExecuteReader();
 
             while (reader.Read())
             {
-                tableData.Add(new DrinkingWater()
-                {
-                    Id=reader.GetInt32(0),
-                    Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),
-                    Quantity = reader.GetInt32(2)
-                });
+                tableName.Add(reader.GetString(0));
             }
-
-            return tableData;
+            connection.Close();
+            return tableName;
         }
     }
 }
