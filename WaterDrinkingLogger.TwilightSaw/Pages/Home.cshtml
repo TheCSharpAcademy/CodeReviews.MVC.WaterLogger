@@ -5,6 +5,13 @@
 }
 
 <div class="text-center">
+    <div class="header-buttons">
+        <a class="btn btn-table" asp-area="" asp-route-name="@Model.Name" asp-page="/Create">Create new record</a>
+        <form action="/DeleteTable" method="post">
+            <input type="hidden" name="name" value="@Model.Name" />
+            <button type="submit" class="btn btn-table">Delete this action</button>
+        </form>
+    </div>
     <table id="records" class="table">
         <thead>
         <tr>
@@ -16,25 +23,21 @@
             </th>
         </tr>
         </thead>
-        <a class="nav-link text-dark" asp-area="" asp-route-name="@Model.Name" asp-page="/Create">Create</a>
-        <tbody>
+
+        <div class = "body-buttons">
         @foreach (var record in Model.Records)
         {
-            <tr class="list-row">
-                <td>
+                     <div>
                     @Html.DisplayFor(modelItem => record.Date)
-                </td>
-                <td>
+                
                     @Html.DisplayFor(modelItem => record.Quantity)
-                </td>
-                <td>
-                        <div class="d-flex justify-content-center">
-                            <a button type="button" class="btn btn-success custom-button btn-sm me-2" asp-page="./Delete" asp-route-id="@record.Id" >Delete</a>
-                            <a button type="button" class="btn btn-success custom-button btn-sm" asp-page="./Update" asp-route-id="@record.Id">Edit</a>
-                </div>
-                    </td>
-            </tr>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a button type="button" class="btn btn-success custom-button btn-sm me-2" asp-page="./Delete" asp-route-id="@record.Id" asp-route-name="@Model.Name">Delete</a>
+                        <a button type="button" class="btn btn-success custom-button btn-sm"
+                           asp-page="./Update" asp-route-id="@record.Id" asp-route-name="@Model.Name">Edit</a>
+                    </div>
         }
-        </tbody>
+        </div>
     </table>
 </div>

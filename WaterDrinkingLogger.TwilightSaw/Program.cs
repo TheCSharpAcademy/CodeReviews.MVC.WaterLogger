@@ -20,10 +20,8 @@ app.UseRouting();
 
 app.MapRazorPages();
 
-
-app.UseEndpoints(static endpoints =>
-{
-    _ = endpoints.MapFallbackToPage("/Home");
-});
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();

@@ -20,3 +20,28 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.header-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    font-family: 'Splash', sans-serif;
+    color: black;
+    height: 50px;
+
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.body-buttons {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+    font-family: 'Splash', sans-serif;
+    color: black;
+    height: 50px;
+    flex-wrap: wrap;
+    text-align: center;
+}

@@ -36,7 +36,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             tableCmd.ExecuteNonQuery();
             connection.Close();
 
-            return RedirectToPage("./Home");
+            return RedirectToPage("./Index");
         }
 
         [BindProperty]

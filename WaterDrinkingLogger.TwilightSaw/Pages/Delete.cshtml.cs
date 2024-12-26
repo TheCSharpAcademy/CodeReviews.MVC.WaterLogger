@@ -10,20 +10,21 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
     {
         [BindProperty]
         public DrinkingWater DrinkingWater { get; set; }
-        public IActionResult OnGet(int id)
+
+        public IActionResult OnGet(int id, string name)
         {
-            DrinkingWater = GetById(id);
+            DrinkingWater = GetById(id, name);
 
             return Page();
         }
 
-        private DrinkingWater GetById(int id)
+        private DrinkingWater GetById(int id, string name)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"SELECT * FROM drinking_water WHERE Id = {id}";
+            tableCmd.CommandText = $"SELECT * FROM [{name}] WHERE Id = {id}";
             var tableData = new DrinkingWater();
             var reader = tableCmd.ExecuteReader();
 
@@ -46,7 +47,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"DELETE FROM drinking_water WHERE Id = {id}";
+            tableCmd.CommandText = $"DELETE FROM [{name}] WHERE Id = {id}";
             tableCmd.ExecuteNonQuery();
             return RedirectToPage("./Home", new {name});
         }
