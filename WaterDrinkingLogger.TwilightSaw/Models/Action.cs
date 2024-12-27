@@ -2,7 +2,7 @@
 
 namespace WaterDrinkingLogger.TwilightSaw.Models;
 
-public class DrinkingWater
+public class Action
 {
     public int Id { get; set; }
     [DisplayFormat(DataFormatString = "{0:dd.MM.yy}", ApplyFormatInEditMode = true)]

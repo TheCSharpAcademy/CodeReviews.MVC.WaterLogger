@@ -1352,15 +1352,15 @@
 }
 
 .d-table {
-  display: table !important;
+  display: record-container !important;
 }
 
 .d-table-row {
-  display: table-row !important;
+  display: record-container-row !important;
 }
 
 .d-table-cell {
-  display: table-cell !important;
+  display: record-container-cell !important;
 }
 
 .d-flex {
@@ -1955,15 +1955,15 @@
   }
 
   .d-sm-table {
-    display: table !important;
+    display: record-container !important;
   }
 
   .d-sm-table-row {
-    display: table-row !important;
+    display: record-container-row !important;
   }
 
   .d-sm-table-cell {
-    display: table-cell !important;
+    display: record-container-cell !important;
   }
 
   .d-sm-flex {
@@ -2558,15 +2558,15 @@
   }
 
   .d-md-table {
-    display: table !important;
+    display: record-container !important;
   }
 
   .d-md-table-row {
-    display: table-row !important;
+    display: record-container-row !important;
   }
 
   .d-md-table-cell {
-    display: table-cell !important;
+    display: record-container-cell !important;
   }
 
   .d-md-flex {
@@ -3161,15 +3161,15 @@
   }
 
   .d-lg-table {
-    display: table !important;
+    display: record-container !important;
   }
 
   .d-lg-table-row {
-    display: table-row !important;
+    display: record-container-row !important;
   }
 
   .d-lg-table-cell {
-    display: table-cell !important;
+    display: record-container-cell !important;
   }
 
   .d-lg-flex {
@@ -3764,15 +3764,15 @@
   }
 
   .d-xl-table {
-    display: table !important;
+    display: record-container !important;
   }
 
   .d-xl-table-row {
-    display: table-row !important;
+    display: record-container-row !important;
   }
 
   .d-xl-table-cell {
-    display: table-cell !important;
+    display: record-container-cell !important;
   }
 
   .d-xl-flex {
@@ -4367,15 +4367,15 @@
   }
 
   .d-xxl-table {
-    display: table !important;
+    display: record-container !important;
   }
 
   .d-xxl-table-row {
-    display: table-row !important;
+    display: record-container-row !important;
   }
 
   .d-xxl-table-cell {
-    display: table-cell !important;
+    display: record-container-cell !important;
   }
 
   .d-xxl-flex {
@@ -4970,15 +4970,15 @@
   }
 
   .d-print-table {
-    display: table !important;
+    display: record-container !important;
   }
 
   .d-print-table-row {
-    display: table-row !important;
+    display: record-container-row !important;
   }
 
   .d-print-table-cell {
-    display: table-cell !important;
+    display: record-container-cell !important;
   }
 
   .d-print-flex {

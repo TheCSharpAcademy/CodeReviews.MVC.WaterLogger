@@ -11,18 +11,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+VIC+Guides&family=Splash&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div>
+            <a class="navbar-brand" asp-area="" asp-page="/Index">Action Tracker</a>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main">
+        @RenderBody()
+    </main>
+</div>
 
-   
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

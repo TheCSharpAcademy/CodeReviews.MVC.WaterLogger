@@ -2,6 +2,7 @@
 @model HomeModel
 @{
     ViewData["Title"] = "Sleep Tracker";
+    Layout = "_Layout 2";
 }
 
 <div class="text-center">
@@ -12,32 +13,43 @@
             <button type="submit" class="btn btn-table">Delete this action</button>
         </form>
     </div>
-    <table id="records" class="table">
-        <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Records[0].Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Records[0].Quantity)
-            </th>
-        </tr>
-        </thead>
-
-        <div class = "body-buttons">
-        @foreach (var record in Model.Records)
-        {
-                     <div>
-                    @Html.DisplayFor(modelItem => record.Date)
-                
-                    @Html.DisplayFor(modelItem => record.Quantity)
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <a button type="button" class="btn btn-success custom-button btn-sm me-2" asp-page="./Delete" asp-route-id="@record.Id" asp-route-name="@Model.Name">Delete</a>
-                        <a button type="button" class="btn btn-success custom-button btn-sm"
-                           asp-page="./Update" asp-route-id="@record.Id" asp-route-name="@Model.Name">Edit</a>
-                    </div>
-        }
+    <div>
+        <div class="header-record">
+            Your records:
         </div>
-    </table>
+        <div id="records" class="record-container">
+            <div class="record-header">
+                <div>
+                    @Html.DisplayNameFor(model => model.Records[0].Date)
+                </div>
+                <div>
+                    @Html.DisplayNameFor(model => model.Records[0].Quantity)
+                </div>
+                <div></div>
+            </div>
+         
+                @foreach (var record in Model.Records)
+                {
+                    <div class="record-row">
+
+                        <div class="record-info">
+                            <div>
+                                @Html.DisplayFor(modelItem => record.Date)
+                            </div>
+                            <div>
+                                @Html.DisplayFor(modelItem => record.Quantity)
+                            </div>
+                        </div>
+                        <div class="record-actions">
+                            <form action="/Delete" method="post">
+                                <input type="hidden" name="name" value="@Model.Name" />
+                                <input type="hidden" name="id" value="@record.Id" />
+                            <button type="submit" class="btn custom-button">Delete</button>
+                            </form>
+                            <a class="custom-button" asp-page="./Update" asp-route-id="@record.Id" asp-route-name="@Model.Name">Edit</a>
+                        </div>
+                    </div>
+                }
+            </div>
+    </div>
 </div>

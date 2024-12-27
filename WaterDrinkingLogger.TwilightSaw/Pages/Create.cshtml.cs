@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using WaterDrinkingLogger.TwilightSaw.Models;
+using Action = WaterDrinkingLogger.TwilightSaw.Models.Action;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages
 {
@@ -28,8 +29,8 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
         INSERT INTO '{name}' (date, quantity) 
         VALUES (@date, @quantity);";
 
-            tableCmd.Parameters.AddWithValue("@date", DrinkingWater.Date);
-            tableCmd.Parameters.AddWithValue("@quantity", DrinkingWater.Quantity);
+            tableCmd.Parameters.AddWithValue("@date", Action.Date);
+            tableCmd.Parameters.AddWithValue("@quantity", Action.Quantity);
             tableCmd.ExecuteNonQuery();
             connection.Close();
 
@@ -37,6 +38,6 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
         }
 
         [BindProperty]
-        public DrinkingWater DrinkingWater { get; set; }
+        public Action Action { get; set; }
     }
 }

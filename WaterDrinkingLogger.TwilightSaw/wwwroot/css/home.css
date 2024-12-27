@@ -1,4 +1,5 @@
 ﻿body {
+    font-family: 'Splash', sans-serif;
 }
 
 .container {
@@ -9,6 +10,11 @@
     height: 100vh;
     background-color: transparent;
     width: 500px;
+    margin-top: -170px;
+}
+
+.text-center {
+   
 }
 
 .header {
@@ -20,7 +26,6 @@
     color: black;
     height: 150px;
     width: 500px;
-    margin-top: -310px;
     flex-wrap: wrap;
     text-align: center;
 }
@@ -58,3 +63,82 @@
         font-size: 14px;
         box-sizing: border-box;
     }
+
+.header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    gap: 30px;
+}
+
+.record-container {
+    width: 100%; /* Вся ширина */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Відстань між записами */
+}
+
+.record-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto; /* Дві рівні колонки і одна для кнопок */
+    align-items: center; /* Вирівнювання по вертикалі */
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-radius: 1px;
+    text-align: left;
+}
+
+.record-header {
+    display: flex;
+    gap: 55px;
+    grid-template-columns: 1fr 1fr auto; /* Дві рівні колонки і одна для кнопок */
+    align-items: center; /* Вирівнювання по вертикалі */
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-radius: 1px;
+    text-align: left;
+    font-weight: bold; /* Жирний текст для заголовків */
+    /* Відділення заголовка */
+}
+
+.record-row span {
+    text-align: center; /* Вирівнюємо значення в колонках */
+}
+
+
+.record-actions {
+    display: flex;
+    gap: 10px; /* Відстань між кнопками */
+    justify-content: flex-end; /* Вирівнювання кнопок по правому краю */
+}
+
+
+
+.record-info {
+    display: flex;
+    gap: 30px;
+}
+
+.header-record {
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+
+
+.form-row {
+    display: flex; /* Робимо всі дочірні елементи в рядок */
+    gap: 15px; /* Відстань між елементами */
+    align-items: center; /* Вирівнюємо по вертикалі */
+}
+
+.navbar-brand {
+    margin-left: 20px;
+}

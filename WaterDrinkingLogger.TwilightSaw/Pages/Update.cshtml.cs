@@ -3,20 +3,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using System.Globalization;
 using WaterDrinkingLogger.TwilightSaw.Models;
+using Action = WaterDrinkingLogger.TwilightSaw.Models.Action;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages
 {
     public class UpdateModel(IConfiguration configuration) : PageModel
     {
         [BindProperty]
-        public DrinkingWater DrinkingWater { get; set; }
+        public Action Action { get; set; }
         public IActionResult OnGet(int id, string name)
         {
-            DrinkingWater = GetById(id, name);
+            Action = GetById(id, name);
             return Page();
         }
 
-        private DrinkingWater GetById(int id, string name)
+        private Action GetById(int id, string name)
         {
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -24,12 +25,12 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             connection.Open();
             var tableCmd = connection.CreateCommand();
             tableCmd.CommandText = $"SELECT * FROM [{name}] WHERE Id = {id}";
-            var tableData = new DrinkingWater();
+            var tableData = new Action();
             var reader = tableCmd.ExecuteReader();
 
             while (reader.Read())
             {
-                tableData = new DrinkingWater
+                tableData = new Action
                 {
                     Id = reader.GetInt32(0),
                     Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),
@@ -48,8 +49,8 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"UPDATE [{name}] SET date = '{DrinkingWater.Date}'," +
-                                   $" quantity = {DrinkingWater.Quantity} WHERE Id = {DrinkingWater.Id}";
+            tableCmd.CommandText = $"UPDATE [{name}] SET date = '{Action.Date}'," +
+                                   $" quantity = {Action.Quantity} WHERE Id = {Action.Id}";
             tableCmd.ExecuteNonQuery();
             connection.Close();
             return RedirectToPage("./Home", new { name });
