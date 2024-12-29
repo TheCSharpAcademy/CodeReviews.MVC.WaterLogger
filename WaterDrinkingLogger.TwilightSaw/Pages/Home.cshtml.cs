@@ -1,8 +1,6 @@
 using System.Globalization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
-using WaterDrinkingLogger.TwilightSaw.Models;
 using Action = WaterDrinkingLogger.TwilightSaw.Models.Action;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages
@@ -39,7 +37,8 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
                 {
                     Id=reader.GetInt32(0),
                     Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),
-                    Quantity = reader.GetInt32(2)
+                    Quantity = reader.GetDouble(2),
+                    Measurement = reader.GetString(3),
                 });
             }
 

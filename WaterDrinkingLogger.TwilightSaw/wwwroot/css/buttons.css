@@ -14,7 +14,6 @@
     }
 
 .btn-table {
-    font-family: 'Splash', sans-serif;
     background-color: transparent;
     color: black;
     padding: 10px 20px;
@@ -28,3 +27,6 @@
     color: black;
 }
 
+.form-button {
+    margin-top: 22px;
+}

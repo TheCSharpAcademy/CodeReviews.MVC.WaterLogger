@@ -1,7 +1,7 @@
 ﻿@page
 @model WaterDrinkingLogger.TwilightSaw.Pages.CreateModel
 @{
-    Layout = "_Layout 2";
+    Layout = "_Layout";
 }
 
 <h2>Add a new Record</h2>
@@ -16,8 +16,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Action.Quantity" class="control-label"></label>
-                <input type="number" asp-for="Action.Quantity" class="form-control"/>
+                <input type="number" step="0.1" asp-for="Action.Quantity" class="form-control" />
                 <span asp-validation-for="Action.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Action.Measurement" class="control-label"></label>
+                <input type="text" asp-for="Action.Measurement" class="form-control" />
+                <span asp-validation-for="Action.Measurement" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn custom-button mt-3" />

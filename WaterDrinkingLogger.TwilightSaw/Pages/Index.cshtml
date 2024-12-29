@@ -1,23 +1,25 @@
 ﻿@page
 @model SleepingTracker.TwilightSaw.Pages.IndexModel
 @{
-    Layout = "_Layout 2";
+    Layout = "_Layout";
 }
 <div class="text-center header">
     <h1 class="header-text">
         Action Tracker
     </h1>
-    <h2 class="header-undertext">
-        Your actions
-    </h2>
+    
 </div>
-<div class="underheader">
-   
-</div>
-<div class="links">
-    @foreach (var name in Model.ButtonNames)
-    {
-        <a class="btn btn-table" asp-page="./Home" asp-route-name="@name">@name</a>
-    }
-    <a value="+" class="btn btn-table" asp-page="./CreateTable"/>+<br />
+<div class="body">
+    <div class="underheader">
+        <h2 class="header-undertext">
+            Your actions
+        </h2>
+    </div>
+    <div class="links">
+        @foreach (var name in Model.ButtonNames)
+        {
+            <a class="btn btn-table" asp-page="./Home" asp-route-name="@name">@name</a>
+        }
+        <a value="+" class="btn btn-table" asp-page="./CreateTable">+</a>
+    </div>
 </div>

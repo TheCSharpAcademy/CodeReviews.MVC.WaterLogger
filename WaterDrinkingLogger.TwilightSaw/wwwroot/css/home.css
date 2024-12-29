@@ -1,5 +1,12 @@
 ﻿body {
     font-family: 'Splash', sans-serif;
+    background-image: url('/lib/background.PNG');
+    background-size: cover; /* Розтягує фон на весь екран */
+    background-position: center; /* Центрує зображення */
+    background-repeat: no-repeat; /* Забороняє повторення фону */
+    background-attachment: fixed; /* Фіксує фон під час прокручування */
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -13,9 +20,6 @@
     margin-top: -170px;
 }
 
-.text-center {
-   
-}
 
 .header {
     display: flex;
@@ -72,7 +76,7 @@
     gap: 30px;
 }
 
-.record-container {
+.records-container {
     width: 100%; /* Вся ширина */
     display: flex;
     flex-direction: column;
@@ -108,12 +112,9 @@
 
 
 .record-actions {
-    display: flex;
-    gap: 10px; /* Відстань між кнопками */
+    display: flex;/* Відстань між кнопками */
     justify-content: flex-end; /* Вирівнювання кнопок по правому краю */
 }
-
-
 
 .record-info {
     display: flex;
@@ -131,8 +132,6 @@
     flex-direction: column;
 }
 
-
-
 .form-row {
     display: flex; /* Робимо всі дочірні елементи в рядок */
     gap: 15px; /* Відстань між елементами */
@@ -140,5 +139,45 @@
 }
 
 .navbar-brand {
-    margin-left: 20px;
+    margin-left: 25px;
+    font-size: 30px;
+
+}
+
+    .navbar-brand:hover {
+        opacity: 0.7; /* Прозорість тексту при наведенні */
+    }
+
+.navbar{
+        opacity: 0.7;
+        backdrop-filter: blur(5px);
+}
+
+
+.form-group-c {
+    display: flex;
+    align-items: center;
+}
+
+.form-name {
+    display: flex;
+    width: 100px;
+    flex-direction: column;
+}
+
+.form-group .form-name {
+    flex: 1; /* Інпут займає весь доступний простір */
+}
+
+.underheader {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
 }

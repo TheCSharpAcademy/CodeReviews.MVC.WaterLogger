@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
-using WaterDrinkingLogger.TwilightSaw.Models;
 using Action = WaterDrinkingLogger.TwilightSaw.Models.Action;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages
@@ -26,11 +25,12 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
 
             var tableCmd = connection.CreateCommand();
             tableCmd.CommandText = $@"
-        INSERT INTO '{name}' (date, quantity) 
-        VALUES (@date, @quantity);";
+        INSERT INTO '{name}' (date, quantity, measurement) 
+        VALUES (@date, @quantity, @measurement);";
 
             tableCmd.Parameters.AddWithValue("@date", Action.Date);
             tableCmd.Parameters.AddWithValue("@quantity", Action.Quantity);
+            tableCmd.Parameters.AddWithValue("@measurement", Action.Measurement);
             tableCmd.ExecuteNonQuery();
             connection.Close();
 

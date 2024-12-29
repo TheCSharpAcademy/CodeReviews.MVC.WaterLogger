@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using System.Globalization;
-using WaterDrinkingLogger.TwilightSaw.Models;
 using Action = WaterDrinkingLogger.TwilightSaw.Models.Action;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages
@@ -19,7 +18,6 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
 
         private Action GetById(int id, string name)
         {
-
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
@@ -34,7 +32,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
                 {
                     Id = reader.GetInt32(0),
                     Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),
-                    Quantity = reader.GetInt32(2)
+                    Quantity = reader.GetDouble(2)
                 };
             }
             connection.Close();
@@ -49,8 +47,11 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"UPDATE [{name}] SET date = '{Action.Date}'," +
-                                   $" quantity = {Action.Quantity} WHERE Id = {Action.Id}";
+            tableCmd.CommandText = $"UPDATE [{name}] SET Date = @date, quantity = @quantity, measurement = @measurement WHERE Id = @id";
+            tableCmd.Parameters.AddWithValue("@date", Action.Date);
+            tableCmd.Parameters.AddWithValue("@quantity", Action.Quantity);
+            tableCmd.Parameters.AddWithValue("@measurement", Action.Measurement);
+            tableCmd.Parameters.AddWithValue("@id", Action.Id);
             tableCmd.ExecuteNonQuery();
             connection.Close();
             return RedirectToPage("./Home", new { name });

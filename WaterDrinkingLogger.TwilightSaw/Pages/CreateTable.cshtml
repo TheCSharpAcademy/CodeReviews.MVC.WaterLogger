@@ -1,20 +1,21 @@
 ﻿@page
 @model WaterDrinkingLogger.TwilightSaw.Pages.CreateTableModel
 @{
+    Layout = "_Layout";
 }
 
 <h2>Add a new Record</h2>
 <hr />
 <div class="row">
-    <div class="col-md-4"> 
-        <form method="post">
-            <div class="form-group">
-                <label >Name</label>
-                <input type="text" asp-for="Table" class="form-control"/>
+    <div class="col-md-4 form-group-c">
+        <form method="post" class="form-group-c d-flex align-items-center">
+            <div class="form-name">
+                <label for="Table">Name</label>
+                <input type="text" asp-for="Table" id="Table" class="form-control" />
                 <span asp-validation-for="Table" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success mt-3"/>
+            <div class="form-button ms-3">
+                <input type="submit" value="Create" class="btn btn-table" />
             </div>
         </form>
     </div>

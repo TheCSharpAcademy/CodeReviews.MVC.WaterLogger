@@ -1,9 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Configuration;
-using System.Globalization;
-using WaterDrinkingLogger.TwilightSaw.Models;
 
 namespace SleepingTracker.TwilightSaw.Pages
 {
