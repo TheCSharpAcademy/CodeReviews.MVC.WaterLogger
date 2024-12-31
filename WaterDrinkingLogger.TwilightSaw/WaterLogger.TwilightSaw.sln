@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SleepingTracker.TwilightSaw", "SleepingTracker.TwilightSaw.csproj", "{9C6789E4-1522-4312-858F-B1847E5F761B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterLogger.TwilightSaw", "WaterLogger.TwilightSaw.csproj", "{046CC59A-77D0-401D-A3C9-B3F9329ED30D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9C6789E4-1522-4312-858F-B1847E5F761B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C6789E4-1522-4312-858F-B1847E5F761B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C6789E4-1522-4312-858F-B1847E5F761B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C6789E4-1522-4312-858F-B1847E5F761B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046CC59A-77D0-401D-A3C9-B3F9329ED30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046CC59A-77D0-401D-A3C9-B3F9329ED30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046CC59A-77D0-401D-A3C9-B3F9329ED30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046CC59A-77D0-401D-A3C9-B3F9329ED30D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {62D46209-64BF-439E-80C2-01B1D68D358A}
+		SolutionGuid = {4B499CEA-F279-4C73-BFEA-FE1147D12415}
 	EndGlobalSection
 EndGlobal

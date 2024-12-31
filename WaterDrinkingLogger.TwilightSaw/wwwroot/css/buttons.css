@@ -1,25 +1,25 @@
 ﻿.custom-button {
     background-color: transparent;
-    color: black;
     border: inherit;
-    padding: 10px 20px;
-    font-size: 16px;
     border-radius: 5px;
+    color: black;
     cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
 }
 
-    .custom-button:hover {
-        background-color: #cacfe6;
-        color: black;
-    }
+.custom-button:hover {
+    background-color: #cacfe6;
+    color: black;
+}
 
 .btn-table {
     background-color: transparent;
-    color: black;
-    padding: 10px 20px;
-    font-size: 16px;
     border-radius: 2px;
+    color: black;
     cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
 }
 
 .btn-table:hover {
@@ -27,6 +27,4 @@
     color: black;
 }
 
-.form-button {
-    margin-top: 22px;
-}
+.form-button { margin-top: 22px; }

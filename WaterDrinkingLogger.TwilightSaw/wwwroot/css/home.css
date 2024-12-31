@@ -1,119 +1,114 @@
 ﻿body {
-    font-family: 'Splash', sans-serif;
+    background-attachment: fixed; 
     background-image: url('/lib/background.PNG');
-    background-size: cover; /* Розтягує фон на весь екран */
-    background-position: center; /* Центрує зображення */
-    background-repeat: no-repeat; /* Забороняє повторення фону */
-    background-attachment: fixed; /* Фіксує фон під час прокручування */
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    font-family: 'Splash', sans-serif;
     margin: 0;
     padding: 0;
 }
 
 .container {
+    align-items: center;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
-    background-color: transparent;
-    width: 500px;
+    justify-content: center;
     margin-top: -170px;
+    width: 500px;
 }
 
 
 .header {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    font-family: 'Splash', sans-serif;
     color: black;
-    height: 150px;
-    width: 500px;
+    display: flex;
     flex-wrap: wrap;
+    font-family: 'Splash', sans-serif;
+    height: 150px;
+    justify-content: center;
     text-align: center;
+    width: 100%;
+    width: 500px;
 }
 
-.header-text{
-    font-size: 78px;
-}
+.header-text { font-size: 78px; }
 
 .header-undertext {
-    margin-top: -20px;
     font-size: 40px;
+    margin-top: -20px;
 }
 
 .links {
-    display: flex;
-    flex-wrap: wrap; /* Дозволяє перенесення на новий рядок */
-    justify-content: flex-start; /* Вирівнювання кнопок по лівому краю */
-    align-items: flex-start; /* Вирівнювання рядків по верхньому краю */
-    row-gap: 15px; /* Відстань між рядками */
-    column-gap: 10px; 
-    padding: 10px;
+    align-items: flex-start;
     background-color: white;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    column-gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 10px;
+    row-gap: 15px;
 }
 
-    .links a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: white;
-        color: black;
-        border: 1px solid gray;
-        border-radius: 5px; 
-        text-decoration: none;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
+.links a {
+    align-items: center;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: black;
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    text-decoration: none;
+}
 
 .header-buttons {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
-    width: 100%;
+    flex-wrap: wrap;
     gap: 30px;
+    width: 100%;
 }
 
 .records-container {
-    width: 100%; /* Вся ширина */
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Відстань між записами */
+    gap: 5px;
+    width: 100%;
 }
 
 .record-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto; /* Дві рівні колонки і одна для кнопок */
-    align-items: center; /* Вирівнювання по вертикалі */
-    padding: 10px;
+    align-items: center;
     border-bottom: 1px solid black;
     border-radius: 1px;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    padding: 10px;
     text-align: left;
 }
 
 .record-header {
-    display: flex;
-    gap: 55px;
-    grid-template-columns: 1fr 1fr auto; /* Дві рівні колонки і одна для кнопок */
-    align-items: center; /* Вирівнювання по вертикалі */
-    padding: 10px;
+    align-items: center;
     border-bottom: 1px solid black;
     border-radius: 1px;
+    display: flex;
+    font-weight: bold;
+    gap: 55px;
+    grid-template-columns: 1fr 1fr auto;
+    padding: 10px;
     text-align: left;
-    font-weight: bold; /* Жирний текст для заголовків */
-    /* Відділення заголовка */
 }
 
-.record-row span {
-    text-align: center; /* Вирівнюємо значення в колонках */
-}
+.record-row span { text-align: center; }
 
 
 .record-actions {
-    display: flex;/* Відстань між кнопками */
-    justify-content: flex-end; /* Вирівнювання кнопок по правому краю */
+    display: flex;
+    justify-content: flex-end;
 }
 
 .record-info {
@@ -128,46 +123,41 @@
 
 .row {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .form-row {
-    display: flex; /* Робимо всі дочірні елементи в рядок */
-    gap: 15px; /* Відстань між елементами */
-    align-items: center; /* Вирівнюємо по вертикалі */
+    align-items: center;
+    display: flex;
+    gap: 15px;
 }
 
 .navbar-brand {
-    margin-left: 25px;
     font-size: 30px;
-
+    margin-left: 25px;
 }
 
-    .navbar-brand:hover {
-        opacity: 0.7; /* Прозорість тексту при наведенні */
-    }
+.navbar-brand:hover { opacity: 0.7; }
 
-.navbar{
-        opacity: 0.7;
-        backdrop-filter: blur(5px);
+.navbar {
+    backdrop-filter: blur(5px);
+    opacity: 0.7;
 }
 
 
 .form-group-c {
-    display: flex;
     align-items: center;
+    display: flex;
 }
 
 .form-name {
     display: flex;
-    width: 100px;
     flex-direction: column;
+    width: 100px;
 }
 
-.form-group .form-name {
-    flex: 1; /* Інпут займає весь доступний простір */
-}
+.form-group .form-name { flex: 1; }
 
 .underheader {
     display: flex;
@@ -175,9 +165,9 @@
 }
 
 .body {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     margin-top: 40px;
 }
