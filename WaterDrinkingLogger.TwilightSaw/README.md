@@ -1,4 +1,4 @@
-﻿﻿# ~~WaterLogger~~ ActionTracker
+# ~~WaterLogger~~ActionTracker
 
 ## Given Requirements:
 - [x] A web application where you can track your daily ~~water drinking action~~ actions.
@@ -8,9 +8,12 @@
 
 ## Features
 * 6 endpoints, where you can find all basic CRUD functions and more, created with .NET Razor Pages.
-![image](https://github.com/TwilightSaw/CodeReviews.MVC.WaterLogger/blob/main/WaterLogger.TwilightSaw/images/pages_1.png)
-![image](https://github.com/TwilightSaw/CodeReviews.MVC.WaterLogger/blob/main/WaterLogger.TwilightSaw/images/pages_2.png)
-![image](https://github.com/TwilightSaw/CodeReviews.MVC.WaterLogger/blob/main/WaterLogger.TwilightSaw/images/pages_3.png)
+  There are some of them:
+![image](https://github.com/TwilightSaw/CodeReviews.MVC.WaterLogger/blob/main/WaterDrinkingLogger.TwilightSaw/images/pages_1.png)
+
+![image](https://github.com/TwilightSaw/CodeReviews.MVC.WaterLogger/blob/main/WaterDrinkingLogger.TwilightSaw/images/pages_2.png)
+
+![image](https://github.com/TwilightSaw/CodeReviews.MVC.WaterLogger/blob/main/WaterDrinkingLogger.TwilightSaw/images/pages_3.png)
 
 * SQLite for db functionality.
 
