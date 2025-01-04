@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 
-namespace SleepingTracker.TwilightSaw.Pages
+namespace ActionTracker.TwilightSaw.Pages
 {
     public class IndexModel(IConfiguration configuration) : PageModel
     {

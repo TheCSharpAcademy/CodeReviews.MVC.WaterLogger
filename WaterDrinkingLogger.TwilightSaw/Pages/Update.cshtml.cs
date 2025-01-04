@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using System.Globalization;
-using WaterDrinkingLogger.TwilightSaw.Models;
+using ActionTracker.TwilightSaw.Models;
 
-namespace WaterDrinkingLogger.TwilightSaw.Pages
+namespace ActionTracker.TwilightSaw.Pages
 {
     public class UpdateModel(IConfiguration configuration) : PageModel
     {

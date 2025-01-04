@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WaterDrinkingLogger.TwilightSaw.Models;
+namespace ActionTracker.TwilightSaw.Models;
 
 public class Record
 {

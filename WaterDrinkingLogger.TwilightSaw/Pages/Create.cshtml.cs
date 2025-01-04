@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
-using WaterDrinkingLogger.TwilightSaw.Models;
+using ActionTracker.TwilightSaw.Models;
 
-namespace WaterDrinkingLogger.TwilightSaw.Pages
+namespace ActionTracker.TwilightSaw.Pages
 {
     public class CreateModel(IConfiguration configuration) : PageModel
     {
