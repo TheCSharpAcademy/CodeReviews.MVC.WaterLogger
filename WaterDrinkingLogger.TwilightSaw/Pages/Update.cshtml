@@ -10,22 +10,22 @@
     <div class= "form-group">
         <form method="post" class="form-row">
             <div class="form-group">
-                <label asp-for="Action.Date" class="control-label"></label>
-                <input type="date" asp-for="Action.Date" class="form-control" />
-                <span asp-validation-for="Action.Date" class="text-danger"></span>
+                <label asp-for="Record.Date" class="control-label"></label>
+                <input type="date" asp-for="Record.Date" class="form-control" />
+                <span asp-validation-for="Record.Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Action.Quantity" class="control-label"></label>
-                <input type="number" step="0.1" asp-for="Action.Quantity" class="form-control" />
-                <span asp-validation-for="Action.Quantity" class="text-danger"></span>
+                <label asp-for="Record.Quantity" class="control-label"></label>
+                <input type="number" step="0.1" asp-for="Record.Quantity" class="form-control" />
+                <span asp-validation-for="Record.Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Action.Measurement" class="control-label"></label>
-                <input type="text" asp-for="Action.Measurement" class="form-control" />
-                <span asp-validation-for="Action.Measurement" class="text-danger"></span>
+                <label asp-for="Record.Measurement" class="control-label"></label>
+                <input type="text" asp-for="Record.Measurement" class="form-control" />
+                <span asp-validation-for="Record.Measurement" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="Action.Id" />
+                <input type="hidden" asp-for="Record.Id" />
                 <input type="submit" value="Confirm" class="btn custom-button mt-3"/>
             </div>
         </form>

@@ -2,33 +2,33 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using System.Globalization;
-using Action = WaterDrinkingLogger.TwilightSaw.Models.Action;
+using WaterDrinkingLogger.TwilightSaw.Models;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages
 {
     public class UpdateModel(IConfiguration configuration) : PageModel
     {
         [BindProperty]
-        public Action Action { get; set; }
-        public IActionResult OnGet(int id, string name)
+        public Record Record { get; set; }
+        public IActionResult OnGet(int recordId, int actionId, string name)
         {
-            Action = GetById(id, name);
+            Record = GetById(recordId);
             return Page();
         }
 
-        private Action GetById(int id, string name)
+        private Record GetById(int id)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"SELECT * FROM [{name}] WHERE Id = {id}";
-            var tableData = new Action();
+            tableCmd.CommandText = $"SELECT * FROM Records WHERE Id = {id}";
+            var tableData = new Record();
             var reader = tableCmd.ExecuteReader();
 
             while (reader.Read())
             {
-                tableData = new Action
+                tableData = new Record
                 {
                     Id = reader.GetInt32(0),
                     Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),
@@ -39,7 +39,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             return tableData;
         }
 
-        public IActionResult OnPost(string name)
+        public IActionResult OnPost(string name, int actionId)
         {
             if (!ModelState.IsValid) return Page();
 
@@ -47,14 +47,14 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"UPDATE [{name}] SET Date = @date, quantity = @quantity, measurement = @measurement WHERE Id = @id";
-            tableCmd.Parameters.AddWithValue("@date", Action.Date);
-            tableCmd.Parameters.AddWithValue("@quantity", Action.Quantity);
-            tableCmd.Parameters.AddWithValue("@measurement", Action.Measurement);
-            tableCmd.Parameters.AddWithValue("@id", Action.Id);
+            tableCmd.CommandText = $"UPDATE Records SET Date = @date, quantity = @quantity, measurement = @measurement WHERE Id = @id";
+            tableCmd.Parameters.AddWithValue("@date", Record.Date);
+            tableCmd.Parameters.AddWithValue("@quantity", Record.Quantity);
+            tableCmd.Parameters.AddWithValue("@measurement", Record.Measurement);
+            tableCmd.Parameters.AddWithValue("@id", Record.Id);
             tableCmd.ExecuteNonQuery();
             connection.Close();
-            return RedirectToPage("./Home", new { name });
+            return RedirectToPage("./Home", new { name, id = actionId});
         }
     }
 }

@@ -5,7 +5,7 @@
 }
 <div class="text-center header">
     <h1 class="header-text">
-        Action Tracker
+        Record Tracker
     </h1>
     
 </div>
@@ -16,10 +16,10 @@
         </h2>
     </div>
     <div class="links">
-        @foreach (var name in Model.ButtonNames)
+        @foreach (var name in Model.Variables)
         {
-            <a class="btn btn-table" asp-page="./Home" asp-route-name="@name">@name</a>
+            <a class="btn btn-table" asp-page="./Home" asp-route-id="@name.Item2" asp-route-name = "@name.Item1">@name.Item1</a>
         }
-        <a value="+" class="btn btn-table" asp-page="./CreateTable">+</a>
+        <a value="+" class="btn btn-table" asp-page="./CreateAction">+</a>
     </div>
 </div>

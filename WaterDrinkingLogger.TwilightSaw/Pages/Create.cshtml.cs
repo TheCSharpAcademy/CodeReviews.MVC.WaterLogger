@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
-using Action = WaterDrinkingLogger.TwilightSaw.Models.Action;
+using WaterDrinkingLogger.TwilightSaw.Models;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages
 {
@@ -12,7 +12,7 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
             return Page();
         }
 
-        public IActionResult OnPost(string name)
+        public IActionResult OnPost(string name, int id)
         {
             if (!ModelState.IsValid)
             {
@@ -25,19 +25,20 @@ namespace WaterDrinkingLogger.TwilightSaw.Pages
 
             var tableCmd = connection.CreateCommand();
             tableCmd.CommandText = $@"
-        INSERT INTO '{name}' (date, quantity, measurement) 
-        VALUES (@date, @quantity, @measurement);";
+        INSERT INTO 'Records' (date, quantity, measurement, ActionsId) 
+        VALUES (@date, @quantity, @measurement, @ActionsId);";
 
-            tableCmd.Parameters.AddWithValue("@date", Action.Date);
-            tableCmd.Parameters.AddWithValue("@quantity", Action.Quantity);
-            tableCmd.Parameters.AddWithValue("@measurement", Action.Measurement);
+            tableCmd.Parameters.AddWithValue("@date", Record.Date);
+            tableCmd.Parameters.AddWithValue("@quantity", Record.Quantity);
+            tableCmd.Parameters.AddWithValue("@measurement", Record.Measurement);
+            tableCmd.Parameters.AddWithValue("@ActionsId", id);
             tableCmd.ExecuteNonQuery();
             connection.Close();
 
-            return RedirectToPage("./Home", new { name });
+            return RedirectToPage("./Home", new { name, id });
         }
 
         [BindProperty]
-        public Action Action { get; set; }
+        public Record Record { get; set; }
     }
 }

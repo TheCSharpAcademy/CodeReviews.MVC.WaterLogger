@@ -7,17 +7,16 @@ namespace SleepingTracker.TwilightSaw.Controllers
    public class TableController(IConfiguration configuration) : Controller
     {
         [HttpPost]
-        [Route("DeleteTable")]
-        public IActionResult DeleteTable(string name)
+        [Route("DeleteAction")]
+        public IActionResult DeleteTable(int id)
         {
-            if (string.IsNullOrEmpty(name))
-                return BadRequest("Table name is required");
-
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var command = connection.CreateCommand();
-            command.CommandText = $"DROP TABLE IF EXISTS [{name}]";
+            command.CommandText = $"DELETE FROM Records WHERE ActionsId = {id}";
+            command.ExecuteNonQuery();
+            command.CommandText = $"DELETE FROM Actions WHERE ActionsId = {id}";
             command.ExecuteNonQuery();
 
             return RedirectToPage("/Index");
@@ -25,16 +24,16 @@ namespace SleepingTracker.TwilightSaw.Controllers
 
         [HttpPost]
         [Route("Delete")]
-        public IActionResult Delete(string name, int id)
+        public IActionResult Delete(string name, int recordId, int id)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
             var tableCmd = connection.CreateCommand();
-            tableCmd.CommandText = $"DELETE FROM [{name}] WHERE Id = {id}";
+            tableCmd.CommandText = $"DELETE FROM Records WHERE Id = {recordId}";
             tableCmd.ExecuteNonQuery();
 
-            return RedirectToPage("/Home", new { name });
+            return RedirectToPage("/Home", new { name, id });
         }
     }
 }

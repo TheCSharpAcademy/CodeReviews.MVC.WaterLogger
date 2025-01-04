@@ -4,7 +4,7 @@ using Microsoft.Data.Sqlite;
 
 namespace WaterDrinkingLogger.TwilightSaw.Pages;
 
-public class CreateTableModel(IConfiguration configuration) : PageModel
+public class CreateActionModel(IConfiguration configuration) : PageModel
 {
     public IActionResult OnGet()
     {
@@ -21,20 +21,15 @@ public class CreateTableModel(IConfiguration configuration) : PageModel
 
         var tableCmd = connection.CreateCommand();
         tableCmd.CommandText = $@"
-    CREATE TABLE [{Table}] (
-        Id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date TEXT,
-        quantity DOUBLE,
-        measurement TEXT
-    );
-";
+    INSERT INTO 'Actions' (name) 
+  VALUES (@name);";
 
-        tableCmd.Parameters.AddWithValue("@text", Table);
+        tableCmd.Parameters.AddWithValue("@name", Name);
         tableCmd.ExecuteNonQuery();
         connection.Close();
 
         return RedirectToPage("./Index");
     }
 
-    [BindProperty] public string Table { get; set; }
+    [BindProperty] public string Name { get; set; }
 }

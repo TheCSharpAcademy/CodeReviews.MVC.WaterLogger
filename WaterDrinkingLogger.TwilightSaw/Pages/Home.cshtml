@@ -8,13 +8,13 @@
 <div class="text-center">
     <div class="header-buttons">
         <div>
-             <a class="btn btn-table" asp-area="" asp-route-name="@Model.Name" asp-page="/Create">Create new record</a>
+            <a class="btn btn-table" asp-area="" asp-route-name="@Model.Name" asp-route-id="@Model.Id"  asp-page="/Create">Create new record</a>
         </div>
         <div class="header-record">
             @Model.Name
         </div>
-        <form action="/DeleteTable" method="post">
-            <input type="hidden" name="name" value="@Model.Name"/>
+        <form action="/DeleteAction" method="post">
+            <input type="hidden" name="id" value="@Model.Id"/>
             <button type="submit" class="btn btn-table">Delete the action</button>
         </form>
     </div>
@@ -30,17 +30,18 @@
                                 @Html.DisplayFor(modelItem => record.Date)
                             </div>
                             <div>
-                            @Html.DisplayFor(modelItem => record.Quantity) @Html.DisplayFor(modelItem => record.Measurement)
+                            @Html.DisplayFor(modelItem => record.Quantity) @Html.DisplayFor(modelItem => record.Measurement) 
                             </div>
                         </div>
                         <div class="record-actions">
                             <form action="/Delete" method="post">
                                 <input type="hidden" name="name" value="@Model.Name" />
-                                <input type="hidden" name="id" value="@record.Id" />
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                <input type="hidden" name="recordId" value="@record.Id" />
                                 <button type="submit" class="btn custom-button">Delete</button>
                             </form>
                             <div>
-                            <a class="btn custom-button" asp-page="./Update" asp-route-id="@record.Id" asp-route-name="@Model.Name">Edit</a>
+                            <a class="btn custom-button" asp-page="./Update" asp-route-recordId="@record.Id" asp-route-actionId="@Model.Id"  asp-route-name="@Model.Name">Edit</a>
                             </div>
                             
                         </div>
