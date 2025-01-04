@@ -7,7 +7,7 @@
 - [x] Adding ability for user to choose a measurement for actions.
 
 ## Features
-* 6 endpoints, where you can find all basic CRUD functions and more, created with .NET Razor Pages.
+* 6 pages, where you can find all basic CRUD functions and more, created with .NET Razor Pages.
   There are some of them:
 ![image](https://github.com/TwilightSaw/CodeReviews.MVC.WaterLogger/blob/main/WaterDrinkingLogger.TwilightSaw/images/pages_1.png)
 
