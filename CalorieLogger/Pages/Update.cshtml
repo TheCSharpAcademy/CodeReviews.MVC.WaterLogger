@@ -1,0 +1,36 @@
+﻿@page
+@model CalorieLogger.Pages.UpdateModel
+@{
+    ViewData["Title"] = "Update Record";
+}
+
+<h2>Update Record</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="CalorieIntakeModel.Date" class="control-label"></label>
+                <input type="date" asp-for="CalorieIntakeModel.Date" class="form-control" />
+                <span asp-validation-for="CalorieIntakeModel.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CalorieIntakeModel.Food" class="control-label"></label>
+                <input type="text" asp-for="CalorieIntakeModel.Food" class="form-control" />
+                <span asp-validation-for="CalorieIntakeModel.Food" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CalorieIntakeModel.Calories" class="control-label"></label>
+                <input type="number" asp-for="CalorieIntakeModel.Calories" class="form-control" />
+                <span asp-validation-for="CalorieIntakeModel.Calories" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
