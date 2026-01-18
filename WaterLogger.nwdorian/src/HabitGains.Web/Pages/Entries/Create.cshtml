@@ -1,0 +1,50 @@
+﻿@page "{id}"
+@model Pages.Entries.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+@if (Model.GetHabitErrors.Any())
+{
+    <partial name="_ErrorSummary" model="Model.GetHabitErrors" />
+}
+else
+{
+    <h1>Create new entry for @Model.Habit.Name</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.CreateEntryErrors.Any())
+            {
+                <partial name="_ErrorSummary" model="Model.CreateEntryErrors" />
+            }
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Input.Date" class="form-label"></label>
+                    <input asp-for="Input.Date" class="form-control" />
+                    <span asp-validation-for="Input.Date" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Input.Quantity" class="form-label">Quantity (@Model.Habit.Measurement)</label>
+                    <input asp-for="Input.Quantity" type="number" step="0.1" class="form-control" />
+                    <span asp-validation-for="Input.Quantity" class="text-danger"></span>
+                </div>
+
+                <div class="form-group d-flex justify-content-center gap-2">
+                    <a asp-page="/Details" asp-route-id="@Model.Habit.Id" class="btn btn-secondary">Back to list</a>
+                    <input type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

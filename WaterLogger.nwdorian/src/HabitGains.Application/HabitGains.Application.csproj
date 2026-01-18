@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <ProjectReference Include="..\HabitGains.Domain\HabitGains.Domain.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Core\Extensions\" />
+      <Folder Include="Entries\" />
+      <Folder Include="Entries\Create\" />
+      <Folder Include="Entries\Delete\" />
+      <Folder Include="Entries\GetByHabitId\" />
+      <Folder Include="Entries\GetById\" />
+      <Folder Include="Entries\GetForChart\" />
+      <Folder Include="Entries\Update\" />
+      <Folder Include="Habits\Delete\" />
+      <Folder Include="Habits\Update\" />
+    </ItemGroup>
+</Project>

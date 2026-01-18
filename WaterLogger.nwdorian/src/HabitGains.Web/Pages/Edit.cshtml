@@ -1,0 +1,57 @@
+﻿@page "{id?}"
+@model Pages.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.Errors.Any())
+        {
+            <partial name="_ErrorSummary" model="Model.Errors" />
+        }
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Input.Name" class="form-label"></label>
+                <input asp-for="Input.Name" class="form-control" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Input.Measurement" class="form-label"></label>
+                <input asp-for="Input.Measurement" class="form-control" />
+                <span asp-validation-for="Input.Measurement" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label" asp-for="Input.Favorite"></label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Input.Favorite" value="true"
+                        id="favoriteYes" />
+                    <label class="form-check-label" for="favoriteYes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Input.Favorite" value="false"
+                        id="favoriteNo" />
+                    <label class="form-check-label" for="favoriteNo">No</label>
+                </div>
+                <span asp-validation-for="Input.Favorite" class="text-danger"></span>
+            </div>
+
+            <div class="form-group d-flex justify-content-center gap-2">
+                <a asp-page="./Index" class="btn btn-secondary">Back to list</a>
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+
+            <input type="hidden" asp-for="Input.Id" />
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

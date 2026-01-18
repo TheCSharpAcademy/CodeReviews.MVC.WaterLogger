@@ -1,0 +1,201 @@
+﻿@page "{id?}"
+@using System.Globalization
+@model Pages.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+@if (Model.Errors.Any())
+{
+    <partial name="_ErrorSummary" model="Model.Errors" />
+    <a asp-page="./Index" class="btn btn-danger">Back to list</a>
+}
+else
+{
+    <h1>@Model.Habit.Name</h1>
+
+    <p class="fw-bold mb-2">
+        Total: @Model.TotalQuantity @Model.Habit.Measurement
+    </p>
+
+    <div class="d-flex flex-wrap align-items-start gap-3 mb-3">
+        <a asp-page="./Entries/Create" asp-route-id="@Model.Habit.Id" class="btn btn-primary"><i
+                class="bi bi-plus-lg me-2"></i>Add entry</a>
+        <form asp-page="./Details" method="get"
+            class="d-flex flex-wrap gap-3 justify-content-lg-start justify-content-center w-auto">
+            <div class="input-group w-auto">
+                <span class="input-group-text">
+                    Date from:
+                </span>
+                <input type="date" name="dateFrom" class="form-control"
+                    value="@(Model.DateFromFilter?.ToString("yyyy-MM-dd"))" onchange="this.form.submit()" />
+            </div>
+
+            <div class="input-group w-auto">
+                <span class="input-group-text">
+                    Date to:
+                </span>
+                <input type="date" name="dateTo" class="form-control" value="@(Model.DateToFilter?.ToString("yyyy-MM-dd"))"
+                    onchange="this.form.submit()" />
+            </div>
+
+            <div class="input-group w-auto">
+                <span class="input-group-text">Quantity from:</span>
+                <input type="number" name="quantityFrom" class="form-control decimal-input" step="0.1" min="0"
+                    value="@(Model.QuantityFromFilter?.ToString(CultureInfo.InvariantCulture))"
+                    onblur="this.form.submit()" />
+            </div>
+
+            <div class="input-group w-auto">
+                <span class="input-group-text">Quantity to:</span>
+                <input type="number" name="quantityTo" class="form-control decimal-input" step="0.1" min="0"
+                    value="@(Model.QuantityToFilter?.ToString(CultureInfo.InvariantCulture))" onblur="this.form.submit()" />
+            </div>
+
+            <input type="hidden" name="currentPage" value="1" />
+            <input type="hidden" name="pageSize" value="@Model.Metadata.PageSize" />
+            <input type="hidden" name="sortColumn" value="@Model.SortColumn" />
+            <input type="hidden" name="sortOrder" value="@Model.SortOrder" />
+        </form>
+        <a asp-page="./Details" asp-route-currentPage="1" asp-route-pageSize="@Model.Metadata.PageSize"
+            asp-route-sortColumn="@Model.SortColumn" asp-route-sortOrder="@Model.SortOrder"
+            class="btn btn-secondary align-self-center"><i class="bi bi-x-circle"></i>
+            Clear filters
+        </a>
+    </div>
+
+    <div class="d-flex flex-column flex-lg-row gap-4">
+        <div class="d-flex flex-column flex-grow-1">
+            <table class="table table-sm mb-2 w-100">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-page="./Details" class="sort-link @(Model.SortColumn == "date" ? "sort-active" : "")"
+                                asp-route-currentPage="@Model.Metadata.Page" asp-route-pageSize="@Model.Metadata.PageSize"
+                                asp-route-dateFrom="@Model.DateFromFilter" asp-route-dateTo="@Model.DateToFilter"
+                                asp-route-quantityFrom="@Model.QuantityFromFilter"
+                                asp-route-quantityTo="@Model.QuantityToFilter"
+                                asp-route-sortOrder="@(Model.SortColumn == "date" && Model.SortOrder == "asc" ? "desc" : "asc")"
+                                asp-route-sortColumn="date">
+                                Date
+                                @if (Model.SortColumn == "date")
+                                {
+                                    <i class="bi @(Model.SortOrder == "asc" ? "bi-caret-up-fill" : "bi-caret-down-fill")">
+                                    </i>
+                                }
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-page="./Details" class="sort-link @(Model.SortColumn == "quantity" ? "sort-active" : "")"
+                                asp-route-currentPage="@Model.Metadata.Page" asp-route-pageSize="@Model.Metadata.PageSize"
+                                asp-route-dateFrom="@Model.DateFromFilter" asp-route-dateTo="@Model.DateToFilter"
+                                asp-route-quantityFrom="@Model.QuantityFromFilter"
+                                asp-route-quantityTo="@Model.QuantityToFilter"
+                                asp-route-sortOrder="@(Model.SortColumn == "quantity" && Model.SortOrder == "asc" ? "desc" : "asc")"
+                                asp-route-sortColumn="quantity">
+                                Quantity
+                                @if (Model.SortColumn == "quantity")
+                                {
+                                    <i class="bi @(Model.SortOrder == "asc" ? "bi-caret-up-fill" : "bi-caret-down-fill")">
+                                    </i>
+                                }
+                            </a>
+                        </th>
+                        <th class="text-end"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entry in Model.Entries)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(item => entry.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(item => entry.Quantity) @Model.Habit.Measurement
+                            </td>
+                            <td class="text-end">
+                                <a asp-page="Entries/Edit" asp-route-id="@entry.Id" class="btn btn-warning btn-sm option-btn"><i
+                                        class="bi bi-pencil-square"></i></a>
+                                <a asp-page="Entries/Delete" asp-route-id="@entry.Id"
+                                    class="btn btn-danger btn-sm option-btn"><i class="bi bi-trash3"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between gap-3 align-items-center w-100 flex-nowrap">
+                <ul class="pagination pagination-sm mb-0 flex-grow-1">
+                    <li class="page-item @(Model.Metadata.IsFirstPage ? "disabled" : "")">
+                        <a asp-page="./Details" asp-route-currentPage="1" asp-route-pageSize="@Model.Metadata.PageSize"
+                            asp-route-dateFrom="@Model.DateFromFilter" asp-route-dateTo="@Model.DateToFilter"
+                            asp-route-quantityFrom="@Model.QuantityFromFilter"
+                            asp-route-quantityTo="@Model.QuantityToFilter" class="page-link"><i
+                                class="bi bi-skip-backward-fill"></i></a>
+                    </li>
+                    <li class="page-item @(!Model.Metadata.HasPreviousPage ? "disabled" : "")"><a asp-page="./Details"
+                            asp-route-currentPage="@(Model.Metadata.Page - 1)" asp-route-pageSize="@Model.Metadata.PageSize"
+                            asp-route-sortColumn="@Model.SortColumn" asp-route-sortOrder="@Model.SortOrder"
+                            asp-route-dateFrom="@Model.DateFromFilter" asp-route-dateTo="@Model.DateToFilter"
+                            asp-route-quantityFrom="@Model.QuantityFromFilter"
+                            asp-route-quantityTo="@Model.QuantityToFilter" class="page-link"><i
+                                class="bi bi-caret-left-fill"></i></a>
+                    </li>
+                    @for (var i = Model.Metadata.StartPage; i <= Model.Metadata.EndPage; i++)
+                    {
+                        <li class="page-item @(i == Model.Metadata.Page ? "active" : "")">
+                            <a asp-page="./Details" asp-route-currentPage="@i" asp-route-pageSize="@Model.Metadata.PageSize"
+                                asp-route-sortColumn="@Model.SortColumn" asp-route-sortOrder="@Model.SortOrder"
+                                asp-route-dateFrom="@Model.DateFromFilter" asp-route-dateTo="@Model.DateToFilter"
+                                asp-route-quantityFrom="@Model.QuantityFromFilter"
+                                asp-route-quantityTo="@Model.QuantityToFilter" class="page-link">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(!Model.Metadata.HasNextPage ? "disabled" : "")">
+                        <a asp-page="./Details" asp-route-currentPage="@(Model.Metadata.Page + 1)"
+                            asp-route-pageSize="@Model.Metadata.PageSize" asp-route-sortColumn="@Model.SortColumn"
+                            asp-route-sortOrder="@Model.SortOrder" asp-route-dateFrom="@Model.DateFromFilter"
+                            asp-route-dateTo="@Model.DateToFilter" asp-route-quantityFrom="@Model.QuantityFromFilter"
+                            asp-route-quantityTo="@Model.QuantityToFilter" class="page-link"><i
+                                class="bi bi-caret-right-fill"></i></a>
+                    </li>
+                    <li class="page-item @(Model.Metadata.IsLastPage || Model.Metadata.TotalPages == 0 ? "disabled" : "")">
+                        <a asp-page="./Details" asp-route-currentPage="@(Model.Metadata.TotalPages)"
+                            asp-route-pageSize="@Model.Metadata.PageSize" asp-route-sortColumn="@Model.SortColumn"
+                            asp-route-sortOrder="@Model.SortOrder" asp-route-dateFrom="@Model.DateFromFilter"
+                            asp-route-dateTo="@Model.DateToFilter" asp-route-quantityFrom="@Model.QuantityFromFilter"
+                            asp-route-quantityTo="@Model.QuantityToFilter" class="page-link"><i
+                                class="bi bi-skip-forward-fill"></i></a>
+                    </li>
+                </ul>
+                <form asp-page="./Details" method="get" class="d-flex align-items-center">
+                    <div class="input-group input-group-sm w-auto">
+                        <span class="input-group-text small">Page Size: </span>
+                        <select name="pageSize" asp-items="Model.PageSizeOptions" class="form-select form-select-sm w-auto"
+                            onchange="this.form.submit()"></select>
+                    </div>
+
+                    <input type="hidden" name="currentPage" value="1" />
+                    <input type="hidden" name="sortColumn" value="@Model.SortColumn" />
+                    <input type="hidden" name="sortOrder" value="@Model.SortOrder" />
+                    <input type="hidden" name="dateFrom" value="@Model.DateFromFilter" />
+                    <input type="hidden" name="dateTo" value="@Model.DateToFilter" />
+                    <input type="hidden" name="quantityFrom" value="@Model.QuantityFromFilter" />
+                    <input type="hidden" name="quantityTo" value="@Model.QuantityToFilter" />
+                </form>
+            </div>
+        </div>
+
+        <div class="flex-grow-1 align-self-start chart-container">
+            <canvas id="entries-chart" data-labels='@Json.Serialize(Model.EntryChartData.Labels)'
+                data-values='@Json.Serialize(Model.EntryChartData.Values)'>
+            </canvas>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+    <script src="~/Pages/Details.cshtml.js"></script>
+}

@@ -1,0 +1,77 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow:
+    0 0 0 0.1rem white,
+    0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.sort-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sort-link:hover {
+  text-decoration: none;
+  color: var(--bs-primary);
+}
+
+.sort-link i {
+  font-size: 0.8rem;
+  margin-left: 0.25rem;
+}
+
+.sort-link.sort-active {
+  color: var(--bs-primary);
+  font-weight: 600;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.decimal-input {
+  max-width: 80px;
+}
+
+.chart-container {
+  height: 375px;
+}
+
+.logo {
+  height: 40px;
+}

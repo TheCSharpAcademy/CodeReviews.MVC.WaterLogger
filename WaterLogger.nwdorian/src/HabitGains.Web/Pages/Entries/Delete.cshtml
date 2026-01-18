@@ -1,0 +1,41 @@
+﻿@page "{id}"
+@model Pages.Entries.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+@if (Model.GetHabitErrors.Any())
+{
+    <partial name="_ErrorSummary" model="Model.GetHabitErrors" />
+}
+else if (Model.EntryErrors.Any())
+{
+    <partial name="_ErrorSummary" model="Model.EntryErrors" />
+    <a asp-page="/Details" asp-route-id="@Model.Habit.Id" class="btn btn-danger">Back to list</a>
+}
+else
+{
+    <h3>Are you sure you want to delete this @Model.Habit.Name entry?</h3>
+    <hr />
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Entry.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Entry.Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Entry.Quantity) (@Model.Habit.Measurement)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Entry.Quantity)
+            </dd>
+        </dl>
+
+        <form method="post" asp-route-id="@Model.Entry.Id">
+            <a asp-page="/Details" asp-route-id="@Model.Habit.Id" class="btn btn-secondary">Back to list</a>
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+    </div>
+}

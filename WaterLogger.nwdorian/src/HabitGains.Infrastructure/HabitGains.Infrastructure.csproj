@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <ProjectReference Include="..\HabitGains.Application\HabitGains.Application.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Bogus" />
+        <PackageReference Include="Microsoft.Data.Sqlite" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.Options" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Database\Initializer\" />
+        <Folder Include="Database\Repositories\" />
+        <Folder Include="Database\Seeding\" />
+        <Folder Include="Database\Seeding\Fakers\" />
+        <Folder Include="Time\" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,25 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="HabitGains.slnx" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/HabitGains.Application/HabitGains.Application.csproj" />
+    <Project Path="src/HabitGains.Domain/HabitGains.Domain.csproj" />
+    <Project Path="src/HabitGains.Infrastructure/HabitGains.Infrastructure.csproj" />
+    <Project Path="src/HabitGains.Web/HabitGains.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HabitGains.ArchitectureTests/HabitGains.ArchitectureTests.csproj" />
+    <Project Path="tests/HabitGains.IntegrationTests/HabitGains.IntegrationTests.csproj" />
+    <Project Path="tests/HabitGains.UnitTests/HabitGains.UnitTests.csproj" />
+  </Folder>
+</Solution>

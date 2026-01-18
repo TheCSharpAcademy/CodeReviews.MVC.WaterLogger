@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <ItemGroup>
+        <ProjectReference Include="..\HabitGains.Infrastructure\HabitGains.Infrastructure.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Core\Constants\" />
+        <Folder Include="Core\Infrastructure\" />
+        <Folder Include="Pages\Entries\" />
+        <Folder Include="ViewModels\Entries\" />
+        <Folder Include="ViewModels\Shared\" />
+        <Folder Include="wwwroot\img\" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Serilog.AspNetCore" />
+        <PackageReference Include="Serilog.Sinks.Console" />
+        <PackageReference Include="Serilog.Sinks.File" />
+    </ItemGroup>
+</Project>
