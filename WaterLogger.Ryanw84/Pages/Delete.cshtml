@@ -1,0 +1,37 @@
+@page
+@model WaterLogger.Ryanw84.Pages.DeleteModel
+@{
+}
+
+<h3>Are you sure you want to delete this record?</h3>
+
+<div>
+    @if (Model?.DrinkingWater == null)
+    {
+        <p>Record not found.</p>
+        <a asp-page="./Index">Back to List</a>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">
+                Date
+            </dt>
+            <dd class="col-sm-10">
+                @Model.DrinkingWater?.Date
+            </dd>
+            <dt class="col-sm-2">
+                Quantity
+            </dt>
+            <dd class="col-sm-10">
+                @Model.DrinkingWater?.Quantity
+            </dd>
+        </dl>
+
+        <form method="post">
+            <input type="hidden" asp-for="DrinkingWater.Id" />
+            <input type="submit" value="Delete" class="btn btn-danger" /><br />
+            <a asp-page="./Index">Back to List</a>
+        </form>
+    }
+</div>

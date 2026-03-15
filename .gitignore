@@ -476,3 +476,28 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /HabitTracker.chrisjamiecarter/HabitTracker.UI/HabitTracker.db
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md
+
+## SQLite databases
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+## Environment / secrets
+.env
+.env.*
+!.env.example
+secrets.json
+usersecrets.json
+**/Properties/launchSettings.json
+
+## JetBrains Rider
+.idea/
+
+## User secrets (ASP.NET Core)
+**/secrets.json

@@ -1,0 +1,48 @@
+@page
+@model WaterLogger.Ryanw84.Pages.Create
+@{
+}
+
+<h2>Add New Record</h2>
+
+<h4>Add Record</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <dl class="row g-3">
+                <dt class="col-sm-3pe-4"><label asp-for="DrinkingWater.Date" class="control-label"></label></dt>
+                <dd class="col-sm-9-pe2">
+                    <input type="date" asp-for="DrinkingWater.Date" class="form-control" />
+                    <span asp-validation-for="DrinkingWater.Date" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-3-pe2"><label asp-for="DrinkingWater.Quantity" class="control-label"></label></dt>
+                <dd class="col-sm-9-pe2">
+                    <input type="number" asp-for="DrinkingWater.Quantity" class="form-control" />
+                    <span asp-validation-for="DrinkingWater.Quantity" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-3-pe2"><label asp-for="DrinkingWater.Measure" class="control-label"></label></dt>
+                <dd class="col-sm-9">
+                    <select asp-for="DrinkingWater.Measure" class="form-control">
+                        <option value="">Select Measure </option>
+                        <option value="Bottle">Bottle</option>
+                        <option value="Big Bottle">Big Bottle</option>
+                        <option value="Glass">Glass</option>
+                    </select>
+                    <span asp-validation-for="DrinkingWater.Measure" class="text-danger"></span>
+                </dd>
+                <dd class="col-sm-9 offset-sm-3">
+                    <input type="submit" value="create" class="btn btn-success" />
+                </dd>
+            </dl>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back To List</a>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
