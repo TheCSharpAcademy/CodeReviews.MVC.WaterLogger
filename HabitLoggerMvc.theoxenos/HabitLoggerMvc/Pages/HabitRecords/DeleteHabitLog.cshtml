@@ -1,0 +1,23 @@
+@page
+@model DeleteHabitLog
+
+<h2 class="mb-4 text-center">Deleting Log for @Model.HabitModel.Name</h2>
+
+<div class="row justify-content-center">
+    <div class="col-lg-5">
+        <div class="alert alert-warning" role="alert">
+            Are you sure you want to delete this log?
+        </div>
+        <div class="mb-3">
+            <p><strong>Date:</strong> @Model.HabitLog.Date.ToShortDateString()</p>
+            <p><strong>Quantity:</strong> @Model.HabitLog.Quantity</p>
+        </div>
+        <div>
+            <form method="post" class="d-inline-block">
+                <input type="hidden" asp-for="HabitLog.Id" />
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+            <a class="btn btn-outline-secondary ms-2" asp-page="/DetailHabit" asp-route-id="@Model.HabitLog.HabitId">Cancel</a>
+        </div>
+    </div>
+</div>

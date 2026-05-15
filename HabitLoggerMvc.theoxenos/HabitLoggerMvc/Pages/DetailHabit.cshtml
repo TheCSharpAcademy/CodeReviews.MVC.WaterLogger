@@ -20,11 +20,11 @@
                 <td class="text-end">@Html.DisplayFor(model => log.Quantity)</td>
                 <td>@Html.DisplayFor(model => model.HabitUnit.Name)</td>
                 <td class="text-end">
-                    <a class="btn btn-outline-secondary btn-sm me-1" asp-page="./Logs/UpdateHabitLog"
+                    <a class="btn btn-outline-secondary btn-sm me-1" asp-page="./HabitRecords/UpdateHabitLog"
                        asp-route-id="@log.Id" title="Edit">
                         <i class="bi bi-pencil"></i>
                     </a>
-                    <a class="btn btn-outline-danger btn-sm" asp-page="./Logs/DeleteHabitLog" asp-route-id="@log.Id"
+                    <a class="btn btn-outline-danger btn-sm" asp-page="./HabitRecords/DeleteHabitLog" asp-route-id="@log.Id"
                        title="Delete">
                         <i class="bi bi-trash"></i>
                     </a>
@@ -36,6 +36,6 @@
 </div>
 <div class="d-flex justify-content-end mt-3">
     <a class="btn btn-outline-primary" asp-page="./Index">Back</a>
-    <a class="btn btn-outline-success" asp-page="./Logs/AddHabitLog" asp-route-id="@Model.HabitModel.Id">+ Add New
+    <a class="btn btn-outline-success" asp-page="./HabitRecords/AddHabitLog" asp-route-id="@Model.HabitModel.Id">+ Add New
         Log</a>
 </div>

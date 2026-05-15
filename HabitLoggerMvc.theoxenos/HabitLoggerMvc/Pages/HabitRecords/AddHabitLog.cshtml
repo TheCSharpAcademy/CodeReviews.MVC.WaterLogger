@@ -1,0 +1,29 @@
+@page
+@model AddHabitLog
+
+<h2 class="mb-4 text-center">Add New Log for @Model.HabitModel.Name</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <form method="post">
+            <input type="hidden" asp-for="HabitLog.HabitId" />
+            
+            <div class="mb-3">
+                <label asp-for="HabitLog.Date" class="form-label"></label>
+                <input asp-for="HabitLog.Date" class="form-control" />
+                <span asp-validation-for="HabitLog.Date" class="invalid-feedback d-block"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="HabitLog.Quantity" class="form-label"></label>
+                <input asp-for="HabitLog.Quantity" class="form-control" />
+                <span asp-validation-for="HabitLog.Quantity" class="invalid-feedback d-block"></span>
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-primary" type="submit">Add Log</button>
+                <a class="btn btn-outline-secondary ms-2" asp-page="/DetailHabit" asp-route-id="@Model.HabitLog.HabitId">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
